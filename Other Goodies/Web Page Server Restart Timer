@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Space Engineers Restart Timer</title>
+
+    <script language="javascript" type="text/javascript">
+      function restartTimer() {
+
+        // create an array of restart times based on midnight
+        // the restarts are at: 12am, 4am, 8am, 12pm, 4pm, and 8pm PST - and we include 24 for midnight of the next day
+        const restartHourArray = [0, 4, 8, 12, 16, 20, 24]
+
+        // local is javascript default, so get 'now' and convert to PST
+        const nowLocal = new Date()
+
+        const nowPST = new Date(nowLocal.toLocaleString("en-US", {timeZone: "America/Los_Angeles"}))
+
+        // then get midnight ( does not need to be converted to PST )
+        const midnight = new Date(nowLocal.getFullYear(), nowLocal.getMonth(), nowLocal.getDate(), 0, 0, 0, 0)
+
+        // then figure out what restart we are closest to
+        for (const element of restartHourArray) {
+
+          let incrementFromMidnight = new Date(midnight).setHours(element)
+
+          let difference = Number.parseInt(nowPST - incrementFromMidnight)
+
+          if (difference <= 0) {
+
+            let nextRestart   = element
+            let totalSeconds  = difference / 1000
+            let seconds       = Math.trunc(Math.abs(totalSeconds % 60))
+            let minutes       = Math.trunc(Math.abs(totalSeconds / 60 % 60))
+            let hours         = Math.trunc(Math.abs(totalSeconds / 60 / 60))
+
+            document.getElementById("countdownTimer").innerHTML = "Next restart in " + hours + " hours, " + minutes + " minutes, " + seconds + " seconds."
+            break
+          }
+
+        } // end for
+
+      } // end restartTimer
+
+      setInterval(restartTimer, 1000)
+    </script>
+  </head>
+
+  <body>
+    <span id="countdownTimer"></span>
+  </body>
+
+</html>
