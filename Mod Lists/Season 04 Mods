@@ -284,6 +284,12 @@
       <PublishedFileId>2704991190</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
+    <ModItem FriendlyName="Projector Preview - miniature blueprint display + damage status">
+      <Name>517675282.sbm</Name>
+      <PublishedFileId>517675282</PublishedFileId>
+      <PublishedServiceName>Steam</PublishedServiceName>
+      <IsDependency>true</IsDependency>
+    </ModItem>
     <ModItem FriendlyName="More Wind Turbines (Update)">
       <Name>1728125712.sbm</Name>
       <PublishedFileId>1728125712</PublishedFileId>
@@ -374,11 +380,6 @@
       <PublishedFileId>2470184482</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
-    <ModItem FriendlyName="HUD Compass">
-      <Name>1469072169.sbm</Name>
-      <PublishedFileId>1469072169</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-    </ModItem>
     <ModItem FriendlyName="Holographic Projector">
       <Name>521994963.sbm</Name>
       <PublishedFileId>521994963</PublishedFileId>
@@ -393,6 +394,12 @@
       <Name>2221990774.sbm</Name>
       <PublishedFileId>2221990774</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
+    </ModItem>
+    <ModItem FriendlyName="Shower Light">
+      <Name>2841920953.sbm</Name>
+      <PublishedFileId>2841920953</PublishedFileId>
+      <PublishedServiceName>Steam</PublishedServiceName>
+      <IsDependency>true</IsDependency>
     </ModItem>
     <ModItem FriendlyName="High Range Ore Detectors">
       <Name>1653943631.sbm</Name>
@@ -717,30 +724,6 @@
     <ModItem FriendlyName="Definition Extension API">
       <Name>2756894170.sbm</Name>
       <PublishedFileId>2756894170</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-      <IsDependency>true</IsDependency>
-    </ModItem>
-    <ModItem FriendlyName="Bring Back Cyberhounds">
-      <Name>945655546.sbm</Name>
-      <PublishedFileId>945655546</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-      <IsDependency>true</IsDependency>
-    </ModItem>
-    <ModItem FriendlyName="Shower Light">
-      <Name>2841920953.sbm</Name>
-      <PublishedFileId>2841920953</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-      <IsDependency>true</IsDependency>
-    </ModItem>
-    <ModItem FriendlyName="Assertive Loot">
-      <Name>2391318591.sbm</Name>
-      <PublishedFileId>2391318591</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-      <IsDependency>true</IsDependency>
-    </ModItem>
-    <ModItem FriendlyName="Projector Preview - miniature blueprint display + damage status">
-      <Name>517675282.sbm</Name>
-      <PublishedFileId>517675282</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
       <IsDependency>true</IsDependency>
     </ModItem>
