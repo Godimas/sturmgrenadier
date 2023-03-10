@@ -33,7 +33,7 @@
             let minutes       = Math.trunc(Math.abs(totalSeconds / 60 % 60))
             let hours         = Math.trunc(Math.abs(totalSeconds / 60 / 60))
 
-            document.getElementById("countdownTimer").innerHTML = "Next restart in " + hours + " hours, " + minutes + " minutes, " + seconds + " seconds."
+            document.getElementById("countdownTimer").innerHTML = "Next restart in " + hours + (hours == 1 ? " hour, " : " hours, ") + minutes + (minutes == 1 ? " minute, " : " minutes, ") + seconds + (seconds == 1 ? " second." : " seconds.")
             break
           }
 
