@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TorchConfig xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <InstanceName>Torch</InstanceName>
-  <InstancePath>C:\sspanel\gameservers\spaceengineers\99861\Instance</InstancePath>
-  <Autostart>true</Autostart>
-  <RestartOnCrash>false</RestartOnCrash>
-  <NoGui>true</NoGui>
-  <GetTorchUpdates>true</GetTorchUpdates>
-  <GetPluginUpdates>true</GetPluginUpdates>
-  <TickTimeout>60</TickTimeout>
-  <Plugins>
-    <guid>894d12eb-68e1-4eaa-b8c2-263f004629d7</guid>
-    <guid>cbfdd6ab-4cda-4544-a201-f73efa3d46c0</guid>
-    <guid>c2cf3ed2-c6ac-4dbd-ab9a-613a1ef67784</guid>
-    <guid>24fc7724-0740-4a54-8bb3-1191fd3c8db4</guid>
-  </Plugins>
-  <LocalPlugins>false</LocalPlugins>
-  <DisconnectOnRestart>false</DisconnectOnRestart>
-  <ChatName>Server</ChatName>
-  <ChatColor>Red</ChatColor>
-  <EnableWhitelist>false</EnableWhitelist>
-  <Whitelist />
-  <WindowWidth>980</WindowWidth>
-  <WindowHeight>588</WindowHeight>
-  <FontSize>16</FontSize>
-  <UgcServiceType>Steam</UgcServiceType>
-  <BranchName>master</BranchName>
-  <LastUsedTheme>Torch Theme</LastUsedTheme>
-  <IndependentConsole>true</IndependentConsole>
-  <EnableAsserts>false</EnableAsserts>
-  <SendLogsToKeen>false</SendLogsToKeen>
-  <DeleteMiniDumps>true</DeleteMiniDumps>
+    <InstanceName>Torch</InstanceName>
+    <InstancePath>C:\sspanel\gameservers\spaceengineers\99861\Instance</InstancePath>
+    <Autostart>true</Autostart>
+    <RestartOnCrash>false</RestartOnCrash>
+    <NoGui>true</NoGui>
+    <GetTorchUpdates>true</GetTorchUpdates>
+    <GetPluginUpdates>true</GetPluginUpdates>
+    <TickTimeout>60</TickTimeout>
+    <Plugins>
+      <guid>894d12eb-68e1-4eaa-b8c2-263f004629d7</guid>
+      <guid>cbfdd6ab-4cda-4544-a201-f73efa3d46c0</guid>
+      <guid>c2cf3ed2-c6ac-4dbd-ab9a-613a1ef67784</guid>
+      <guid>24fc7724-0740-4a54-8bb3-1191fd3c8db4</guid>
+    </Plugins>
+    <LocalPlugins>false</LocalPlugins>
+    <DisconnectOnRestart>false</DisconnectOnRestart>
+    <ChatName>Server</ChatName>
+    <ChatColor>Red</ChatColor>
+    <EnableWhitelist>false</EnableWhitelist>
+    <Whitelist />
+    <WindowWidth>980</WindowWidth>
+    <WindowHeight>588</WindowHeight>
+    <FontSize>16</FontSize>
+    <UgcServiceType>Steam</UgcServiceType>
+    <BranchName>master</BranchName>
+    <LastUsedTheme>Torch Theme</LastUsedTheme>
+    <IndependentConsole>true</IndependentConsole>
+    <EnableAsserts>false</EnableAsserts>
+    <SendLogsToKeen>false</SendLogsToKeen>
+    <DeleteMiniDumps>true</DeleteMiniDumps>
 </TorchConfig>
