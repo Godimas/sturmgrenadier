@@ -33,7 +33,7 @@
             let minutes       = Math.trunc(Math.abs(totalSeconds / 60 % 60))
             let hours         = Math.trunc(Math.abs(totalSeconds / 60 / 60))
 
-            document.getElementById("countdownTimer").innerHTML = hours + (hours == 1 ? " HOUR, " : " HOURS, ") + minutes + (minutes == 1 ? " MINUTE, " : " MINUTES, ") + seconds + (seconds == 1 ? " SECOND." : " SECONDS.")
+            document.getElementById("countdownTimer").innerHTML = "NEXT SERVER RESTART IN: " + hours + (hours == 1 ? " HOUR, " : " HOURS, ") + minutes + (minutes == 1 ? " MINUTE, " : " MINUTES, ") + seconds + (seconds == 1 ? " SECOND." : " SECONDS")
             break
           }
 
@@ -47,11 +47,11 @@
 
   <body>
     <center>
-      <h3>
+      <h4>
         <p style="color:#FFAF00">
           <span id="countdownTimer"></span>
         </p>
-      </h3>
+      </h4>
     </center>
   </body>
 
