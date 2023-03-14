@@ -20,16 +20,16 @@
 }
 @thrustersOff{
   Run PROGRAMMABLE BLOCK = dampeners_off
-  THRUSTER 1 OFF
-  THRUSTER 2 OFF
-  THRUSTER 3 OFF
-  THRUSTER 4 OFF
+  OnOff of THRUSTER 1 = False
+  OnOff of THRUSTER 2 = False
+  OnOff of THRUSTER 3 = False
+  OnOff of THRUSTER 4 = False
 }
 @thrustersOn{
-  THRUSTER 1 ON
-  THRUSTER 2 ON
-  THRUSTER 3 ON
-  THRUSTER 4 ON
+  OnOff of THRUSTER 1 = True
+  OnOff of THRUSTER 1 = True
+  OnOff of THRUSTER 1 = True
+  OnOff of THRUSTER 1 = True
   Run PROGRAMMABLE BLOCK = dampeners_on
 }
 
