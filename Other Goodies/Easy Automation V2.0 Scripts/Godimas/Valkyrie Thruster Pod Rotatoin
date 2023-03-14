@@ -1,45 +1,65 @@
 @releaseRotors{
-RotorLock of Thruster Rotor Right = "False"
-RotorLock of Thruster Rotor Left = "False"
+  RotorLock of Thruster Rotor Right = "False"
+  RotorLock of Thruster Rotor Left = "False"
 }
 @lockRorors{
-RotorLock of Thruster Rotor Right = "True"
-RotorLock of Thruster Rotor Left = "True"
+  RotorLock of Thruster Rotor Right = "True"
+  RotorLock of Thruster Rotor Left = "True"
 }
 @rotorAngleUp{
-ShortRotate Thruster Rotor Right to 270 at 5
-ShortRotate Thruster Rotor Left to 90 at 5
+  ShortRotate Thruster Rotor Right to 270 at 5
+  ShortRotate Thruster Rotor Left to 90 at 5
 }
 @rotorAngleForward{
-ShortRotate Thruster Rotor Right to 0 at 5
-ShortRotate Thruster Rotor Left to 0 at 5
+  ShortRotate Thruster Rotor Right to 0 at 5
+  ShortRotate Thruster Rotor Left to 0 at 5
 }
 @rotorAngleTilt{
-ShortRotate Thruster Rotor Right to 315 at 5
-ShortRotate Thruster Rotor Left to 45 at 5
+  ShortRotate Thruster Rotor Right to 315 at 5
+  ShortRotate Thruster Rotor Left to 45 at 5
+}
+@thrustersOff{
+  Run PROGRAMMABLE BLOCK = dampeners_off
+  THRUSTER 1 OFF
+  THRUSTER 2 OFF
+  THRUSTER 3 OFF
+  THRUSTER 4 OFF
+}
+@thrustersOn{
+  THRUSTER 1 ON
+  THRUSTER 2 ON
+  THRUSTER 3 ON
+  THRUSTER 4 ON
+  Run PROGRAMMABLE BLOCK = dampeners_on
 }
 
 @rotorUp{
-Run PROGRAMMABLE BLOCK = dampeners_off
-@releaseRotors
-@rotorAngleUp
-Delay 2000
-@lockRorors
-Run PROGRAMMABLE BLOCK = dampeners_on
+  WriteNew to VA-Thruster LCD "THRUSTERS ROTATING"
+  @thrustersOff
+  @releaseRotors
+  @rotorAngleUp
+  Delay 2000
+  @lockRorors
+  @thrustersOn
+  WriteNew to VA-Thruster LCD "THRUSTERS UP"
 }
 @rotorForward{
-Run PROGRAMMABLE BLOCK = dampeners_off
-@releaseRotors
-@rotorAngleForward
-Delay 2000
-@lockRorors
-Run PROGRAMMABLE BLOCK = dampeners_on
+  WriteNew to VA-Thruster LCD "THRUSTERS ROTATING"
+  @thrustersOff
+  @releaseRotors
+  @rotorAngleForward
+  Delay 2000
+  @lockRorors
+  @thrustersOn
+  WriteNew to VA-Thruster LCD "THRUSTERS FORWARD"
 }
 @rotorTilt{
-Run PROGRAMMABLE BLOCK = dampeners_off
-@releaseRotors
-@rotorAngleTilt
-Delay 2000
-@lockRorors
-Run PROGRAMMABLE BLOCK = dampeners_on
+  WriteNew to VA-Thruster LCD "THRUSTERS ROTATING"
+  @thrustersOff
+  @releaseRotors
+  @rotorAngleTilt
+  Delay 2000
+  @lockRorors
+  @thrustersOn
+  WriteNew to VA-Thruster LCD "THRUSTERS 45 FORWARD"
 }
