@@ -303,17 +303,17 @@ namespace EconomySurvival.LCDInfo
         void DrawTanksSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
             var hydrogenTanks = tanks.Where(block => block.BlockDefinition.SubtypeName.Contains("Hydrogen"));
-            var oxygenTanks = tanks.Where(block => !block.BlockDefinition.SubtypeName.Contains("Hydrogen"));
-            var deuteriumTanks = tanks.Where(block => !block.BlockDefinition.SubtypeName.Contains("LifeTechPowers"));
+            var oxygenTanks = tanks.Where(block => block.BlockDefinition.SubtypeName.Contains("Oxygen"));
+            var deuteriumTanks = tanks.Where(block => block.BlockDefinition.SubtypeName.Contains("Deuterium"));
 
-            var currentHydrogen = (hydrogenTanks.Count() - deuteriumTanks.Count()) == 0 ? 0 : hydrogenTanks.Average(block => block.FilledRatio * 100);
-            var totalHydrogen = (hydrogenTanks.Count() - deuteriumTanks.Count()) == 0 ? 0 : hydrogenTanks.Sum(block => block.Capacity);
+            var currentHydrogen = hydrogenTanks.Count() == 0 ? 0 : hydrogenTanks.Average(block => block.FilledRatio * 100);
+            var totalHydrogen = hydrogenTanks.Count() == 0 ? 0 : hydrogenTanks.Sum(block => block.Capacity);
 
-            var currentOxygen = (oxygenTanks.Count()  - deuteriumTanks.Count()) == 0 ? 0 : oxygenTanks.Average(block => block.FilledRatio * 100);
-            var totalOxygen = (oxygenTanks.Count()  - deuteriumTanks.Count()) == 0 ? 0 : oxygenTanks.Sum(block => block.Capacity);
+            var currentOxygen = oxygenTanks.Count() == 0 ? 0 : oxygenTanks.Average(block => block.FilledRatio * 100);
+            var totalOxygen = oxygenTanks.Count() == 0 ? 0 : oxygenTanks.Sum(block => block.Capacity);
             
-            var currentDeuterium = (deuteriumTanks.Count() - hydrogenTanks.Count()) == 0 ? 0 : deuteriumTanks.Average(block => block.FilledRatio * 100);
-            var totalDeuterium = (deuteriumTanks.Count() - hydrogenTanks.Count()) == 0 ? 0 : deuteriumTanks.Sum(block => block.Capacity);
+            var currentDeuterium = deuteriumTanks.Count() == 0 ? 0 : deuteriumTanks.Average(block => block.FilledRatio * 100);
+            var totalDeuterium = deuteriumTanks.Count() == 0 ? 0 : deuteriumTanks.Sum(block => block.Capacity);
 
             WriteTextSprite(ref frame, "Hydrogen Tanks", position, TextAlignment.LEFT);
 
