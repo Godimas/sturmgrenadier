@@ -1,4 +1,4 @@
-@releaseRotors{
+@unlockRotors{
   RotorLock of Thruster Rotor Right = "False"
   RotorLock of Thruster Rotor Left = "False"
 }
@@ -19,47 +19,41 @@
   ShortRotate Thruster Rotor Left to 45 at 5
 }
 @thrustersOff{
-  Run PROGRAMMABLE BLOCK = dampeners_off
-  OnOff of THRUSTER 1 = False
-  OnOff of THRUSTER 2 = False
-  OnOff of THRUSTER 3 = False
-  OnOff of THRUSTER 4 = False
+  Run VA-Programmable Block Thruster Control = dampeners_off
+  OnOff of (VA-Thrusters) = False
 }
 @thrustersOn{
-  OnOff of THRUSTER 1 = True
-  OnOff of THRUSTER 1 = True
-  OnOff of THRUSTER 1 = True
-  OnOff of THRUSTER 1 = True
-  Run PROGRAMMABLE BLOCK = dampeners_on
+  OnOff of (VA-Thrusters) = True
+  Run VA-Programmable Block Thruster Control = dampeners_on
 }
 
 @rotorUp{
-  WriteNew to VA-Thruster LCD "THRUSTERS ROTATING"
+  WriteNew to VA-Thruster LCD "NACELLES ROTATING"
   @thrustersOff
-  @releaseRotors
+  @unlockRotors
   @rotorAngleUp
   Delay 2000
   @lockRorors
   @thrustersOn
-  WriteNew to VA-Thruster LCD "THRUSTERS UP"
+  WriteNew to VA-Thruster LCD "NACELLES UP"
 }
 @rotorForward{
-  WriteNew to VA-Thruster LCD "THRUSTERS ROTATING"
+  WriteNew to VA-Thruster LCD "NACELLES ROTATING"
   @thrustersOff
-  @releaseRotors
+  @unlockRotors
   @rotorAngleForward
   Delay 2000
   @lockRorors
   @thrustersOn
-  WriteNew to VA-Thruster LCD "THRUSTERS FORWARD"
+  WriteNew to VA-Thruster LCD "NACELLES FORWARD"
 }
 @rotorTilt{
-  WriteNew to VA-Thruster LCD "THRUSTERS ROTATING"
+  WriteNew to VA-Thruster LCD "NACELLES ROTATING"
   @thrustersOff
-  @releaseRotors
+  @unlockRotors
   @rotorAngleTilt
   Delay 2000
   @lockRorors
   @thrustersOn
-  WriteNew to VA-Thruster LCD "THRUSTERS 45 FORWARD"
+  WriteNew to VA-Thruster LCD "NACELLES 45 FORWARD"
 }
