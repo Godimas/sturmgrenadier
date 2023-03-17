@@ -35,6 +35,8 @@ namespace EconomySurvival.LCDInfo
         List<IMyBatteryBlock> batteryBlocks = new List<IMyBatteryBlock>();
         List<IMyPowerProducer> windTurbines = new List<IMyPowerProducer>();
         List<IMyPowerProducer> hydroenEngines = new List<IMyPowerProducer>();
+		List<IMyPowerProducer> fuelCells = new List<IMyPowerProducer>();
+        List<IMyPowerProducer> fusionReactors = new List<IMyPowerProducer>();
         List<IMySolarPanel> solarPanels = new List<IMySolarPanel>();
         List<IMyReactor> reactors = new List<IMyReactor>();
         List<IMyGasTank> tanks = new List<IMyGasTank>();
@@ -84,6 +86,8 @@ namespace EconomySurvival.LCDInfo
             batteryBlocks.Clear();
             windTurbines.Clear();
             hydroenEngines.Clear();
+			fuelCells.Clear();
+            fusionReactors.Clear();
             solarPanels.Clear();
             reactors.Clear();
             inventorys.Clear();
@@ -104,6 +108,10 @@ namespace EconomySurvival.LCDInfo
                     else if (myBlock.BlockDefinition.Id.SubtypeName.Contains("Hydrogen"))
                     {
                         hydroenEngines.Add((IMyPowerProducer)myBlock);
+                    }
+                    else if (myBlock.BlockDefinition.Id.SubtypeName.Contains("Fuelcell"))
+                    {
+                        fuelCells.Add((IMyPowerProducer)myBlock);
                     }
                     else if (myBlock.BlockDefinition.Id.SubtypeName.Contains("Fusion"))
                     {
@@ -202,6 +210,9 @@ namespace EconomySurvival.LCDInfo
             if (config.Get("Settings", "HydrogenEngine").ToBoolean())
                 DrawHydrogenEngineSprite(ref myFrame, ref myPosition, mySurface);
 				
+            if (config.Get("Settings", "FuelCell").ToBoolean())
+                DrawFuelCellSprite(ref myFrame, ref myPosition, mySurface);
+			
             if (config.Get("Settings", "FusionReactor").ToBoolean())
                 DrawFusionReactorSprite(ref myFrame, ref myPosition, mySurface);
 
@@ -307,10 +318,30 @@ namespace EconomySurvival.LCDInfo
             position += newLine + newLine;
         }
 		
+        void DrawFuelCellSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
+        {
+            var current = fuelCells.Sum(block => block.CurrentOutput);
+            var total = fuelCells.Sum(block => block.MaxOutput);
+
+            WriteTextSprite(ref frame, "Hydrogen Fuel Cells", position, TextAlignment.LEFT);
+
+            position += newLine;
+
+            WriteTextSprite(ref frame, "Current Output:", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, current.ToString("#0.00") + " MW", position + right, TextAlignment.RIGHT);
+
+            position += newLine;
+
+            WriteTextSprite(ref frame, "Max Output:", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, total.ToString("#0.00") + " MW", position + right, TextAlignment.RIGHT);
+
+            position += newLine + newLine;
+        }
+		
         void DrawFusionReactorSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
-            var current = FusionReactors.Sum(block => block.CurrentOutput);
-            var total = FusionReactors.Sum(block => block.MaxOutput);
+            var current = fusionReactors.Sum(block => block.CurrentOutput);
+            var total = fusionReactors.Sum(block => block.MaxOutput);
 
             WriteTextSprite(ref frame, "Fusion Reactors", position, TextAlignment.LEFT);
 
@@ -540,10 +571,11 @@ namespace EconomySurvival.LCDInfo
             config.Set("Settings", "Battery", "false");
             config.Set("Settings", "WindTurbine", "false");
             config.Set("Settings", "HydrogenEngine", "false");
+            config.Set("Settings", "FuelCell", "false");
+            config.Set("Settings", "FusionReactor", "false");
             config.Set("Settings", "Tanks", "false");
             config.Set("Settings", "Solar", "false");
             config.Set("Settings", "Reactor", "false");
-            config.Set("Settings", "FusionReactor", "false");
             config.Set("Settings", "Ore", "false");
             config.Set("Settings", "Ingot", "false");
             config.Set("Settings", "Component", "false");
