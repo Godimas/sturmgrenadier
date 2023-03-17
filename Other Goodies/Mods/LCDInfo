@@ -105,6 +105,10 @@ namespace EconomySurvival.LCDInfo
                     {
                         hydroenEngines.Add((IMyPowerProducer)myBlock);
                     }
+                    else if (myBlock.BlockDefinition.Id.SubtypeName.Contains("Fusion"))
+                    {
+                        fusionReactor.Add((IMyPowerProducer)myBlock);
+                    }
                     else if (myBlock is IMyReactor)
                     {
                         reactors.Add((IMyReactor)myBlock);
@@ -197,6 +201,9 @@ namespace EconomySurvival.LCDInfo
 
             if (config.Get("Settings", "HydrogenEngine").ToBoolean())
                 DrawHydrogenEngineSprite(ref myFrame, ref myPosition, mySurface);
+				
+            if (config.Get("Settings", "FusionReactor").ToBoolean())
+                DrawFusionReactorSprite(ref myFrame, ref myPosition, mySurface);
 
             if (config.Get("Settings", "Tanks").ToBoolean())
                 DrawTanksSprite(ref myFrame, ref myPosition, mySurface);
@@ -286,6 +293,26 @@ namespace EconomySurvival.LCDInfo
             var total = hydroenEngines.Sum(block => block.MaxOutput);
 
             WriteTextSprite(ref frame, "Hydrogen Engines", position, TextAlignment.LEFT);
+
+            position += newLine;
+
+            WriteTextSprite(ref frame, "Current Output:", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, current.ToString("#0.00") + " MW", position + right, TextAlignment.RIGHT);
+
+            position += newLine;
+
+            WriteTextSprite(ref frame, "Max Output:", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, total.ToString("#0.00") + " MW", position + right, TextAlignment.RIGHT);
+
+            position += newLine + newLine;
+        }
+		
+        void DrawFusionReactorSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
+        {
+            var current = FusionReactors.Sum(block => block.CurrentOutput);
+            var total = FusionReactors.Sum(block => block.MaxOutput);
+
+            WriteTextSprite(ref frame, "Fusion Reactors", position, TextAlignment.LEFT);
 
             position += newLine;
 
@@ -516,6 +543,7 @@ namespace EconomySurvival.LCDInfo
             config.Set("Settings", "Tanks", "false");
             config.Set("Settings", "Solar", "false");
             config.Set("Settings", "Reactor", "false");
+            config.Set("Settings", "FusionReactor", "false");
             config.Set("Settings", "Ore", "false");
             config.Set("Settings", "Ingot", "false");
             config.Set("Settings", "Component", "false");
