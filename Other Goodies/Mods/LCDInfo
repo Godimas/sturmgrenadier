@@ -107,7 +107,7 @@ namespace EconomySurvival.LCDInfo
                     }
                     else if (myBlock.BlockDefinition.Id.SubtypeName.Contains("Fusion"))
                     {
-                        fusionReactor.Add((IMyPowerProducer)myBlock);
+                        fusionReactors.Add((IMyPowerProducer)myBlock);
                     }
                     else if (myBlock is IMyReactor)
                     {
