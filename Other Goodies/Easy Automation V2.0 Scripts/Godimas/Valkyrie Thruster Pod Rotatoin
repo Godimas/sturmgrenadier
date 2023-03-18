@@ -28,32 +28,32 @@
 }
 
 @rotorUp{
-  WriteNew to VA-Thruster LCD "NACELLES ROTATING"
+  WriteNew to VA-Thruster LCD = "NACELLES ROTATING"
   @thrustersOff
   @unlockRotors
   @rotorAngleUp
   Delay 2000
   @lockRorors
   @thrustersOn
-  WriteNew to VA-Thruster LCD "NACELLES UP"
+  WriteNew to VA-Thruster LCD = "NACELLES UP"
 }
 @rotorForward{
-  WriteNew to VA-Thruster LCD "NACELLES ROTATING"
+  WriteNew to VA-Thruster LCD = "NACELLES ROTATING"
   @thrustersOff
   @unlockRotors
   @rotorAngleForward
   Delay 2000
   @lockRorors
   @thrustersOn
-  WriteNew to VA-Thruster LCD "NACELLES FORWARD"
+  WriteNew to VA-Thruster LCD = "NACELLES FORWARD"
 }
 @rotorTilt{
-  WriteNew to VA-Thruster LCD "NACELLES ROTATING"
+  WriteNew to VA-Thruster LCD = "NACELLES ROTATING"
   @thrustersOff
   @unlockRotors
   @rotorAngleTilt
   Delay 2000
   @lockRorors
   @thrustersOn
-  WriteNew to VA-Thruster LCD "NACELLES 45 FORWARD"
+  WriteNew to VA-Thruster LCD = "NACELLES 45 FORWARD"
 }
