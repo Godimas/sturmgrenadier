@@ -48,6 +48,7 @@ namespace EconomySurvival.LCDInfo
         Dictionary<string, cargoItemType> cargoIngots = new Dictionary<string, cargoItemType>();
         Dictionary<string, cargoItemType> cargoComponents = new Dictionary<string, cargoItemType>();
         Dictionary<string, cargoItemType> cargoItems = new Dictionary<string, cargoItemType>();
+		Dictionary<string, cargoItemType> cargoAmmos = new Dictionary<string, cargoItemType>();
 
         Vector2 right;
         Vector2 newLine;
@@ -144,6 +145,7 @@ namespace EconomySurvival.LCDInfo
             cargoIngots.Clear();
             cargoComponents.Clear();
             cargoItems.Clear();
+            cargoAmmos.Clear();
 
             foreach (var inventory in inventorys)
             {
@@ -181,6 +183,13 @@ namespace EconomySurvival.LCDInfo
                             cargoComponents.Add(name, myType);
 
                         cargoComponents[name].amount += amount;
+                    }
+                    else if (type == "Ammo")
+                    {
+                        if (!cargoAmmos.ContainsKey(name))
+                            cargoAmmos.Add(name, myType);
+
+                        cargoAmmos[name].amount += amount;
                     }
                     else
                     {
@@ -236,6 +245,9 @@ namespace EconomySurvival.LCDInfo
 
             if (config.Get("Settings", "Items").ToBoolean())
                 DrawItemsSprite(ref myFrame, ref myPosition, mySurface);
+				
+            if (config.Get("Settings", "Ammo").ToBoolean())
+                DrawAmmosSprite(ref myFrame, ref myPosition, mySurface);
 
             myFrame.Dispose();
         }
@@ -530,6 +542,23 @@ namespace EconomySurvival.LCDInfo
             }
         }
 
+        void DrawAmmoSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
+        {
+            WriteTextSprite(ref frame, "Ammo", position, TextAlignment.LEFT);
+
+            position += newLine;
+
+            foreach (var item in cargoAmmos)
+            {
+                MyDefinitionId.TryParse(item.Value.item.Type.TypeId, item.Value.item.Type.SubtypeId, out myDefinitionId);
+
+                WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
+                WriteTextSprite(ref frame, KiloFormat(item.Value.amount), position + right, TextAlignment.RIGHT);
+
+                position += newLine;
+            }
+        }
+
         static string KiloFormat(int num)
         {
             if (num >= 100000000)
@@ -580,6 +609,7 @@ namespace EconomySurvival.LCDInfo
             config.Set("Settings", "Ingot", "false");
             config.Set("Settings", "Component", "false");
             config.Set("Settings", "Items", "false");
+            config.Set("Settings", "Ammo", "false");
 
             config.Invalidate();
             myTerminalBlock.CustomData = config.ToString();
