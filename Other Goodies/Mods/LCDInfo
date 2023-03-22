@@ -200,8 +200,8 @@ namespace EconomySurvival.LCDInfo
                     }
                     else if (type == "Tools")
                     {
-                        if (!toolsAmmos.ContainsKey(name))
-                            toolsAmmos.Add(name, myType);
+                        if (!cargoTools.ContainsKey(name))
+                            cargoTools.Add(name, myType);
 
                         cargoTools[name].amount += amount;
                     }
@@ -278,7 +278,7 @@ namespace EconomySurvival.LCDInfo
                 DrawToolSprite(ref myFrame, ref myPosition, mySurface);
 				
             if (config.Get("Settings", "Hand Weapons").ToBoolean())
-                DrawWeaposSprite(ref myFrame, ref myPosition, mySurface);
+                DrawWeaponSprite(ref myFrame, ref myPosition, mySurface);
 				
             if (config.Get("Settings", "Consumables").ToBoolean())
                 DrawConsumableSprite(ref myFrame, ref myPosition, mySurface);
@@ -585,7 +585,7 @@ namespace EconomySurvival.LCDInfo
 
             position += newLine;
 
-            foreach (var item in cargoToolss)
+            foreach (var item in cargoTools)
             {
                 MyDefinitionId.TryParse(item.Value.item.Type.TypeId, item.Value.item.Type.SubtypeId, out myDefinitionId);
 
@@ -596,7 +596,7 @@ namespace EconomySurvival.LCDInfo
             }
         }
 		
-        void DrawAmmoSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
+        void DrawWeaponSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
             WriteTextSprite(ref frame, "Hand Weapons", position, TextAlignment.LEFT);
 
@@ -613,7 +613,7 @@ namespace EconomySurvival.LCDInfo
             }
         }
 		
-        void DrawAmmoSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
+        void DrawConsumableSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
             WriteTextSprite(ref frame, "Consumables", position, TextAlignment.LEFT);
 
