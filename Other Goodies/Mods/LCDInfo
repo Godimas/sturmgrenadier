@@ -47,8 +47,9 @@ namespace EconomySurvival.LCDInfo
         Dictionary<string, cargoItemType> cargoOres = new Dictionary<string, cargoItemType>();
         Dictionary<string, cargoItemType> cargoIngots = new Dictionary<string, cargoItemType>();
         Dictionary<string, cargoItemType> cargoComponents = new Dictionary<string, cargoItemType>();
-        Dictionary<string, cargoItemType> cargoItems = new Dictionary<string, cargoItemType>();
 		Dictionary<string, cargoItemType> cargoAmmos = new Dictionary<string, cargoItemType>();
+        Dictionary<string, cargoItemType> cargoItems = new Dictionary<string, cargoItemType>();
+
 
         Vector2 right;
         Vector2 newLine;
@@ -144,8 +145,8 @@ namespace EconomySurvival.LCDInfo
             cargoOres.Clear();
             cargoIngots.Clear();
             cargoComponents.Clear();
-            cargoItems.Clear();
             cargoAmmos.Clear();
+            cargoItems.Clear();
 
             foreach (var inventory in inventorys)
             {
@@ -184,7 +185,7 @@ namespace EconomySurvival.LCDInfo
 
                         cargoComponents[name].amount += amount;
                     }
-                    else if (type == "Ammo")
+                    else if (type == "AmmoMagazine")
                     {
                         if (!cargoAmmos.ContainsKey(name))
                             cargoAmmos.Add(name, myType);
@@ -243,11 +244,11 @@ namespace EconomySurvival.LCDInfo
             if (config.Get("Settings", "Component").ToBoolean())
                 DrawComponentSprite(ref myFrame, ref myPosition, mySurface);
 
+            if (config.Get("Settings", "Ammo").ToBoolean())
+                DrawAmmoSprite(ref myFrame, ref myPosition, mySurface);
+
             if (config.Get("Settings", "Items").ToBoolean())
                 DrawItemsSprite(ref myFrame, ref myPosition, mySurface);
-				
-            if (config.Get("Settings", "Ammo").ToBoolean())
-                DrawAmmosSprite(ref myFrame, ref myPosition, mySurface);
 
             myFrame.Dispose();
         }
@@ -525,13 +526,13 @@ namespace EconomySurvival.LCDInfo
             }
         }
 
-        void DrawItemsSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
+        void DrawAmmoSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
-            WriteTextSprite(ref frame, "Items", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, "Ammo", position, TextAlignment.LEFT);
 
             position += newLine;
 
-            foreach (var item in cargoItems)
+            foreach (var item in cargoAmmos)
             {
                 MyDefinitionId.TryParse(item.Value.item.Type.TypeId, item.Value.item.Type.SubtypeId, out myDefinitionId);
 
@@ -542,13 +543,13 @@ namespace EconomySurvival.LCDInfo
             }
         }
 
-        void DrawAmmoSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
+        void DrawItemsSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
-            WriteTextSprite(ref frame, "Ammo", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, "Items", position, TextAlignment.LEFT);
 
             position += newLine;
 
-            foreach (var item in cargoAmmos)
+            foreach (var item in cargoItems)
             {
                 MyDefinitionId.TryParse(item.Value.item.Type.TypeId, item.Value.item.Type.SubtypeId, out myDefinitionId);
 
@@ -608,8 +609,8 @@ namespace EconomySurvival.LCDInfo
             config.Set("Settings", "Ore", "false");
             config.Set("Settings", "Ingot", "false");
             config.Set("Settings", "Component", "false");
+			config.Set("Settings", "Ammo", "false");
             config.Set("Settings", "Items", "false");
-            config.Set("Settings", "Ammo", "false");
 
             config.Invalidate();
             myTerminalBlock.CustomData = config.ToString();
