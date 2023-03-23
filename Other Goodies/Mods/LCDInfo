@@ -447,7 +447,7 @@ namespace EconomySurvival.LCDInfo
             var currentDeuterium = deuteriumTanks.Count() == 0 ? 0 : deuteriumTanks.Average(block => block.FilledRatio * 100);
             var totalDeuterium = deuteriumTanks.Count() == 0 ? 0 : deuteriumTanks.Sum(block => block.Capacity);
 
-            WriteTextSprite(ref frame, "- Hydrogen Tanks -", position, TextAlignment.CENTER);
+            WriteTextSprite(ref frame, "[ HYDROGEN TANKS ]", position, TextAlignment.CENTER);
 
             position += newLine;
 
@@ -461,7 +461,7 @@ namespace EconomySurvival.LCDInfo
 
             position += newLine;
 
-            WriteTextSprite(ref frame, "- Oxygen Tanks -", position, TextAlignment.CENTER);
+            WriteTextSprite(ref frame, "[ OXYGEN TANKS ]", position, TextAlignment.CENTER);
 
             position += newLine;
 
@@ -475,7 +475,7 @@ namespace EconomySurvival.LCDInfo
 
             position += newLine;
 			
-            WriteTextSprite(ref frame, "- Deuterium Tanks -", position, TextAlignment.CENTER);
+            WriteTextSprite(ref frame, "[ DEUTERIUM TANKS ]", position, TextAlignment.CENTER);
 
             position += newLine;
 
