@@ -48,6 +48,9 @@ namespace EconomySurvival.LCDInfo
         Dictionary<string, cargoItemType> cargoIngots = new Dictionary<string, cargoItemType>();
         Dictionary<string, cargoItemType> cargoComponents = new Dictionary<string, cargoItemType>();
 		Dictionary<string, cargoItemType> cargoAmmos = new Dictionary<string, cargoItemType>();
+		Dictionary<string, cargoItemType> cargoTools = new Dictionary<string, cargoItemType>();
+		Dictionary<string, cargoItemType> cargoWeapons = new Dictionary<string, cargoItemType>();
+		Dictionary<string, cargoItemType> cargoConsumables = new Dictionary<string, cargoItemType>();
         Dictionary<string, cargoItemType> cargoItems = new Dictionary<string, cargoItemType>();
 
 
@@ -146,6 +149,9 @@ namespace EconomySurvival.LCDInfo
             cargoIngots.Clear();
             cargoComponents.Clear();
             cargoAmmos.Clear();
+            cargoTools.Clear();
+            cargoWeapons.Clear();
+            cargoConsumables.Clear();
             cargoItems.Clear();
 
             foreach (var inventory in inventorys)
@@ -191,6 +197,27 @@ namespace EconomySurvival.LCDInfo
                             cargoAmmos.Add(name, myType);
 
                         cargoAmmos[name].amount += amount;
+                    }
+                    else if (type == "Tools")
+                    {
+                        if (!cargoTools.ContainsKey(name))
+                            cargoTools.Add(name, myType);
+
+                        cargoTools[name].amount += amount;
+                    }
+                    else if (type == "Weapons")
+                    {
+                        if (!cargoWeapons.ContainsKey(name))
+                            cargoWeapons.Add(name, myType);
+
+                        cargoWeapons[name].amount += amount;
+                    }
+                    else if (type == "Consumables")
+                    {
+                        if (!cargoConsumables.ContainsKey(name))
+                            cargoConsumables.Add(name, myType);
+
+                        cargoConsumables[name].amount += amount;
                     }
                     else
                     {
@@ -246,8 +273,17 @@ namespace EconomySurvival.LCDInfo
 
             if (config.Get("Settings", "Ammo").ToBoolean())
                 DrawAmmoSprite(ref myFrame, ref myPosition, mySurface);
+				
+            if (config.Get("Settings", "Tools").ToBoolean())
+                DrawToolSprite(ref myFrame, ref myPosition, mySurface);
+				
+            if (config.Get("Settings", "Hand Weapons").ToBoolean())
+                DrawWeaponSprite(ref myFrame, ref myPosition, mySurface);
+				
+            if (config.Get("Settings", "Consumables").ToBoolean())
+                DrawConsumableSprite(ref myFrame, ref myPosition, mySurface);
 
-            if (config.Get("Settings", "Items").ToBoolean())
+            if (config.Get("Settings", "Miscellaneous Items").ToBoolean())
                 DrawItemsSprite(ref myFrame, ref myPosition, mySurface);
 
             myFrame.Dispose();
@@ -542,10 +578,61 @@ namespace EconomySurvival.LCDInfo
                 position += newLine;
             }
         }
+		
+        void DrawToolSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
+        {
+            WriteTextSprite(ref frame, "Tools", position, TextAlignment.LEFT);
+
+            position += newLine;
+
+            foreach (var item in cargoTools)
+            {
+                MyDefinitionId.TryParse(item.Value.item.Type.TypeId, item.Value.item.Type.SubtypeId, out myDefinitionId);
+
+                WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
+                WriteTextSprite(ref frame, KiloFormat(item.Value.amount), position + right, TextAlignment.RIGHT);
+
+                position += newLine;
+            }
+        }
+		
+        void DrawWeaponSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
+        {
+            WriteTextSprite(ref frame, "Hand Weapons", position, TextAlignment.LEFT);
+
+            position += newLine;
+
+            foreach (var item in cargoWeapons)
+            {
+                MyDefinitionId.TryParse(item.Value.item.Type.TypeId, item.Value.item.Type.SubtypeId, out myDefinitionId);
+
+                WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
+                WriteTextSprite(ref frame, KiloFormat(item.Value.amount), position + right, TextAlignment.RIGHT);
+
+                position += newLine;
+            }
+        }
+		
+        void DrawConsumableSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
+        {
+            WriteTextSprite(ref frame, "Consumables", position, TextAlignment.LEFT);
+
+            position += newLine;
+
+            foreach (var item in cargoConsumables)
+            {
+                MyDefinitionId.TryParse(item.Value.item.Type.TypeId, item.Value.item.Type.SubtypeId, out myDefinitionId);
+
+                WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
+                WriteTextSprite(ref frame, KiloFormat(item.Value.amount), position + right, TextAlignment.RIGHT);
+
+                position += newLine;
+            }
+        }
 
         void DrawItemsSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
-            WriteTextSprite(ref frame, "Items", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, "Miscellaneous  Items", position, TextAlignment.LEFT);
 
             position += newLine;
 
@@ -610,7 +697,9 @@ namespace EconomySurvival.LCDInfo
             config.Set("Settings", "Ingot", "false");
             config.Set("Settings", "Component", "false");
 			config.Set("Settings", "Ammo", "false");
-            config.Set("Settings", "Items", "false");
+			config.Set("Settings", "Hand Weapons", "false");
+			config.Set("Settings", "Consumables", "false");
+            config.Set("Settings", "Miscellaneous Items", "false");
 
             config.Invalidate();
             myTerminalBlock.CustomData = config.ToString();
