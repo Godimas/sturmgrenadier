@@ -35,7 +35,7 @@ namespace EconomySurvival.LCDInfo
         List<IMyBatteryBlock> batteryBlocks = new List<IMyBatteryBlock>();
         List<IMyPowerProducer> windTurbines = new List<IMyPowerProducer>();
         List<IMyPowerProducer> hydroenEngines = new List<IMyPowerProducer>();
-	List<IMyPowerProducer> fuelCells = new List<IMyPowerProducer>();
+		List<IMyPowerProducer> fuelCells = new List<IMyPowerProducer>();
         List<IMyPowerProducer> fusionReactors = new List<IMyPowerProducer>();
         List<IMySolarPanel> solarPanels = new List<IMySolarPanel>();
         List<IMyReactor> reactors = new List<IMyReactor>();
@@ -47,10 +47,11 @@ namespace EconomySurvival.LCDInfo
         Dictionary<string, cargoItemType> cargoOres = new Dictionary<string, cargoItemType>();
         Dictionary<string, cargoItemType> cargoIngots = new Dictionary<string, cargoItemType>();
         Dictionary<string, cargoItemType> cargoComponents = new Dictionary<string, cargoItemType>();
-	Dictionary<string, cargoItemType> cargoAmmos = new Dictionary<string, cargoItemType>();
-	Dictionary<string, cargoItemType> cargoTools = new Dictionary<string, cargoItemType>();
-	Dictionary<string, cargoItemType> cargoWeapons = new Dictionary<string, cargoItemType>();
-	Dictionary<string, cargoItemType> cargoConsumables = new Dictionary<string, cargoItemType>();
+		Dictionary<string, cargoItemType> cargoAmmos = new Dictionary<string, cargoItemType>();
+		Dictionary<string, cargoItemType> cargoBottles = new Dictionary<string, cargoItemType>();
+		Dictionary<string, cargoItemType> cargoWeapons = new Dictionary<string, cargoItemType>();
+		Dictionary<string, cargoItemType> cargoConsumables = new Dictionary<string, cargoItemType>();
+		Dictionary<string, cargoItemType> cargoTools = new Dictionary<string, cargoItemType>();
         Dictionary<string, cargoItemType> cargoItems = new Dictionary<string, cargoItemType>();
 
 
@@ -91,7 +92,7 @@ namespace EconomySurvival.LCDInfo
             batteryBlocks.Clear();
             windTurbines.Clear();
             hydroenEngines.Clear();
-		fuelCells.Clear();
+			fuelCells.Clear();
             fusionReactors.Clear();
             solarPanels.Clear();
             reactors.Clear();
@@ -149,9 +150,10 @@ namespace EconomySurvival.LCDInfo
             cargoIngots.Clear();
             cargoComponents.Clear();
             cargoAmmos.Clear();
-            cargoTools.Clear();
+            cargoBottles.Clear();
             cargoWeapons.Clear();
             cargoConsumables.Clear();
+            cargoTools.Clear();
             cargoItems.Clear();
 
             foreach (var inventory in inventorys)
@@ -165,6 +167,7 @@ namespace EconomySurvival.LCDInfo
                 foreach (var item in inventoryItems.OrderBy(i => i.Type.SubtypeId))
                 {
                     var type = item.Type.TypeId.Split('_')[1];
+					var subtypename = item.Type.SubtypeId.Split('_')[0];
                     var name = item.Type.SubtypeId;
                     var amount = item.Amount.ToIntSafe();
 
@@ -198,7 +201,14 @@ namespace EconomySurvival.LCDInfo
 
                         cargoAmmos[name].amount += amount;
                     }
-                    else if (type == "Tools")
+                    else if (type == "GasContainerObject" ^ type == "OxygenContainerObject")
+                    {
+                        if (!cargoBottles.ContainsKey(name))
+                            cargoBottles.Add(name, myType);
+
+                        cargoBottles[name].amount += amount;
+                    }
+                    else if (subtypename == "BinocularsItem" ^ subtypename == "PhysicalPaintGun" ^ subtypename.Contains("HandDrill") ^ subtypename.Contains("Welder") ^ subtypename.Contains("Grinder")) 
                     {
                         if (!cargoTools.ContainsKey(name))
                             cargoTools.Add(name, myType);
@@ -274,14 +284,17 @@ namespace EconomySurvival.LCDInfo
             if (config.Get("Settings", "Ammo").ToBoolean())
                 DrawAmmoSprite(ref myFrame, ref myPosition, mySurface);
 				
-            if (config.Get("Settings", "Tools").ToBoolean())
-                DrawToolSprite(ref myFrame, ref myPosition, mySurface);
+            if (config.Get("Settings", "Bottles").ToBoolean())
+                DrawBottleSprite(ref myFrame, ref myPosition, mySurface);
 				
             if (config.Get("Settings", "Hand Weapons").ToBoolean())
                 DrawWeaponSprite(ref myFrame, ref myPosition, mySurface);
 				
             if (config.Get("Settings", "Consumables").ToBoolean())
                 DrawConsumableSprite(ref myFrame, ref myPosition, mySurface);
+			
+            if (config.Get("Settings", "Tools").ToBoolean())
+                DrawToolSprite(ref myFrame, ref myPosition, mySurface);
 
             if (config.Get("Settings", "Miscellaneous Items").ToBoolean())
                 DrawItemsSprite(ref myFrame, ref myPosition, mySurface);
@@ -579,13 +592,13 @@ namespace EconomySurvival.LCDInfo
             }
         }
 		
-        void DrawToolSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
+        void DrawBottleSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
-            WriteTextSprite(ref frame, "Tools", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, "Bottles", position, TextAlignment.LEFT);
 
             position += newLine;
 
-            foreach (var item in cargoTools)
+            foreach (var item in cargoBottles)
             {
                 MyDefinitionId.TryParse(item.Value.item.Type.TypeId, item.Value.item.Type.SubtypeId, out myDefinitionId);
 
@@ -620,6 +633,23 @@ namespace EconomySurvival.LCDInfo
             position += newLine;
 
             foreach (var item in cargoConsumables)
+            {
+                MyDefinitionId.TryParse(item.Value.item.Type.TypeId, item.Value.item.Type.SubtypeId, out myDefinitionId);
+
+                WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
+                WriteTextSprite(ref frame, KiloFormat(item.Value.amount), position + right, TextAlignment.RIGHT);
+
+                position += newLine;
+            }
+        }
+		
+        void DrawToolSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
+        {			
+            WriteTextSprite(ref frame, "Tools", position, TextAlignment.LEFT);
+
+            position += newLine;
+
+            foreach (var item in cargoTools)
             {
                 MyDefinitionId.TryParse(item.Value.item.Type.TypeId, item.Value.item.Type.SubtypeId, out myDefinitionId);
 
@@ -697,8 +727,10 @@ namespace EconomySurvival.LCDInfo
             config.Set("Settings", "Ingot", "false");
             config.Set("Settings", "Component", "false");
 			config.Set("Settings", "Ammo", "false");
+			config.Set("Settings", "Bottles", "false");
 			config.Set("Settings", "Hand Weapons", "false");
 			config.Set("Settings", "Consumables", "false");
+			config.Set("Settings", "Tools", "false");
             config.Set("Settings", "Miscellaneous Items", "false");
 
             config.Invalidate();
