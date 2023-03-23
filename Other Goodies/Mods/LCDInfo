@@ -51,6 +51,7 @@ namespace EconomySurvival.LCDInfo
 		Dictionary<string, cargoItemType> cargoBottles = new Dictionary<string, cargoItemType>();
 		Dictionary<string, cargoItemType> cargoWeapons = new Dictionary<string, cargoItemType>();
 		Dictionary<string, cargoItemType> cargoConsumables = new Dictionary<string, cargoItemType>();
+		Dictionary<string, cargoItemType> cargoFoods = new Dictionary<string, cargoItemType>();
 		Dictionary<string, cargoItemType> cargoTools = new Dictionary<string, cargoItemType>();
         Dictionary<string, cargoItemType> cargoItems = new Dictionary<string, cargoItemType>();
 
@@ -153,6 +154,7 @@ namespace EconomySurvival.LCDInfo
             cargoBottles.Clear();
             cargoWeapons.Clear();
             cargoConsumables.Clear();
+            cargoFoods.Clear();
             cargoTools.Clear();
             cargoItems.Clear();
 
@@ -173,7 +175,14 @@ namespace EconomySurvival.LCDInfo
 
                     var myType = new cargoItemType { item=item, amount=0 };
 
-                    if (type == "Ore")
+                    if (subtypename == "Potato" ^ subtypename.Contains("Meat")) 
+                    {
+                        if (!cargoFoods.ContainsKey(name))
+                            cargoFoods.Add(name, myType);
+
+                        cargoFoods[name].amount += amount;
+                    }
+					else if (type == "Ore")
                     {
                         if (!cargoOres.ContainsKey(name))
                             cargoOres.Add(name, myType);
@@ -269,7 +278,7 @@ namespace EconomySurvival.LCDInfo
             if (config.Get("Settings", "Solar").ToBoolean())
                 DrawSolarPanelSprite(ref myFrame, ref myPosition, mySurface);
 
-            if (config.Get("Settings", "Reactor").ToBoolean())
+            if (config.Get("Settings", "NuclearReactor").ToBoolean())
                 DrawReactorSprite(ref myFrame, ref myPosition, mySurface);
 
             if (config.Get("Settings", "Ore").ToBoolean())
@@ -292,6 +301,9 @@ namespace EconomySurvival.LCDInfo
 				
             if (config.Get("Settings", "Consumables").ToBoolean())
                 DrawConsumableSprite(ref myFrame, ref myPosition, mySurface);
+				
+            if (config.Get("Settings", "Food").ToBoolean())
+                DrawFoodSprite(ref myFrame, ref myPosition, mySurface);
 			
             if (config.Get("Settings", "Tools").ToBoolean())
                 DrawToolSprite(ref myFrame, ref myPosition, mySurface);
@@ -309,7 +321,7 @@ namespace EconomySurvival.LCDInfo
             var input = batteryBlocks.Sum(block => block.CurrentInput);
             var output = batteryBlocks.Sum(block => block.CurrentOutput);
 
-            WriteTextSprite(ref frame, "Battery", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, "[ BATTERIES ]", position, TextAlignment.CENTER);
 
             position += newLine;
 
@@ -340,7 +352,7 @@ namespace EconomySurvival.LCDInfo
             var currentMax = windTurbines.Sum(block => block.MaxOutput);
             var total = windTurbines.Sum(block => block.Components.Get<MyResourceSourceComponent>().DefinedOutput);
 
-            WriteTextSprite(ref frame, "Wind Turbine", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, "[ WIND TURBINES ]", position, TextAlignment.CENTER);
 
             position += newLine;
 
@@ -365,7 +377,7 @@ namespace EconomySurvival.LCDInfo
             var current = hydroenEngines.Sum(block => block.CurrentOutput);
             var total = hydroenEngines.Sum(block => block.MaxOutput);
 
-            WriteTextSprite(ref frame, "Hydrogen Engines", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, "[ HYDROGEN ENGINES ]", position, TextAlignment.CENTER);
 
             position += newLine;
 
@@ -385,7 +397,7 @@ namespace EconomySurvival.LCDInfo
             var current = fuelCells.Sum(block => block.CurrentOutput);
             var total = fuelCells.Sum(block => block.MaxOutput);
 
-            WriteTextSprite(ref frame, "Hydrogen Fuel Cells", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, "[ HYDROGEN FUEL CELLS ]", position, TextAlignment.CENTER);
 
             position += newLine;
 
@@ -405,7 +417,7 @@ namespace EconomySurvival.LCDInfo
             var current = fusionReactors.Sum(block => block.CurrentOutput);
             var total = fusionReactors.Sum(block => block.MaxOutput);
 
-            WriteTextSprite(ref frame, "Fusion Reactors", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, "[ FUSION REACTORS ]", position, TextAlignment.CENTER);
 
             position += newLine;
 
@@ -435,7 +447,7 @@ namespace EconomySurvival.LCDInfo
             var currentDeuterium = deuteriumTanks.Count() == 0 ? 0 : deuteriumTanks.Average(block => block.FilledRatio * 100);
             var totalDeuterium = deuteriumTanks.Count() == 0 ? 0 : deuteriumTanks.Sum(block => block.Capacity);
 
-            WriteTextSprite(ref frame, "Hydrogen Tanks", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, "- Hydrogen Tanks -", position, TextAlignment.CENTER);
 
             position += newLine;
 
@@ -449,7 +461,7 @@ namespace EconomySurvival.LCDInfo
 
             position += newLine;
 
-            WriteTextSprite(ref frame, "Oxygen Tanks", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, "- Oxygen Tanks -", position, TextAlignment.CENTER);
 
             position += newLine;
 
@@ -463,7 +475,7 @@ namespace EconomySurvival.LCDInfo
 
             position += newLine;
 			
-            WriteTextSprite(ref frame, "Deuterium Tanks", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, "- Deuterium Tanks -", position, TextAlignment.CENTER);
 
             position += newLine;
 
@@ -484,7 +496,7 @@ namespace EconomySurvival.LCDInfo
             var currentMax = solarPanels.Sum(block => block.MaxOutput);
             var total = solarPanels.Sum(block => block.Components.Get<MyResourceSourceComponent>().DefinedOutput);
 
-            WriteTextSprite(ref frame, "Solar Panels", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, "[ SOLAR PANELS ]", position, TextAlignment.CENTER);
 
             position += newLine;
 
@@ -509,7 +521,7 @@ namespace EconomySurvival.LCDInfo
             var current = reactors.Sum(block => block.CurrentOutput);
             var total = reactors.Sum(block => block.MaxOutput);
 
-            WriteTextSprite(ref frame, "Reactors", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, "[ NUCLEAR REACTORS ]", position, TextAlignment.CENTER);
 
             position += newLine;
 
@@ -526,7 +538,7 @@ namespace EconomySurvival.LCDInfo
 
         void DrawOreSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
-            WriteTextSprite(ref frame, "Ores", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, "[ ORES ]", position, TextAlignment.CENTER);
 
             position += newLine;
 
@@ -543,7 +555,7 @@ namespace EconomySurvival.LCDInfo
 
         void DrawIngotSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
-            WriteTextSprite(ref frame, "Ingots", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, "[ INGOTS ]", position, TextAlignment.CENTER);
 
             position += newLine;
 
@@ -560,7 +572,7 @@ namespace EconomySurvival.LCDInfo
 
         void DrawComponentSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
-            WriteTextSprite(ref frame, "Components", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, "[ COMPONENTS ]", position, TextAlignment.CENTER);
 
             position += newLine;
 
@@ -577,7 +589,7 @@ namespace EconomySurvival.LCDInfo
 
         void DrawAmmoSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
-            WriteTextSprite(ref frame, "Ammo", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, "[ AMMUNITION ]", position, TextAlignment.CENTER);
 
             position += newLine;
 
@@ -594,7 +606,7 @@ namespace EconomySurvival.LCDInfo
 		
         void DrawBottleSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
-            WriteTextSprite(ref frame, "Bottles", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, "[ BOTTLES ]", position, TextAlignment.CENTER);
 
             position += newLine;
 
@@ -611,7 +623,7 @@ namespace EconomySurvival.LCDInfo
 		
         void DrawWeaponSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
-            WriteTextSprite(ref frame, "Hand Weapons", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, "[ HAND WEAPONS ]", position, TextAlignment.CENTER);
 
             position += newLine;
 
@@ -628,7 +640,7 @@ namespace EconomySurvival.LCDInfo
 		
         void DrawConsumableSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
-            WriteTextSprite(ref frame, "Consumables", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, "[ CONSUMABLES ]", position, TextAlignment.CENTER);
 
             position += newLine;
 
@@ -643,9 +655,26 @@ namespace EconomySurvival.LCDInfo
             }
         }
 		
+        void DrawFoodSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
+        {
+            WriteTextSprite(ref frame, "[ FOOD AND DRINK ]", position, TextAlignment.CENTER);
+
+            position += newLine;
+
+            foreach (var item in cargoFoods)
+            {
+                MyDefinitionId.TryParse(item.Value.item.Type.TypeId, item.Value.item.Type.SubtypeId, out myDefinitionId);
+
+                WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
+                WriteTextSprite(ref frame, KiloFormat(item.Value.amount), position + right, TextAlignment.RIGHT);
+
+                position += newLine;
+            }
+        }
+		
         void DrawToolSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {			
-            WriteTextSprite(ref frame, "Tools", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, "[ TOOLS ]", position, TextAlignment.CENTER);
 
             position += newLine;
 
@@ -662,7 +691,7 @@ namespace EconomySurvival.LCDInfo
 
         void DrawItemsSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
-            WriteTextSprite(ref frame, "Miscellaneous  Items", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, "[ MISCELLANEOUS ITEMS ]", position, TextAlignment.CENTER);
 
             position += newLine;
 
@@ -722,7 +751,7 @@ namespace EconomySurvival.LCDInfo
             config.Set("Settings", "FusionReactor", "false");
             config.Set("Settings", "Tanks", "false");
             config.Set("Settings", "Solar", "false");
-            config.Set("Settings", "Reactor", "false");
+            config.Set("Settings", "NuclearReactor", "false");
             config.Set("Settings", "Ore", "false");
             config.Set("Settings", "Ingot", "false");
             config.Set("Settings", "Component", "false");
@@ -730,6 +759,7 @@ namespace EconomySurvival.LCDInfo
 			config.Set("Settings", "Bottles", "false");
 			config.Set("Settings", "Hand Weapons", "false");
 			config.Set("Settings", "Consumables", "false");
+			config.Set("Settings", "Food", "false");
 			config.Set("Settings", "Tools", "false");
             config.Set("Settings", "Miscellaneous Items", "false");
 
