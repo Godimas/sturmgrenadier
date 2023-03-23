@@ -35,7 +35,7 @@ namespace EconomySurvival.LCDInfo
         List<IMyBatteryBlock> batteryBlocks = new List<IMyBatteryBlock>();
         List<IMyPowerProducer> windTurbines = new List<IMyPowerProducer>();
         List<IMyPowerProducer> hydroenEngines = new List<IMyPowerProducer>();
-		List<IMyPowerProducer> fuelCells = new List<IMyPowerProducer>();
+	List<IMyPowerProducer> fuelCells = new List<IMyPowerProducer>();
         List<IMyPowerProducer> fusionReactors = new List<IMyPowerProducer>();
         List<IMySolarPanel> solarPanels = new List<IMySolarPanel>();
         List<IMyReactor> reactors = new List<IMyReactor>();
@@ -47,10 +47,10 @@ namespace EconomySurvival.LCDInfo
         Dictionary<string, cargoItemType> cargoOres = new Dictionary<string, cargoItemType>();
         Dictionary<string, cargoItemType> cargoIngots = new Dictionary<string, cargoItemType>();
         Dictionary<string, cargoItemType> cargoComponents = new Dictionary<string, cargoItemType>();
-		Dictionary<string, cargoItemType> cargoAmmos = new Dictionary<string, cargoItemType>();
-		Dictionary<string, cargoItemType> cargoTools = new Dictionary<string, cargoItemType>();
-		Dictionary<string, cargoItemType> cargoWeapons = new Dictionary<string, cargoItemType>();
-		Dictionary<string, cargoItemType> cargoConsumables = new Dictionary<string, cargoItemType>();
+	Dictionary<string, cargoItemType> cargoAmmos = new Dictionary<string, cargoItemType>();
+	Dictionary<string, cargoItemType> cargoTools = new Dictionary<string, cargoItemType>();
+	Dictionary<string, cargoItemType> cargoWeapons = new Dictionary<string, cargoItemType>();
+	Dictionary<string, cargoItemType> cargoConsumables = new Dictionary<string, cargoItemType>();
         Dictionary<string, cargoItemType> cargoItems = new Dictionary<string, cargoItemType>();
 
 
@@ -91,7 +91,7 @@ namespace EconomySurvival.LCDInfo
             batteryBlocks.Clear();
             windTurbines.Clear();
             hydroenEngines.Clear();
-			fuelCells.Clear();
+		fuelCells.Clear();
             fusionReactors.Clear();
             solarPanels.Clear();
             reactors.Clear();
@@ -205,14 +205,14 @@ namespace EconomySurvival.LCDInfo
 
                         cargoTools[name].amount += amount;
                     }
-                    else if (type == "Weapons")
+                    else if (type == "PhysicalGunObject")
                     {
                         if (!cargoWeapons.ContainsKey(name))
                             cargoWeapons.Add(name, myType);
 
                         cargoWeapons[name].amount += amount;
                     }
-                    else if (type == "Consumables")
+                    else if (type == "ConsumableItem")
                     {
                         if (!cargoConsumables.ContainsKey(name))
                             cargoConsumables.Add(name, myType);
