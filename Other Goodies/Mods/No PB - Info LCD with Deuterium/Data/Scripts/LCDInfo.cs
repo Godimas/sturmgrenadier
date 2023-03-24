@@ -23,12 +23,6 @@ namespace EconomySurvival.LCDInfo
         public VRage.Game.ModAPI.Ingame.MyInventoryItem item;
         public int amount;
     }
-	
-	class listItemType
-    {
-        public VRage.Game.ModAPI.Ingame.MyInventoryItem item;
-        public string;
-    }
 
     [MyTextSurfaceScript("LCDInfoScreen", "ES Info LCD w/ Deuterium")]
     public class LCDInfo : MyTextSurfaceScriptBase
@@ -62,7 +56,7 @@ namespace EconomySurvival.LCDInfo
 		Dictionary<string, cargoItemType> cargoTools = new Dictionary<string, cargoItemType>();
         Dictionary<string, cargoItemType> cargoItems = new Dictionary<string, cargoItemType>();
 
-		List<string, listItemType> foodItems = new List<string, listItemType> {
+		List<string> foodItems = new List<string> {
     		"Bits's",
     		"Bread",
     		"Burger",
@@ -93,7 +87,7 @@ namespace EconomySurvival.LCDInfo
 			"Wheat"
 		};
 		
-		List<string, listItemType> handWeaponAmmoItems = new List<string, listItemType> {
+		List<string> handWeaponAmmoItems = new List<string> {
     		"Bullet"
 		};
 
@@ -605,8 +599,9 @@ namespace EconomySurvival.LCDInfo
                 WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
                 WriteTextSprite(ref frame, KiloFormat(item.amount), position + right, TextAlignment.RIGHT);
 
-                position += newLine + newLine;;
+                position += newLine;
             }
+			position += newLine;
         }
 
         void DrawIngotSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
@@ -622,8 +617,9 @@ namespace EconomySurvival.LCDInfo
                 WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
                 WriteTextSprite(ref frame, KiloFormat(item.Value.amount), position + right, TextAlignment.RIGHT);
 
-                position += newLine + newLine;;
+                position += newLine;
             }
+			position += newLine;
         }
 
         void DrawComponentSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
@@ -639,8 +635,9 @@ namespace EconomySurvival.LCDInfo
                 WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
                 WriteTextSprite(ref frame, KiloFormat(item.Value.amount), position + right, TextAlignment.RIGHT);
 
-                position += newLine + newLine;;
+                position += newLine;
             }
+			position += newLine;
         }
 
         void DrawAmmoSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
@@ -656,8 +653,9 @@ namespace EconomySurvival.LCDInfo
                 WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
                 WriteTextSprite(ref frame, KiloFormat(item.Value.amount), position + right, TextAlignment.RIGHT);
 
-                position += newLine + newLine;;
+                position += newLine;
             }
+			position += newLine;
         }
 	
         void DrawHandWeaponAmmoSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
@@ -673,8 +671,9 @@ namespace EconomySurvival.LCDInfo
                 WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
                 WriteTextSprite(ref frame, KiloFormat(item.Value.amount), position + right, TextAlignment.RIGHT);
 
-                position += newLine + newLine;;
+                position += newLine;
             }
+			position += newLine;
         }
 		
         void DrawBottleSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
@@ -690,8 +689,9 @@ namespace EconomySurvival.LCDInfo
                 WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
                 WriteTextSprite(ref frame, KiloFormat(item.Value.amount), position + right, TextAlignment.RIGHT);
 
-                position += newLine + newLine;;
+                position += newLine;
             }
+			position += newLine;
         }
 		
         void DrawWeaponSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
@@ -707,8 +707,9 @@ namespace EconomySurvival.LCDInfo
                 WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
                 WriteTextSprite(ref frame, KiloFormat(item.Value.amount), position + right, TextAlignment.RIGHT);
 
-                position += newLine + newLine;;
+                position += newLine;
             }
+			position += newLine;
         }
 		
         void DrawConsumableSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
@@ -724,8 +725,9 @@ namespace EconomySurvival.LCDInfo
                 WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
                 WriteTextSprite(ref frame, KiloFormat(item.Value.amount), position + right, TextAlignment.RIGHT);
 
-                position += newLine + newLine;;
+                position += newLine;
             }
+			position += newLine;
         }
 		
         void DrawFoodSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
@@ -741,8 +743,9 @@ namespace EconomySurvival.LCDInfo
                 WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
                 WriteTextSprite(ref frame, KiloFormat(item.Value.amount), position + right, TextAlignment.RIGHT);
 
-                position += newLine + newLine;;
+                position += newLine;
             }
+			position += newLine;
         }
 		
         void DrawToolSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
@@ -758,8 +761,9 @@ namespace EconomySurvival.LCDInfo
                 WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
                 WriteTextSprite(ref frame, KiloFormat(item.Value.amount), position + right, TextAlignment.RIGHT);
 
-                position += newLine + newLine;;
+                position += newLine;
             }
+			position += newLine;
         }
 
         void DrawItemsSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
@@ -775,8 +779,9 @@ namespace EconomySurvival.LCDInfo
                 WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
                 WriteTextSprite(ref frame, KiloFormat(item.Value.amount), position + right, TextAlignment.RIGHT);
 
-                position += newLine + newLine;;
+                position += newLine;
             }
+			position += newLine;
         }
 
         static string KiloFormat(int num)
