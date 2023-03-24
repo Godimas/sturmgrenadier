@@ -48,6 +48,7 @@ namespace EconomySurvival.LCDInfo
         Dictionary<string, cargoItemType> cargoIngots = new Dictionary<string, cargoItemType>();
         Dictionary<string, cargoItemType> cargoComponents = new Dictionary<string, cargoItemType>();
 		Dictionary<string, cargoItemType> cargoAmmos = new Dictionary<string, cargoItemType>();
+		Dictionary<string, cargoItemType> cargoHandWeaponAmmos = new Dictionary<string, cargoItemType>();
 		Dictionary<string, cargoItemType> cargoBottles = new Dictionary<string, cargoItemType>();
 		Dictionary<string, cargoItemType> cargoWeapons = new Dictionary<string, cargoItemType>();
 		Dictionary<string, cargoItemType> cargoConsumables = new Dictionary<string, cargoItemType>();
@@ -151,6 +152,7 @@ namespace EconomySurvival.LCDInfo
             cargoIngots.Clear();
             cargoComponents.Clear();
             cargoAmmos.Clear();
+	    cargoHandWeaponAmmos.Clear();
             cargoBottles.Clear();
             cargoWeapons.Clear();
             cargoConsumables.Clear();
@@ -202,6 +204,13 @@ namespace EconomySurvival.LCDInfo
                             cargoComponents.Add(name, myType);
 
                         cargoComponents[name].amount += amount;
+                    }
+                    else if (subtypename.Contains("SHELLS") ^ subtypename == "DAKKA")
+                    {
+                        if (!cargoHandWeaponAmmos.ContainsKey(name))
+                            cargoHandWeaponAmmos.Add(name, myType);
+
+                        cargoHandWeaponAmmos[name].amount += amount;
                     }
                     else if (type == "AmmoMagazine")
                     {
@@ -292,6 +301,9 @@ namespace EconomySurvival.LCDInfo
 
             if (config.Get("Settings", "VehicleAmmo").ToBoolean())
                 DrawAmmoSprite(ref myFrame, ref myPosition, mySurface);
+		
+		if (config.Get("Settings", "HandWeaponAmmo").ToBoolean())
+                DrawHandWeaponAmmoSprite(ref myFrame, ref myPosition, mySurface);
 				
             if (config.Get("Settings", "Bottles").ToBoolean())
                 DrawBottleSprite(ref myFrame, ref myPosition, mySurface);
@@ -603,6 +615,23 @@ namespace EconomySurvival.LCDInfo
                 position += newLine + newLine;;
             }
         }
+	
+        void DrawHandWeaponAmmoSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
+        {
+            WriteTextSprite(ref frame, "[ HAND WEAPON AMMUNITION ]", position, TextAlignment.LEFT);
+
+            position += newLine;
+
+            foreach (var item in cargoHandWeaponAmmos)
+            {
+                MyDefinitionId.TryParse(item.Value.item.Type.TypeId, item.Value.item.Type.SubtypeId, out myDefinitionId);
+
+                WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
+                WriteTextSprite(ref frame, KiloFormat(item.Value.amount), position + right, TextAlignment.RIGHT);
+
+                position += newLine + newLine;;
+            }
+        }
 		
         void DrawBottleSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
@@ -756,6 +785,7 @@ namespace EconomySurvival.LCDInfo
             config.Set("Settings", "Ingot", "false");
             config.Set("Settings", "Component", "false");
 			config.Set("Settings", "VehicleAmmo", "false");
+			config.Set("Settings", "HandWeaponAmmo", "false");
 			config.Set("Settings", "Bottles", "false");
 			config.Set("Settings", "Hand Weapons", "false");
 			config.Set("Settings", "Consumables", "false");
