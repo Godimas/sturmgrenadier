@@ -57,9 +57,39 @@ namespace EconomySurvival.LCDInfo
         Dictionary<string, cargoItemType> cargoItems = new Dictionary<string, cargoItemType>();
 
 	List<string> foodItems = new List<string> {
-    		'EuropaTea',
-    		'Herbs',
-    		'InterBeer'
+    		'Bits',
+    		'Bread',
+    		'Burger',
+		'Cabbage',
+		'ClangCola',
+		'CosmicCoffee',
+		'Emergency_Ration',
+		'EuropaTea',
+		'Fendom_Fries',
+		'Feines_Essen',
+		'Herbs',
+		'InterBeer',
+		'Kosmit_Kola',
+		'Medik_Vodka',
+		'Mushrooms',
+		'N1roos',
+		'Pickled_FatFlies'
+		'Potato',
+		'Pumpkin',
+		'Rabenswild',
+		'Rembrau',
+		'Sektans_Jednosladová',
+		'Sixdiced_Stew',
+		'Soya',
+		'SparklingWater',
+		'ShroomSteak',
+		'Tofu',
+		'Wheat'
+		};
+		
+	List<string> handWeaponAmmoItems = new List<string> {
+    		'ROCKETS',
+		'BULLRTS'
 		};
 
         Vector2 right;
@@ -209,7 +239,7 @@ namespace EconomySurvival.LCDInfo
 
                         cargoComponents[name].amount += amount;
                     }
-                    else if (subtypename.Contains("SHELLS") ^ subtypename == "DAKKA")
+                    else if (subtypename.Contains("SHELLS") ^ || handWeaponAmmoItems.Contains (subtypename))
                     {
                         if (!cargoHandWeaponAmmos.ContainsKey(name))
                             cargoHandWeaponAmmos.Add(name, myType);
