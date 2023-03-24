@@ -23,6 +23,12 @@ namespace EconomySurvival.LCDInfo
         public VRage.Game.ModAPI.Ingame.MyInventoryItem item;
         public int amount;
     }
+	
+	class listItemType
+    {
+        public VRage.Game.ModAPI.Ingame.MyInventoryItem item;
+        public string;
+    }
 
     [MyTextSurfaceScript("LCDInfoScreen", "ES Info LCD w/ Deuterium")]
     public class LCDInfo : MyTextSurfaceScriptBase
@@ -56,40 +62,39 @@ namespace EconomySurvival.LCDInfo
 		Dictionary<string, cargoItemType> cargoTools = new Dictionary<string, cargoItemType>();
         Dictionary<string, cargoItemType> cargoItems = new Dictionary<string, cargoItemType>();
 
-	List<string> foodItems = new List<string> {
+		List<string, listItemType> foodItems = new List<string, listItemType> {
     		"Bits's",
     		"Bread",
     		"Burger",
-		"Cabbage",
-		"ClangCola",
-		"CosmicCoffee",
-		"Emergency_Ration",
-		"EuropaTea",
-		"Fendom_Fries",
-		"Feines_Essen",
-		"Herbs",
-		"InterBeer",
-		"Kosmit_Kola",
-		"Medik_Vodka",
-		"Mushrooms",
-		"N1roos",
-		"Pickled_FatFlies",
-		"Potato",
-		"Pumpkin",
-		"Rabenswild",
-		"Rembrau",
-		"Sektans_Jednosladová",
-		"Sixdiced_Stew",
-		"Soya",
-		"SparklingWater",
-		"ShroomSteak",
-		"Tofu",
-		"Wheat"
+			"Cabbage",
+			"ClangCola",
+			"CosmicCoffee",
+			"Emergency_Ration",
+			"EuropaTea",
+			"Fendom_Fries",
+			"Feines_Essen",
+			"Herbs",
+			"InterBeer",
+			"Kosmit_Kola",
+			"Medik_Vodka",
+			"Mushrooms",
+			"N1roos",
+			"Pickled_FatFlies",
+			"Potato",
+			"Pumpkin",
+			"Rabenswild",
+			"Rembrau",
+			"Sektans_Jednosladová",
+			"Sixdiced_Stew",
+			"Soya",
+			"SparklingWater",
+			"ShroomSteak",
+			"Tofu",
+			"Wheat"
 		};
 		
-	List<string> handWeaponAmmoItems = new List<string> {
-    		"ROCKETS",
-		"BULLRTS"
+		List<string, listItemType> handWeaponAmmoItems = new List<string, listItemType> {
+    		"Bullet"
 		};
 
         Vector2 right;
@@ -187,7 +192,7 @@ namespace EconomySurvival.LCDInfo
             cargoIngots.Clear();
             cargoComponents.Clear();
             cargoAmmos.Clear();
-	    cargoHandWeaponAmmos.Clear();
+			cargoHandWeaponAmmos.Clear();
             cargoBottles.Clear();
             cargoWeapons.Clear();
             cargoConsumables.Clear();
@@ -211,7 +216,7 @@ namespace EconomySurvival.LCDInfo
                     var amount = item.Amount.ToIntSafe();
                     var myType = new cargoItemType { item=item, amount=0 };
 
-                    if (subtypename.Contains("Meat") || subtypename.Contains("Apple") || subtypename.Contains("Soup") || subtypename.Contains("Chips") || foodItems.Contains (subtypename)) 
+                    if (subtypename.Contains("Meat") ^ subtypename.Contains("Apple") ^ subtypename.Contains("Soup") ^ subtypename.Contains("Chips") ^ foodItems.Contains(subtypename)) 
                     {
                         if (!cargoFoods.ContainsKey(name))
                             cargoFoods.Add(name, myType);
@@ -239,7 +244,7 @@ namespace EconomySurvival.LCDInfo
 
                         cargoComponents[name].amount += amount;
                     }
-                    else if (subtypename.Contains("SHELLS") ^ || handWeaponAmmoItems.Contains (subtypename))
+                    else if (subtypename.Contains("Missile") ^ handWeaponAmmoItems.Contains(subtypename))
                     {
                         if (!cargoHandWeaponAmmos.ContainsKey(name))
                             cargoHandWeaponAmmos.Add(name, myType);
@@ -336,7 +341,7 @@ namespace EconomySurvival.LCDInfo
             if (config.Get("Settings", "VehicleAmmo").ToBoolean())
                 DrawAmmoSprite(ref myFrame, ref myPosition, mySurface);
 		
-		if (config.Get("Settings", "HandWeaponAmmo").ToBoolean())
+			if (config.Get("Settings", "HandWeaponAmmo").ToBoolean())
                 DrawHandWeaponAmmoSprite(ref myFrame, ref myPosition, mySurface);
 				
             if (config.Get("Settings", "Bottles").ToBoolean())
@@ -593,7 +598,7 @@ namespace EconomySurvival.LCDInfo
 		sortedKeys.Sort();
 
 		foreach (var name in sortedKeys) {
-   		 var item = cargoOres[name];
+				var item = cargoOres[name];
 
                 MyDefinitionId.TryParse(item.item.Type.TypeId, name, out myDefinitionId);
 
@@ -657,7 +662,7 @@ namespace EconomySurvival.LCDInfo
 	
         void DrawHandWeaponAmmoSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
-            WriteTextSprite(ref frame, "[ HAND WEAPON AMMUNITION ]", position, VRage.Game.GUI.TextPanel.TextAlignment.CENTER);
+            WriteTextSprite(ref frame, "[ HAND WEAPON AMMUNITION ]", position, TextAlignment.LEFT);
 
             position += newLine;
 
