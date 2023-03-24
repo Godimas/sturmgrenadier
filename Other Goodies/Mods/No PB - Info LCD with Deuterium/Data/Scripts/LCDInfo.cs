@@ -290,7 +290,7 @@ namespace EconomySurvival.LCDInfo
             if (config.Get("Settings", "Component").ToBoolean())
                 DrawComponentSprite(ref myFrame, ref myPosition, mySurface);
 
-            if (config.Get("Settings", "Ammo").ToBoolean())
+            if (config.Get("Settings", "VehicleAmmo").ToBoolean())
                 DrawAmmoSprite(ref myFrame, ref myPosition, mySurface);
 				
             if (config.Get("Settings", "Bottles").ToBoolean())
@@ -549,7 +549,7 @@ namespace EconomySurvival.LCDInfo
                 WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
                 WriteTextSprite(ref frame, KiloFormat(item.Value.amount), position + right, TextAlignment.RIGHT);
 
-                position += newLine;
+                position += newLine + newLine;;
             }
         }
 
@@ -566,7 +566,7 @@ namespace EconomySurvival.LCDInfo
                 WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
                 WriteTextSprite(ref frame, KiloFormat(item.Value.amount), position + right, TextAlignment.RIGHT);
 
-                position += newLine;
+                position += newLine + newLine;;
             }
         }
 
@@ -583,13 +583,13 @@ namespace EconomySurvival.LCDInfo
                 WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
                 WriteTextSprite(ref frame, KiloFormat(item.Value.amount), position + right, TextAlignment.RIGHT);
 
-                position += newLine;
+                position += newLine + newLine;;
             }
         }
 
         void DrawAmmoSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
-            WriteTextSprite(ref frame, "[ AMMUNITION ]", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, "[ VEHICLE AMMUNITION ]", position, TextAlignment.LEFT);
 
             position += newLine;
 
@@ -600,7 +600,7 @@ namespace EconomySurvival.LCDInfo
                 WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
                 WriteTextSprite(ref frame, KiloFormat(item.Value.amount), position + right, TextAlignment.RIGHT);
 
-                position += newLine;
+                position += newLine + newLine;;
             }
         }
 		
@@ -617,7 +617,7 @@ namespace EconomySurvival.LCDInfo
                 WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
                 WriteTextSprite(ref frame, KiloFormat(item.Value.amount), position + right, TextAlignment.RIGHT);
 
-                position += newLine;
+                position += newLine + newLine;;
             }
         }
 		
@@ -634,7 +634,7 @@ namespace EconomySurvival.LCDInfo
                 WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
                 WriteTextSprite(ref frame, KiloFormat(item.Value.amount), position + right, TextAlignment.RIGHT);
 
-                position += newLine;
+                position += newLine + newLine;;
             }
         }
 		
@@ -651,7 +651,7 @@ namespace EconomySurvival.LCDInfo
                 WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
                 WriteTextSprite(ref frame, KiloFormat(item.Value.amount), position + right, TextAlignment.RIGHT);
 
-                position += newLine;
+                position += newLine + newLine;;
             }
         }
 		
@@ -668,7 +668,7 @@ namespace EconomySurvival.LCDInfo
                 WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
                 WriteTextSprite(ref frame, KiloFormat(item.Value.amount), position + right, TextAlignment.RIGHT);
 
-                position += newLine;
+                position += newLine + newLine;;
             }
         }
 		
@@ -685,7 +685,7 @@ namespace EconomySurvival.LCDInfo
                 WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
                 WriteTextSprite(ref frame, KiloFormat(item.Value.amount), position + right, TextAlignment.RIGHT);
 
-                position += newLine;
+                position += newLine + newLine;;
             }
         }
 
@@ -702,7 +702,7 @@ namespace EconomySurvival.LCDInfo
                 WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
                 WriteTextSprite(ref frame, KiloFormat(item.Value.amount), position + right, TextAlignment.RIGHT);
 
-                position += newLine;
+                position += newLine + newLine;;
             }
         }
 
@@ -755,7 +755,7 @@ namespace EconomySurvival.LCDInfo
             config.Set("Settings", "Ore", "false");
             config.Set("Settings", "Ingot", "false");
             config.Set("Settings", "Component", "false");
-			config.Set("Settings", "Ammo", "false");
+			config.Set("Settings", "VehicleAmmo", "false");
 			config.Set("Settings", "Bottles", "false");
 			config.Set("Settings", "Hand Weapons", "false");
 			config.Set("Settings", "Consumables", "false");
