@@ -618,7 +618,7 @@ namespace EconomySurvival.LCDInfo
 	
         void DrawHandWeaponAmmoSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
-            WriteTextSprite(ref frame, "[ HAND WEAPON AMMUNITION ]", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, "[ HAND WEAPON AMMUNITION ]", position, VRage.Game.GUI.TextPanel.TextAlignment.CENTER);
 
             position += newLine;
 
