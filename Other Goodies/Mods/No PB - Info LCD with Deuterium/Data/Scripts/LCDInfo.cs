@@ -56,6 +56,11 @@ namespace EconomySurvival.LCDInfo
 		Dictionary<string, cargoItemType> cargoTools = new Dictionary<string, cargoItemType>();
         Dictionary<string, cargoItemType> cargoItems = new Dictionary<string, cargoItemType>();
 
+	List<string> foodItems = new List<string> {
+    		'EuropaTea',
+    		'Herbs',
+    		'InterBeer'
+		};
 
         Vector2 right;
         Vector2 newLine;
@@ -174,10 +179,9 @@ namespace EconomySurvival.LCDInfo
 					var subtypename = item.Type.SubtypeId.Split('_')[0];
                     var name = item.Type.SubtypeId;
                     var amount = item.Amount.ToIntSafe();
-
                     var myType = new cargoItemType { item=item, amount=0 };
 
-                    if (subtypename.Contains("Meat") ^ subtypename.Contains("Apple") ^ subtypename.Contains("Soup") ^ subtypename.Contains("Chips") ^ subtypename == "Bits's" ^ subtypename == "Bread" ^ subtypename == "Burger" ^ subtypename == "Cabbage" ^ subtypename == "ClangCola" ^ subtypename == "CosmicCoffee" ^ subtypename == "Emergency_Ration" ^ subtypename == "EuropaTea" ^ subtypename == "Fendom_Fries" ^ subtypename == "Feines_Essen" ^ subtypename == "Herbs" ^ subtypename == "InterBeer" ^ subtypename == "Kosmit_Kola" ^ subtypename == "Medik_Vodka" ^ subtypename == "Mushrooms" ^ subtypename == "N1roos" ^ subtypename == "Pickled_FatFlies" ^ subtypename == "Potato" ^ subtypename == "Pumpkin" ^ subtypename == "Rabenswild" ^ subtypename == "Rembrau" ^ subtypename == "Sektans_Jednosladová" ^ subtypename == "Sixdiced_Stew" ^ subtypename == "Soya" ^ subtypename == "SparklingWater" ^ subtypename == "ShroomSteak" ^ subtypename == "Tofu" ^ subtypename == "Wheat") 
+                    if (subtypename.Contains("Meat") || subtypename.Contains("Apple") || subtypename.Contains("Soup") || subtypename.Contains("Chips") || foodItems.Contains (subtypename)) 
                     {
                         if (!cargoFoods.ContainsKey(name))
                             cargoFoods.Add(name, myType);
@@ -554,12 +558,17 @@ namespace EconomySurvival.LCDInfo
 
             position += newLine;
 
-            foreach (var item in cargoOres)
-            {
-                MyDefinitionId.TryParse(item.Value.item.Type.TypeId, item.Value.item.Type.SubtypeId, out myDefinitionId);
+            
+	    var sortedKeys = cargoOres.Keys.ToList();
+		sortedKeys.Sort();
+
+		foreach (var name in sortedKeys) {
+   		 var item = cargoOres[name];
+
+                MyDefinitionId.TryParse(item.item.Type.TypeId, name, out myDefinitionId);
 
                 WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
-                WriteTextSprite(ref frame, KiloFormat(item.Value.amount), position + right, TextAlignment.RIGHT);
+                WriteTextSprite(ref frame, KiloFormat(item.amount), position + right, TextAlignment.RIGHT);
 
                 position += newLine + newLine;;
             }
