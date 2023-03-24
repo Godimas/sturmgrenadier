@@ -57,39 +57,39 @@ namespace EconomySurvival.LCDInfo
         Dictionary<string, cargoItemType> cargoItems = new Dictionary<string, cargoItemType>();
 
 	List<string> foodItems = new List<string> {
-    		'Bits',
-    		'Bread',
-    		'Burger',
-		'Cabbage',
-		'ClangCola',
-		'CosmicCoffee',
-		'Emergency_Ration',
-		'EuropaTea',
-		'Fendom_Fries',
-		'Feines_Essen',
-		'Herbs',
-		'InterBeer',
-		'Kosmit_Kola',
-		'Medik_Vodka',
-		'Mushrooms',
-		'N1roos',
-		'Pickled_FatFlies'
-		'Potato',
-		'Pumpkin',
-		'Rabenswild',
-		'Rembrau',
-		'Sektans_Jednosladová',
-		'Sixdiced_Stew',
-		'Soya',
-		'SparklingWater',
-		'ShroomSteak',
-		'Tofu',
-		'Wheat'
+    		"Bits's",
+    		"Bread",
+    		"Burger",
+		"Cabbage",
+		"ClangCola",
+		"CosmicCoffee",
+		"Emergency_Ration",
+		"EuropaTea",
+		"Fendom_Fries",
+		"Feines_Essen",
+		"Herbs",
+		"InterBeer",
+		"Kosmit_Kola",
+		"Medik_Vodka",
+		"Mushrooms",
+		"N1roos",
+		"Pickled_FatFlies",
+		"Potato",
+		"Pumpkin",
+		"Rabenswild",
+		"Rembrau",
+		"Sektans_Jednosladová",
+		"Sixdiced_Stew",
+		"Soya",
+		"SparklingWater",
+		"ShroomSteak",
+		"Tofu",
+		"Wheat"
 		};
 		
 	List<string> handWeaponAmmoItems = new List<string> {
-    		'ROCKETS',
-		'BULLRTS'
+    		"ROCKETS",
+		"BULLRTS"
 		};
 
         Vector2 right;
