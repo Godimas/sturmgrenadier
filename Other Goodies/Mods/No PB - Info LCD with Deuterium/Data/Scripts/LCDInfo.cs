@@ -86,9 +86,21 @@ namespace EconomySurvival.LCDInfo
 			"Tofu",
 			"Wheat"
 		};
-		
+
+		List<string> toolItems = new List<string> {
+    		"BinocularsItem",
+			"PhysicalPaintGun"
+		};
+	
 		List<string> handWeaponAmmoItems = new List<string> {
-    		"Bullet"
+			"NATO_5p56x45mm",
+			"Deagle-Mag",
+			"Ven_Flamer_HTP_Tank",
+			"Ven_40MM_Grenade_Box",
+			"Standardized7p62x51mm",
+			"Ven_5MM_Jacketed_Box",
+			"Ven_357_Jacketed_Box",
+			"M1014_Buckshots"
 		};
 
         Vector2 right;
@@ -205,7 +217,7 @@ namespace EconomySurvival.LCDInfo
                 foreach (var item in inventoryItems.OrderBy(i => i.Type.SubtypeId))
                 {
                     var type = item.Type.TypeId.Split('_')[1];
-					var subtypename = item.Type.SubtypeId.Split('_')[0];
+					var subtypename = item.Type.SubtypeId;
                     var name = item.Type.SubtypeId;
                     var amount = item.Amount.ToIntSafe();
                     var myType = new cargoItemType { item=item, amount=0 };
@@ -216,6 +228,20 @@ namespace EconomySurvival.LCDInfo
                             cargoFoods.Add(name, myType);
 
                         cargoFoods[name].amount += amount;
+                    }
+                    else if (subtypename.Contains("HandDrill") ^ subtypename.Contains("Welder") ^ subtypename.Contains("Grinder") ^ subtypename.Contains("FlareGrenade") ^ subtypename.Contains("DemoCharge") ^ toolItems.Contains(subtypename)) 
+                    {
+                        if (!cargoTools.ContainsKey(name))
+                            cargoTools.Add(name, myType);
+
+                        cargoTools[name].amount += amount;
+                    }
+                    else if (subtypename.Contains("AutomaticRifleGun") ^ subtypename.Contains("PistolMagazine") ^ handWeaponAmmoItems.Contains(subtypename))
+                    {
+                        if (!cargoHandWeaponAmmos.ContainsKey(name))
+                            cargoHandWeaponAmmos.Add(name, myType);
+
+                        cargoHandWeaponAmmos[name].amount += amount;
                     }
 					else if (type == "Ore")
                     {
@@ -231,20 +257,6 @@ namespace EconomySurvival.LCDInfo
 
                         cargoIngots[name].amount += amount;
                     }
-                    else if (type == "Component")
-                    {
-                        if (!cargoComponents.ContainsKey(name))
-                            cargoComponents.Add(name, myType);
-
-                        cargoComponents[name].amount += amount;
-                    }
-                    else if (subtypename.Contains("Missile") ^ handWeaponAmmoItems.Contains(subtypename))
-                    {
-                        if (!cargoHandWeaponAmmos.ContainsKey(name))
-                            cargoHandWeaponAmmos.Add(name, myType);
-
-                        cargoHandWeaponAmmos[name].amount += amount;
-                    }
                     else if (type == "AmmoMagazine")
                     {
                         if (!cargoAmmos.ContainsKey(name))
@@ -259,14 +271,7 @@ namespace EconomySurvival.LCDInfo
 
                         cargoBottles[name].amount += amount;
                     }
-                    else if (subtypename == "BinocularsItem" ^ subtypename == "PhysicalPaintGun" ^ subtypename.Contains("HandDrill") ^ subtypename.Contains("Welder") ^ subtypename.Contains("Grinder")) 
-                    {
-                        if (!cargoTools.ContainsKey(name))
-                            cargoTools.Add(name, myType);
-
-                        cargoTools[name].amount += amount;
-                    }
-                    else if (type == "PhysicalGunObject")
+                    else if (type == "PhysicalGunObject" ^ subtypename.Contains("Grenade"))
                     {
                         if (!cargoWeapons.ContainsKey(name))
                             cargoWeapons.Add(name, myType);
@@ -279,6 +284,13 @@ namespace EconomySurvival.LCDInfo
                             cargoConsumables.Add(name, myType);
 
                         cargoConsumables[name].amount += amount;
+                    }
+                    else if (type == "Component")
+                    {
+                        if (!cargoComponents.ContainsKey(name))
+                            cargoComponents.Add(name, myType);
+
+                        cargoComponents[name].amount += amount;
                     }
                     else
                     {
@@ -334,24 +346,24 @@ namespace EconomySurvival.LCDInfo
 
             if (config.Get("Settings", "VehicleAmmo").ToBoolean())
                 DrawAmmoSprite(ref myFrame, ref myPosition, mySurface);
-		
-			if (config.Get("Settings", "HandWeaponAmmo").ToBoolean())
-                DrawHandWeaponAmmoSprite(ref myFrame, ref myPosition, mySurface);
 				
             if (config.Get("Settings", "Bottles").ToBoolean())
                 DrawBottleSprite(ref myFrame, ref myPosition, mySurface);
-				
+			
+            if (config.Get("Settings", "Tools").ToBoolean())
+                DrawToolSprite(ref myFrame, ref myPosition, mySurface);
+			
             if (config.Get("Settings", "Hand Weapons").ToBoolean())
                 DrawWeaponSprite(ref myFrame, ref myPosition, mySurface);
+		
+			if (config.Get("Settings", "HandWeaponAmmo").ToBoolean())
+                DrawHandWeaponAmmoSprite(ref myFrame, ref myPosition, mySurface);
 				
             if (config.Get("Settings", "Consumables").ToBoolean())
                 DrawConsumableSprite(ref myFrame, ref myPosition, mySurface);
 				
             if (config.Get("Settings", "Food").ToBoolean())
                 DrawFoodSprite(ref myFrame, ref myPosition, mySurface);
-			
-            if (config.Get("Settings", "Tools").ToBoolean())
-                DrawToolSprite(ref myFrame, ref myPosition, mySurface);
 
             if (config.Get("Settings", "Miscellaneous Items").ToBoolean())
                 DrawItemsSprite(ref myFrame, ref myPosition, mySurface);
@@ -610,17 +622,23 @@ namespace EconomySurvival.LCDInfo
 
             position += newLine;
 
-            foreach (var item in cargoIngots)
-            {
-                MyDefinitionId.TryParse(item.Value.item.Type.TypeId, item.Value.item.Type.SubtypeId, out myDefinitionId);
+            
+	    var sortedKeys = cargoIngots.Keys.ToList();
+		sortedKeys.Sort();
+
+		foreach (var name in sortedKeys) {
+				var item = cargoIngots[name];
+
+                MyDefinitionId.TryParse(item.item.Type.TypeId, name, out myDefinitionId);
 
                 WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
-                WriteTextSprite(ref frame, KiloFormat(item.Value.amount), position + right, TextAlignment.RIGHT);
+                WriteTextSprite(ref frame, KiloFormat(item.amount), position + right, TextAlignment.RIGHT);
 
                 position += newLine;
             }
 			position += newLine;
         }
+
 
         void DrawComponentSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
@@ -628,17 +646,23 @@ namespace EconomySurvival.LCDInfo
 
             position += newLine;
 
-            foreach (var item in cargoComponents)
-            {
-                MyDefinitionId.TryParse(item.Value.item.Type.TypeId, item.Value.item.Type.SubtypeId, out myDefinitionId);
+            
+	    var sortedKeys = cargoComponents.Keys.ToList();
+		sortedKeys.Sort();
+
+		foreach (var name in sortedKeys) {
+				var item = cargoComponents[name];
+
+                MyDefinitionId.TryParse(item.item.Type.TypeId, name, out myDefinitionId);
 
                 WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
-                WriteTextSprite(ref frame, KiloFormat(item.Value.amount), position + right, TextAlignment.RIGHT);
+                WriteTextSprite(ref frame, KiloFormat(item.amount), position + right, TextAlignment.RIGHT);
 
                 position += newLine;
             }
 			position += newLine;
         }
+
 
         void DrawAmmoSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
@@ -646,30 +670,17 @@ namespace EconomySurvival.LCDInfo
 
             position += newLine;
 
-            foreach (var item in cargoAmmos)
-            {
-                MyDefinitionId.TryParse(item.Value.item.Type.TypeId, item.Value.item.Type.SubtypeId, out myDefinitionId);
+            
+	    var sortedKeys = cargoAmmos.Keys.ToList();
+		sortedKeys.Sort();
+
+		foreach (var name in sortedKeys) {
+				var item = cargoAmmos[name];
+
+                MyDefinitionId.TryParse(item.item.Type.TypeId, name, out myDefinitionId);
 
                 WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
-                WriteTextSprite(ref frame, KiloFormat(item.Value.amount), position + right, TextAlignment.RIGHT);
-
-                position += newLine;
-            }
-			position += newLine;
-        }
-	
-        void DrawHandWeaponAmmoSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
-        {
-            WriteTextSprite(ref frame, "[ HAND WEAPON AMMUNITION ]", position, TextAlignment.LEFT);
-
-            position += newLine;
-
-            foreach (var item in cargoHandWeaponAmmos)
-            {
-                MyDefinitionId.TryParse(item.Value.item.Type.TypeId, item.Value.item.Type.SubtypeId, out myDefinitionId);
-
-                WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
-                WriteTextSprite(ref frame, KiloFormat(item.Value.amount), position + right, TextAlignment.RIGHT);
+                WriteTextSprite(ref frame, KiloFormat(item.amount), position + right, TextAlignment.RIGHT);
 
                 position += newLine;
             }
@@ -682,12 +693,40 @@ namespace EconomySurvival.LCDInfo
 
             position += newLine;
 
-            foreach (var item in cargoBottles)
-            {
-                MyDefinitionId.TryParse(item.Value.item.Type.TypeId, item.Value.item.Type.SubtypeId, out myDefinitionId);
+            
+	    var sortedKeys = cargoBottles.Keys.ToList();
+		sortedKeys.Sort();
+
+		foreach (var name in sortedKeys) {
+				var item = cargoBottles[name];
+
+                MyDefinitionId.TryParse(item.item.Type.TypeId, name, out myDefinitionId);
 
                 WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
-                WriteTextSprite(ref frame, KiloFormat(item.Value.amount), position + right, TextAlignment.RIGHT);
+                WriteTextSprite(ref frame, KiloFormat(item.amount), position + right, TextAlignment.RIGHT);
+
+                position += newLine;
+            }
+			position += newLine;
+        }
+		
+        void DrawToolSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
+        {
+            WriteTextSprite(ref frame, "[ TOOLS ]", position, TextAlignment.LEFT);
+
+            position += newLine;
+
+            
+	    var sortedKeys = cargoTools.Keys.ToList();
+		sortedKeys.Sort();
+
+		foreach (var name in sortedKeys) {
+				var item = cargoTools[name];
+
+                MyDefinitionId.TryParse(item.item.Type.TypeId, name, out myDefinitionId);
+
+                WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
+                WriteTextSprite(ref frame, KiloFormat(item.amount), position + right, TextAlignment.RIGHT);
 
                 position += newLine;
             }
@@ -700,12 +739,40 @@ namespace EconomySurvival.LCDInfo
 
             position += newLine;
 
-            foreach (var item in cargoWeapons)
-            {
-                MyDefinitionId.TryParse(item.Value.item.Type.TypeId, item.Value.item.Type.SubtypeId, out myDefinitionId);
+            
+	    var sortedKeys = cargoWeapons.Keys.ToList();
+		sortedKeys.Sort();
+
+		foreach (var name in sortedKeys) {
+				var item = cargoWeapons[name];
+
+                MyDefinitionId.TryParse(item.item.Type.TypeId, name, out myDefinitionId);
 
                 WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
-                WriteTextSprite(ref frame, KiloFormat(item.Value.amount), position + right, TextAlignment.RIGHT);
+                WriteTextSprite(ref frame, KiloFormat(item.amount), position + right, TextAlignment.RIGHT);
+
+                position += newLine;
+            }
+			position += newLine;
+        }
+		
+        void DrawHandWeaponAmmoSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
+        {
+            WriteTextSprite(ref frame, "[ HAND WEAPON AMMUNITION ]", position, TextAlignment.LEFT);
+
+            position += newLine;
+
+            
+	    var sortedKeys = cargoHandWeaponAmmos.Keys.ToList();
+		sortedKeys.Sort();
+
+		foreach (var name in sortedKeys) {
+				var item = cargoHandWeaponAmmos[name];
+
+                MyDefinitionId.TryParse(item.item.Type.TypeId, name, out myDefinitionId);
+
+                WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
+                WriteTextSprite(ref frame, KiloFormat(item.amount), position + right, TextAlignment.RIGHT);
 
                 position += newLine;
             }
@@ -718,12 +785,17 @@ namespace EconomySurvival.LCDInfo
 
             position += newLine;
 
-            foreach (var item in cargoConsumables)
-            {
-                MyDefinitionId.TryParse(item.Value.item.Type.TypeId, item.Value.item.Type.SubtypeId, out myDefinitionId);
+            
+	    var sortedKeys = cargoConsumables.Keys.ToList();
+		sortedKeys.Sort();
+
+		foreach (var name in sortedKeys) {
+				var item = cargoConsumables[name];
+
+                MyDefinitionId.TryParse(item.item.Type.TypeId, name, out myDefinitionId);
 
                 WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
-                WriteTextSprite(ref frame, KiloFormat(item.Value.amount), position + right, TextAlignment.RIGHT);
+                WriteTextSprite(ref frame, KiloFormat(item.amount), position + right, TextAlignment.RIGHT);
 
                 position += newLine;
             }
@@ -736,30 +808,17 @@ namespace EconomySurvival.LCDInfo
 
             position += newLine;
 
-            foreach (var item in cargoFoods)
-            {
-                MyDefinitionId.TryParse(item.Value.item.Type.TypeId, item.Value.item.Type.SubtypeId, out myDefinitionId);
+            
+	    var sortedKeys = cargoFoods.Keys.ToList();
+		sortedKeys.Sort();
+
+		foreach (var name in sortedKeys) {
+				var item = cargoFoods[name];
+
+                MyDefinitionId.TryParse(item.item.Type.TypeId, name, out myDefinitionId);
 
                 WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
-                WriteTextSprite(ref frame, KiloFormat(item.Value.amount), position + right, TextAlignment.RIGHT);
-
-                position += newLine;
-            }
-			position += newLine;
-        }
-		
-        void DrawToolSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
-        {			
-            WriteTextSprite(ref frame, "[ TOOLS ]", position, TextAlignment.LEFT);
-
-            position += newLine;
-
-            foreach (var item in cargoTools)
-            {
-                MyDefinitionId.TryParse(item.Value.item.Type.TypeId, item.Value.item.Type.SubtypeId, out myDefinitionId);
-
-                WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
-                WriteTextSprite(ref frame, KiloFormat(item.Value.amount), position + right, TextAlignment.RIGHT);
+                WriteTextSprite(ref frame, KiloFormat(item.amount), position + right, TextAlignment.RIGHT);
 
                 position += newLine;
             }
@@ -772,12 +831,17 @@ namespace EconomySurvival.LCDInfo
 
             position += newLine;
 
-            foreach (var item in cargoItems)
-            {
-                MyDefinitionId.TryParse(item.Value.item.Type.TypeId, item.Value.item.Type.SubtypeId, out myDefinitionId);
+            
+	    var sortedKeys = cargoItems.Keys.ToList();
+		sortedKeys.Sort();
+
+		foreach (var name in sortedKeys) {
+				var item = cargoItems[name];
+
+                MyDefinitionId.TryParse(item.item.Type.TypeId, name, out myDefinitionId);
 
                 WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
-                WriteTextSprite(ref frame, KiloFormat(item.Value.amount), position + right, TextAlignment.RIGHT);
+                WriteTextSprite(ref frame, KiloFormat(item.amount), position + right, TextAlignment.RIGHT);
 
                 position += newLine;
             }
@@ -834,12 +898,12 @@ namespace EconomySurvival.LCDInfo
             config.Set("Settings", "Ingot", "false");
             config.Set("Settings", "Component", "false");
 			config.Set("Settings", "VehicleAmmo", "false");
-			config.Set("Settings", "HandWeaponAmmo", "false");
 			config.Set("Settings", "Bottles", "false");
+			config.Set("Settings", "Tools", "false");
 			config.Set("Settings", "Hand Weapons", "false");
+			config.Set("Settings", "HandWeaponAmmo", "false");
 			config.Set("Settings", "Consumables", "false");
 			config.Set("Settings", "Food", "false");
-			config.Set("Settings", "Tools", "false");
             config.Set("Settings", "Miscellaneous Items", "false");
 
             config.Invalidate();
