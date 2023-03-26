@@ -1,0 +1,30 @@
+@flareSequence{
+WC_Shoot of F9-B Flare Launcher 01-1 = True
+WC_Shoot of F9-B Flare Launcher 01-2 = True
+Delay 300
+WC_Shoot of F9-B Flare Launcher 02-1 = True
+WC_Shoot of F9-B Flare Launcher 02-2 = True
+Delay 300
+WC_Shoot of F9-B Flare Launcher 03-1 = True
+WC_Shoot of F9-B Flare Launcher 03-2 = True
+Delay 300
+WC_Shoot of F9-B Flare Launcher 04-1 = True
+WC_Shoot of F9-B Flare Launcher 04-2 = True
+Delay 300
+WC_Shoot of F9-B Flare Launcher 05-1 = True
+WC_Shoot of F9-B Flare Launcher 05-2 = True
+Delay 300
+WC_Shoot of F9-B Flare Launcher 06-1 = True
+WC_Shoot of F9-B Flare Launcher 06-2 = True
+Delay 300
+WC_Shoot of F9-B Flare Launcher 07-1 = True
+WC_Shoot of F9-B Flare Launcher 07-2 = True
+Delay 300
+WC_Shoot of F9-B Flare Launcher 08-1 = True
+WC_Shoot of F9-B Flare Launcher 08-2 = True
+Delay 300
+WC_Shoot of F9-B Flare Launcher 09-1 = True
+WC_Shoot of F9-B Flare Launcher 09-2 = True
+Delay 300
+WC_Shoot of (VA-Weapons Flares) = False
+}
