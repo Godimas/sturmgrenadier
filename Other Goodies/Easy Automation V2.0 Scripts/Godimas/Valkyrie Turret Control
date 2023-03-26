@@ -1,0 +1,38 @@
+@turretActivate{
+WriteNew to VA-Turret LCD = "TURRETS ACTIVATING"
+RotorLock of Rotor Turret Front = "False"
+RotorLock of Rotor Turret Rear = "False"
+HingeLock of Hinge Turret Front = "False"
+HingeLock of Hinge Turret Rear = "False"
+LowerLimit of Rotor Turret Front = -361
+LowerLimit of Rotor Turret Rear = -361
+UpperLimit of Rotor Turret Front = 361
+UpperLimit of Rotor Turret Rear = 361
+LowerLimit of HingeTurret Front = -90
+LowerLimit of Hinge Turret Rear = -90
+UpperLimit of Hinge Turret Front = 90
+UpperLimit of Hinge Turret Rear = 90
+Delay 1000
+WC_WCAiEnabled of VA-Custom Turret Controller Front = "True"
+WC_WCAiEnabled of VA-Custom Turret Controller Rear = "True"
+WriteNew to VA-Turret LCD = "TURRETS LIVE"
+}
+
+@turretDeactivate{
+WriteNew to VA-Turret LCD = "TURRETS LOCKING"
+WC_WCAiEnabled of VA-Custom Turret Controller Front = "False"
+WC_WCAiEnabled of VA-Custom Turret Controller Rear = "False"
+ShortRotate Rotor Turret Front to 0 at 10
+ShortRotate Rotor Turret Rear to 175 at 10
+Delay 1500
+RotorLock of Rotor Turret Front = "True"
+RotorLock of Rotor Turret Rear = "True"
+Rotate Hinge Turret Front to 80 at 10
+Rotate Hinge Turret Rear to -90 at 10
+Delay 1500
+Velocity of Rotor Turret Front = 0
+Velocity of Rotor Turret Rear = 0
+HingeLock of Hinge Turret Front = "True"
+HingeLock of Hinge Turret Rear = "True"
+WriteNew to VA-Turret LCD = "TURRETS SAFE"
+}
