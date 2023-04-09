@@ -1,4 +1,19 @@
   <Mods>
+    <ModItem FriendlyName=" ">
+      <Name>473571246.sbm</Name>
+      <PublishedFileId>473571246</PublishedFileId>
+      <PublishedServiceName>Steam</PublishedServiceName>
+    </ModItem>
+    <ModItem FriendlyName=" ">
+      <Name>2825470671.sbm</Name>
+      <PublishedFileId>2825470671</PublishedFileId>
+      <PublishedServiceName>Steam</PublishedServiceName>
+    </ModItem>
+    <ModItem FriendlyName=" ">
+      <Name>2745706747.sbm</Name>
+      <PublishedFileId>2745706747</PublishedFileId>
+      <PublishedServiceName>Steam</PublishedServiceName>
+    </ModItem>
     <ModItem FriendlyName="Store Block - Create your own Trade Station">
       <Name>2494377866.sbm</Name>
       <PublishedFileId>2494377866</PublishedFileId>
@@ -99,9 +114,9 @@
       <PublishedFileId>2839553181</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
-    <ModItem FriendlyName="no PB - Info LCD">
-      <Name>2608746450.sbm</Name>
-      <PublishedFileId>2608746450</PublishedFileId>
+    <ModItem FriendlyName="No PB - Info LCD with Deuterium">
+      <Name>2948419767.sbm</Name>
+      <PublishedFileId>2948419767</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
     <ModItem FriendlyName="(AR) Windows Wall">
