@@ -326,8 +326,17 @@ namespace EconomySurvival.LCDInfo
             if (config.Get("Settings", "FusionReactor").ToBoolean())
                 DrawFusionReactorSprite(ref myFrame, ref myPosition, mySurface);
 
-            if (config.Get("Settings", "Tanks").ToBoolean())
+            if (config.Get("Settings", "AllTanks").ToBoolean())
                 DrawTanksSprite(ref myFrame, ref myPosition, mySurface);
+			
+            if (config.Get("Settings", "HydrogenTanks").ToBoolean())
+                DrawHydrogenTanksSprite(ref myFrame, ref myPosition, mySurface);
+			
+            if (config.Get("Settings", "OxygenTanks").ToBoolean())
+                DrawOxygenTanksSprite(ref myFrame, ref myPosition, mySurface);
+			
+            if (config.Get("Settings", "DeuteriumTanks").ToBoolean())
+                DrawDeuteriumTanksSprite(ref myFrame, ref myPosition, mySurface);
 
             if (config.Get("Settings", "Solar").ToBoolean())
                 DrawSolarPanelSprite(ref myFrame, ref myPosition, mySurface);
@@ -532,6 +541,72 @@ namespace EconomySurvival.LCDInfo
 
             position += newLine;
 			
+            WriteTextSprite(ref frame, "[ DEUTERIUM TANKS ]", position, TextAlignment.LEFT);
+
+            position += newLine;
+
+            WriteTextSprite(ref frame, "Current:", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, currentDeuterium.ToString("#0.00") + " %", position + right, TextAlignment.RIGHT);
+
+            position += newLine;
+
+            WriteTextSprite(ref frame, "Total:", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, KiloFormat((int)totalDeuterium), position + right, TextAlignment.RIGHT);
+
+            position += newLine + newLine;;
+        }
+		
+		void DrawHydrogenTanksSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
+        {
+            var hydrogenTanks = tanks.Where(block => block.BlockDefinition.SubtypeName.Contains("Hydrogen"));
+
+            var currentHydrogen = hydrogenTanks.Count() == 0 ? 0 : hydrogenTanks.Average(block => block.FilledRatio * 100);
+            var totalHydrogen = hydrogenTanks.Count() == 0 ? 0 : hydrogenTanks.Sum(block => block.Capacity);
+
+            WriteTextSprite(ref frame, "[ HYDROGEN TANKS ]", position, TextAlignment.LEFT);
+
+            position += newLine;
+
+            WriteTextSprite(ref frame, "Current:", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, currentHydrogen.ToString("#0.00") + " %", position + right, TextAlignment.RIGHT);
+
+            position += newLine;
+
+            WriteTextSprite(ref frame, "Total:", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, KiloFormat((int)totalHydrogen), position + right, TextAlignment.RIGHT);
+
+            position += newLine + newLine;;
+        }
+		
+		void DrawOxygenTanksSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
+        {
+            var oxygenTanks = tanks.Where(block => ((!block.BlockDefinition.SubtypeName.Contains("Hydrogen")) && (!block.BlockDefinition.SubtypeName.Contains("Deuterium"))));
+
+            var currentOxygen = oxygenTanks.Count() == 0 ? 0 : oxygenTanks.Average(block => block.FilledRatio * 100);
+            var totalOxygen = oxygenTanks.Count() == 0 ? 0 : oxygenTanks.Sum(block => block.Capacity);
+
+            WriteTextSprite(ref frame, "[ OXYGEN TANKS ]", position, TextAlignment.LEFT);
+
+            position += newLine;
+
+            WriteTextSprite(ref frame, "Current:", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, currentOxygen.ToString("#0.00") + " %", position + right, TextAlignment.RIGHT);
+
+            position += newLine;
+
+            WriteTextSprite(ref frame, "Total:", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, KiloFormat((int)totalOxygen), position + right, TextAlignment.RIGHT);
+
+            position += newLine + newLine;;
+        }
+		
+		void DrawDeuteriumTanksSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
+        {
+            var deuteriumTanks = tanks.Where(block => block.BlockDefinition.SubtypeName.Contains("Deuterium"));
+
+            var currentDeuterium = deuteriumTanks.Count() == 0 ? 0 : deuteriumTanks.Average(block => block.FilledRatio * 100);
+            var totalDeuterium = deuteriumTanks.Count() == 0 ? 0 : deuteriumTanks.Sum(block => block.Capacity);
+
             WriteTextSprite(ref frame, "[ DEUTERIUM TANKS ]", position, TextAlignment.LEFT);
 
             position += newLine;
@@ -891,7 +966,10 @@ namespace EconomySurvival.LCDInfo
             config.Set("Settings", "HydrogenEngine", "false");
             config.Set("Settings", "FuelCell", "false");
             config.Set("Settings", "FusionReactor", "false");
-            config.Set("Settings", "Tanks", "false");
+            config.Set("Settings", "AllTanks", "false");
+            config.Set("Settings", "HydrogenTanks", "false");
+            config.Set("Settings", "OxygenTanks", "false");
+            config.Set("Settings", "DeuteriumTanks", "false");
             config.Set("Settings", "Solar", "false");
             config.Set("Settings", "NuclearReactor", "false");
             config.Set("Settings", "Ore", "false");
