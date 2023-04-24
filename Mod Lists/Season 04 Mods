@@ -579,6 +579,11 @@
       <IsDependency>true</IsDependency>
     </ModItem>
     <ModItem FriendlyName=" ">
+      <Name>445996030.sbm</Name>
+      <PublishedFileId>445996030</PublishedFileId>
+      <PublishedServiceName>Steam</PublishedServiceName>
+    </ModItem>
+    <ModItem FriendlyName=" ">
       <Name>2966429095.sbm</Name>
       <PublishedFileId>2966429095</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
