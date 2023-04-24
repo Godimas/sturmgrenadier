@@ -334,11 +334,6 @@
       <PublishedFileId>1668945384</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
-    <ModItem FriendlyName="MA Spotlight pack">
-      <Name>1881158066.sbm</Name>
-      <PublishedFileId>1881158066</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-    </ModItem>
     <ModItem FriendlyName="MA Plasma Reactor">
       <Name>2847666099.sbm</Name>
       <PublishedFileId>2847666099</PublishedFileId>
@@ -407,11 +402,6 @@
     <ModItem FriendlyName="Helicarrier Thruster">
       <Name>2783945320.sbm</Name>
       <PublishedFileId>2783945320</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-    </ModItem>
-    <ModItem FriendlyName="Heavy Mega Drill">
-      <Name>1575728288.sbm</Name>
-      <PublishedFileId>1575728288</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
     <ModItem FriendlyName="Hacking Computer 3.0 - Works in Warfare 2 Update">
@@ -504,11 +494,6 @@
       <PublishedFileId>1935562523</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
-    <ModItem FriendlyName="Akiad Development - Heavy Ship Tools">
-      <Name>2418281255.sbm</Name>
-      <PublishedFileId>2418281255</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-    </ModItem>
     <ModItem FriendlyName="AE NPC Dummies - Interactable NPC Blocks v. 0.6">
       <Name>2289675817.sbm</Name>
       <PublishedFileId>2289675817</PublishedFileId>
@@ -592,6 +577,11 @@
       <PublishedFileId>517675282</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
       <IsDependency>true</IsDependency>
+    </ModItem>
+    <ModItem FriendlyName=" ">
+      <Name>2966429095.sbm</Name>
+      <PublishedFileId>2966429095</PublishedFileId>
+      <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
     <ModItem FriendlyName="Robot Raider Pods">
       <Name>2598691307.sbm</Name>
