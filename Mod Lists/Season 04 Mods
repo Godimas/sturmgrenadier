@@ -1,4 +1,19 @@
   <Mods>
+    <ModItem FriendlyName="Clean Assembler Tab">
+      <Name>2115568523.sbm</Name>
+      <PublishedFileId>2115568523</PublishedFileId>
+      <PublishedServiceName>Steam</PublishedServiceName>
+    </ModItem>
+	    <ModItem FriendlyName="Autofill Bottles">
+      <Name>2308085590.sbm</Name>
+      <PublishedFileId>2308085590</PublishedFileId>
+      <PublishedServiceName>Steam</PublishedServiceName>
+    </ModItem>
+	    <ModItem FriendlyName="[QoL] Production Quota">
+      <Name>2304715504.sbm</Name>
+      <PublishedFileId>2304715504</PublishedFileId>
+      <PublishedServiceName>Steam</PublishedServiceName>
+    </ModItem>
     <ModItem FriendlyName="TBH - Compressed Ores">
       <Name>2825470671.sbm</Name>
       <PublishedFileId>2825470671</PublishedFileId>
@@ -67,11 +82,6 @@
     <ModItem FriendlyName="Blast Door Sections Retextured">
       <Name>1574837911.sbm</Name>
       <PublishedFileId>1574837911</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-    </ModItem>
-    <ModItem FriendlyName="Survival Subgrid Projection">
-      <Name>2348106533.sbm</Name>
-      <PublishedFileId>2348106533</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
     <ModItem FriendlyName="Admin Blocks">
@@ -167,11 +177,6 @@
     <ModItem FriendlyName="[VSI] Recolorable Thrusters">
       <Name>1354870812.sbm</Name>
       <PublishedFileId>1354870812</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-    </ModItem>
-    <ModItem FriendlyName="[QoL] Production Quota">
-      <Name>2304715504.sbm</Name>
-      <PublishedFileId>2304715504</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
     <ModItem FriendlyName="[Mexpex] MWI - Homing Weaponry (24)">
@@ -444,11 +449,6 @@
       <PublishedFileId>1365616918</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
-    <ModItem FriendlyName="Clean Assembler Tab">
-      <Name>2115568523.sbm</Name>
-      <PublishedFileId>2115568523</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-    </ModItem>
     <ModItem FriendlyName="Camera Panning - rotate camera view (+reset 1st person character view)">
       <Name>806331071.sbm</Name>
       <PublishedFileId>806331071</PublishedFileId>
@@ -671,11 +671,6 @@
     <ModItem FriendlyName="Life'Tech-Algaetechnology (Eng/De/Es)">
       <Name>2647915310.sbm</Name>
       <PublishedFileId>2647915310</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-    </ModItem>
-    <ModItem FriendlyName="Autofill Bottles">
-      <Name>2308085590.sbm</Name>
-      <PublishedFileId>2308085590</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
     <ModItem FriendlyName="WeaponCore - 2.4">
