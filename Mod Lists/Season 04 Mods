@@ -4,7 +4,7 @@
       <PublishedFileId>2115568523</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
-    <ModItem FriendlyName=" ">
+    <ModItem FriendlyName="Unofficial Autofill Bottles - Mod Compatible">
       <Name>2965129461.sbm</Name>
       <PublishedFileId>2965129461</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
@@ -499,7 +499,7 @@
       <PublishedFileId>2289675817</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
-    <ModItem FriendlyName=" ">
+    <ModItem FriendlyName="Ancient Astronauts">
       <Name>2900367540.sbm</Name>
       <PublishedFileId>2900367540</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
@@ -578,12 +578,12 @@
       <PublishedServiceName>Steam</PublishedServiceName>
       <IsDependency>true</IsDependency>
     </ModItem>
-    <ModItem FriendlyName=" ">
+    <ModItem FriendlyName="Independent Contractors (Formerly Reddit Custom Encounters)">
       <Name>445996030.sbm</Name>
       <PublishedFileId>445996030</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
-    <ModItem FriendlyName=" ">
+    <ModItem FriendlyName="Trade Operators Coalition">
       <Name>2966429095.sbm</Name>
       <PublishedFileId>2966429095</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
