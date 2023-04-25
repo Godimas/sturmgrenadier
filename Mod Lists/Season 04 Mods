@@ -1,9 +1,4 @@
   <Mods>
-    <ModItem FriendlyName="AdvancedFlyModule2.0">
-      <Name>2049208780.sbm</Name>
-      <PublishedFileId>2049208780</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-    </ModItem>
     <ModItem FriendlyName="Skimt's Grid Power Chart">
       <Name>2506025638.sbm</Name>
       <PublishedFileId>2506025638</PublishedFileId>
