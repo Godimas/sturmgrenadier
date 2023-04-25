@@ -1,4 +1,24 @@
   <Mods>
+    <ModItem FriendlyName="AdvancedFlyModule2.0">
+      <Name>2049208780.sbm</Name>
+      <PublishedFileId>2049208780</PublishedFileId>
+      <PublishedServiceName>Steam</PublishedServiceName>
+    </ModItem>
+    <ModItem FriendlyName="Skimt's Grid Power Chart">
+      <Name>2506025638.sbm</Name>
+      <PublishedFileId>2506025638</PublishedFileId>
+      <PublishedServiceName>Steam</PublishedServiceName>
+    </ModItem>
+    <ModItem FriendlyName="Mod List Builder">
+      <Name>1301466607.sbm</Name>
+      <PublishedFileId>1301466607</PublishedFileId>
+      <PublishedServiceName>Steam</PublishedServiceName>
+    </ModItem>
+    <ModItem FriendlyName="Spacebar Cockpit Emporium">
+      <Name>2394666287.sbm</Name>
+      <PublishedFileId>2394666287</PublishedFileId>
+      <PublishedServiceName>Steam</PublishedServiceName>
+    </ModItem>
     <ModItem FriendlyName="Clean Assembler Tab">
       <Name>2115568523.sbm</Name>
       <PublishedFileId>2115568523</PublishedFileId>
@@ -64,19 +84,9 @@
       <PublishedFileId>577079238</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
-    <ModItem FriendlyName="AdvancedFlyModule2.0">
-      <Name>2049208780.sbm</Name>
-      <PublishedFileId>2049208780</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-    </ModItem>
     <ModItem FriendlyName="Control Module - basically key binding for ships">
       <Name>655948251.sbm</Name>
       <PublishedFileId>655948251</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-    </ModItem>
-    <ModItem FriendlyName="Mod List Builder">
-      <Name>1301466607.sbm</Name>
-      <PublishedFileId>1301466607</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
     <ModItem FriendlyName="Blast Door Sections Retextured">
@@ -144,11 +154,6 @@
       <PublishedFileId>2295080850</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
-    <ModItem FriendlyName="Skimt's Grid Power Chart">
-      <Name>2506025638.sbm</Name>
-      <PublishedFileId>2506025638</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-    </ModItem>
     <ModItem FriendlyName="Display Cases">
       <Name>2799659022.sbm</Name>
       <PublishedFileId>2799659022</PublishedFileId>
@@ -212,11 +217,6 @@
     <ModItem FriendlyName="Sturmgrenadier Logos">
       <Name>2799678177.sbm</Name>
       <PublishedFileId>2799678177</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-    </ModItem>
-    <ModItem FriendlyName="Spacebar Cockpit Emporium">
-      <Name>2394666287.sbm</Name>
-      <PublishedFileId>2394666287</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
     <ModItem FriendlyName="SmartRotors: Solar">
@@ -554,30 +554,6 @@
       <PublishedFileId>1902970975</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
-    <ModItem FriendlyName="Bring Back Cyberhounds">
-      <Name>945655546.sbm</Name>
-      <PublishedFileId>945655546</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-      <IsDependency>true</IsDependency>
-    </ModItem>
-    <ModItem FriendlyName="Shower Light">
-      <Name>2841920953.sbm</Name>
-      <PublishedFileId>2841920953</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-      <IsDependency>true</IsDependency>
-    </ModItem>
-    <ModItem FriendlyName="Assertive Loot">
-      <Name>2391318591.sbm</Name>
-      <PublishedFileId>2391318591</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-      <IsDependency>true</IsDependency>
-    </ModItem>
-    <ModItem FriendlyName="Projector Preview - miniature blueprint display + damage status">
-      <Name>517675282.sbm</Name>
-      <PublishedFileId>517675282</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-      <IsDependency>true</IsDependency>
-    </ModItem>
     <ModItem FriendlyName="Independent Contractors (Formerly Reddit Custom Encounters)">
       <Name>445996030.sbm</Name>
       <PublishedFileId>445996030</PublishedFileId>
@@ -726,6 +702,30 @@
     <ModItem FriendlyName="Definition Extension API">
       <Name>2756894170.sbm</Name>
       <PublishedFileId>2756894170</PublishedFileId>
+      <PublishedServiceName>Steam</PublishedServiceName>
+      <IsDependency>true</IsDependency>
+    </ModItem>
+    <ModItem FriendlyName="Bring Back Cyberhounds">
+      <Name>945655546.sbm</Name>
+      <PublishedFileId>945655546</PublishedFileId>
+      <PublishedServiceName>Steam</PublishedServiceName>
+      <IsDependency>true</IsDependency>
+    </ModItem>
+    <ModItem FriendlyName="Shower Light">
+      <Name>2841920953.sbm</Name>
+      <PublishedFileId>2841920953</PublishedFileId>
+      <PublishedServiceName>Steam</PublishedServiceName>
+      <IsDependency>true</IsDependency>
+    </ModItem>
+    <ModItem FriendlyName="Assertive Loot">
+      <Name>2391318591.sbm</Name>
+      <PublishedFileId>2391318591</PublishedFileId>
+      <PublishedServiceName>Steam</PublishedServiceName>
+      <IsDependency>true</IsDependency>
+    </ModItem>
+    <ModItem FriendlyName="Projector Preview - miniature blueprint display + damage status">
+      <Name>517675282.sbm</Name>
+      <PublishedFileId>517675282</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
       <IsDependency>true</IsDependency>
     </ModItem>
