@@ -1,4 +1,4 @@
-﻿using Sandbox.Definitions;
+using Sandbox.Definitions;
 using Sandbox.Game.Entities;
 using Sandbox.Game.EntityComponents;
 using Sandbox.Game.GameSystems.TextSurfaceScripts;
@@ -10,6 +10,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VRage.Game;
+using VRage.Game.Components;
+using VRage.Game.Entity;
 using VRage.Game.GUI.TextPanel;
 using VRage.Game.ModAPI;
 using VRage.Game.ModAPI.Ingame.Utilities;
@@ -18,6 +20,32 @@ using VRageMath;
 
 namespace EconomySurvival.LCDInfo
 {
+    /*[MySessionComponentDescriptor(MyUpdateOrder.BeforeSimulation, 999999)]
+    public class Session : MySessionComponentBase
+    {
+        var entity = Session.Player.Controller.ControlledEntity as MyCubeBlock;
+         if (entity != null) {
+			var controlledGrid = entity.CubeGrid;
+            int padLen = 0;
+            List<IMyCubeBlock> damaged = new List<IMyCubeBlock>();
+            foreach (IMyCubeBlock cube in controlledGrid.GetFatBlocks())
+            {
+                if(!cube.SlimBlock.IsFullIntegrity)
+                {
+                    damaged.Add(cube);
+                    if (cube.DisplayNameText.Length > padLen)
+                    padLen = cube.DisplayNameText.Length;
+                }
+            }
+            if (damaged.Count > 0)
+            {   
+				WriteTextSprite(ref frame, "Damaged Blocks (% integrity lost)", position, TextAlignment.LEFT);
+                foreach (var x in damaged)
+                 WriteTextSprite(ref frame,x.DisplayNameText.PadRight(padLen + 15, '.') + (int)(100 - x.SlimBlock.Integrity / x.SlimBlock.MaxIntegrity * 100) + "%" + (x.IsFunctional ? "" : "  -  *Non Functional*")+ "\n", position, TextAlignment.LEFT);
+            }
+		}
+    }*/
+
     class cargoItemType
     {
         public VRage.Game.ModAPI.Ingame.MyInventoryItem item;
@@ -57,39 +85,40 @@ namespace EconomySurvival.LCDInfo
         Dictionary<string, cargoItemType> cargoItems = new Dictionary<string, cargoItemType>();
 
 		List<string> foodItems = new List<string> {
-    		"Bits's",
-    		"Bread",
-    		"Burger",
-			"Cabbage",
-			"ClangCola",
-			"CosmicCoffee",
-			"Emergency_Ration",
-			"EuropaTea",
-			"Fendom_Fries",
-			"Feines_Essen",
-			"Herbs",
-			"InterBeer",
+    		"SparklingWater",
+    		"ClangCola",
 			"Kosmit_Kola",
-			"Medik_Vodka",
-			"Mushrooms",
-			"N1roos",
-			"Pickled_FatFlies",
-			"Potato",
-			"Pumpkin",
-			"Rabenswild",
+			"CosmicCoffee",
+			"EuropaTea",
 			"Rembrau",
+			"Rabenswild",
 			"Sektans_Jednosladová",
-			"Sixdiced_Stew",
-			"Soya",
-			"SparklingWater",
+			"InterBeer",
+			"Medik_Vodka",
+            "Emergency_Ration",
+			"N1roos",
+            "Fendom_Fries",
+            "Pickled_FatFlies",
+			"Feines_Essen",
+            "Bits's",
+            "Sixdiced_Stew",
+            "Burger",
 			"ShroomSteak",
+            "Bread",
+            "Potato",
+            "Cabbage",
+            "Herbs",
+            "Mushrooms",
+            "Pumpkin",
+            "Soya",
 			"Tofu",
 			"Wheat"
 		};
 
 		List<string> toolItems = new List<string> {
     		"BinocularsItem",
-			"PhysicalPaintGun"
+			"PhysicalPaintGun",
+            "PaintGunMag"
 		};
 	
 		List<string> handWeaponAmmoItems = new List<string> {
@@ -311,71 +340,74 @@ namespace EconomySurvival.LCDInfo
             newLine = new Vector2(0, 30 * textSize);
             myDefinitions = MyDefinitionManager.Static.GetAllDefinitions();
 
-            if (config.Get("Settings", "Battery").ToBoolean())
+            if (config.Get(" POWER ", "Battery").ToBoolean())
                 DrawBatterySprite(ref myFrame, ref myPosition, mySurface);
 
-            if (config.Get("Settings", "WindTurbine").ToBoolean())
+            if (config.Get(" POWER ", "Wind Turbine").ToBoolean())
                 DrawWindTurbineSprite(ref myFrame, ref myPosition, mySurface);
 
-            if (config.Get("Settings", "HydrogenEngine").ToBoolean())
+            if (config.Get(" POWER ", "Hydrogen Engine").ToBoolean())
                 DrawHydrogenEngineSprite(ref myFrame, ref myPosition, mySurface);
 				
-            if (config.Get("Settings", "FuelCell").ToBoolean())
+            if (config.Get(" POWER ", "Fuel Cell").ToBoolean())
                 DrawFuelCellSprite(ref myFrame, ref myPosition, mySurface);
 			
-            if (config.Get("Settings", "FusionReactor").ToBoolean())
+            if (config.Get(" POWER ", "Fusion Reactor").ToBoolean())
                 DrawFusionReactorSprite(ref myFrame, ref myPosition, mySurface);
-
-            if (config.Get("Settings", "AllTanks").ToBoolean())
-                DrawTanksSprite(ref myFrame, ref myPosition, mySurface);
-			
-            if (config.Get("Settings", "HydrogenTanks").ToBoolean())
-                DrawHydrogenTanksSprite(ref myFrame, ref myPosition, mySurface);
-			
-            if (config.Get("Settings", "OxygenTanks").ToBoolean())
-                DrawOxygenTanksSprite(ref myFrame, ref myPosition, mySurface);
-			
-            if (config.Get("Settings", "DeuteriumTanks").ToBoolean())
-                DrawDeuteriumTanksSprite(ref myFrame, ref myPosition, mySurface);
-
-            if (config.Get("Settings", "Solar").ToBoolean())
+                
+            if (config.Get(" POWER ", "Solar").ToBoolean())
                 DrawSolarPanelSprite(ref myFrame, ref myPosition, mySurface);
 
-            if (config.Get("Settings", "NuclearReactor").ToBoolean())
+            if (config.Get(" POWER ", "Nuclear Reactor").ToBoolean())
                 DrawReactorSprite(ref myFrame, ref myPosition, mySurface);
 
-            if (config.Get("Settings", "Ore").ToBoolean())
+            if (config.Get(" TANKS ", "All Tanks").ToBoolean())
+                DrawTanksSprite(ref myFrame, ref myPosition, mySurface);
+			
+            if (config.Get(" TANKS ", "Hydrogen Tanks").ToBoolean())
+                DrawHydrogenTanksSprite(ref myFrame, ref myPosition, mySurface);
+			
+            if (config.Get(" TANKS ", "Oxygen Tanks").ToBoolean())
+                DrawOxygenTanksSprite(ref myFrame, ref myPosition, mySurface);
+			
+            if (config.Get(" TANKS ", "Deuterium Tanks").ToBoolean())
+                DrawDeuteriumTanksSprite(ref myFrame, ref myPosition, mySurface);
+
+            if (config.Get(" MATERIALS ", "Ore").ToBoolean())
                 DrawOreSprite(ref myFrame, ref myPosition, mySurface);
 
-            if (config.Get("Settings", "Ingot").ToBoolean())
+            if (config.Get(" MATERIALS ", "Ingot").ToBoolean())
                 DrawIngotSprite(ref myFrame, ref myPosition, mySurface);
 
-            if (config.Get("Settings", "Component").ToBoolean())
+            if (config.Get(" MATERIALS ", "Component").ToBoolean())
                 DrawComponentSprite(ref myFrame, ref myPosition, mySurface);
 
-            if (config.Get("Settings", "VehicleAmmo").ToBoolean())
-                DrawAmmoSprite(ref myFrame, ref myPosition, mySurface);
-				
-            if (config.Get("Settings", "Bottles").ToBoolean())
+            if (config.Get(" ITEMS ", "Bottles").ToBoolean())
                 DrawBottleSprite(ref myFrame, ref myPosition, mySurface);
-			
-            if (config.Get("Settings", "Tools").ToBoolean())
+
+            if (config.Get(" ITEMS ", "Tools").ToBoolean())
                 DrawToolSprite(ref myFrame, ref myPosition, mySurface);
+
+            if (config.Get(" ITEMS ", "Vehicle Ammo").ToBoolean())
+                DrawAmmoSprite(ref myFrame, ref myPosition, mySurface);
 			
-            if (config.Get("Settings", "Hand Weapons").ToBoolean())
+            if (config.Get(" ITEMS ", "Hand Weapons").ToBoolean())
                 DrawWeaponSprite(ref myFrame, ref myPosition, mySurface);
 		
-			if (config.Get("Settings", "HandWeaponAmmo").ToBoolean())
+			if (config.Get(" ITEMS ", "Hand Weapon Ammo").ToBoolean())
                 DrawHandWeaponAmmoSprite(ref myFrame, ref myPosition, mySurface);
 				
-            if (config.Get("Settings", "Consumables").ToBoolean())
+            if (config.Get(" ITEMS ", "Consumables").ToBoolean())
                 DrawConsumableSprite(ref myFrame, ref myPosition, mySurface);
 				
-            if (config.Get("Settings", "Food").ToBoolean())
+            if (config.Get(" ITEMS ", "Food").ToBoolean())
                 DrawFoodSprite(ref myFrame, ref myPosition, mySurface);
 
-            if (config.Get("Settings", "Miscellaneous Items").ToBoolean())
+            if (config.Get(" ITEMS ", "Miscellaneous Items").ToBoolean())
                 DrawItemsSprite(ref myFrame, ref myPosition, mySurface);
+			
+            /*if (config.Get("Settings", "Damage Report").ToBoolean())
+                DrawDamageSprite(ref myFrame, ref myPosition, mySurface);*/
 
             myFrame.Dispose();
         }
@@ -484,6 +516,52 @@ namespace EconomySurvival.LCDInfo
             var total = fusionReactors.Sum(block => block.MaxOutput);
 
             WriteTextSprite(ref frame, "[ FUSION REACTORS ]", position, TextAlignment.LEFT);
+
+            position += newLine;
+
+            WriteTextSprite(ref frame, "Current Output:", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, current.ToString("#0.00") + " MW", position + right, TextAlignment.RIGHT);
+
+            position += newLine;
+
+            WriteTextSprite(ref frame, "Max Output:", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, total.ToString("#0.00") + " MW", position + right, TextAlignment.RIGHT);
+
+            position += newLine + newLine;
+        }
+
+        void DrawSolarPanelSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
+        {
+            var current = solarPanels.Sum(block => block.CurrentOutput);
+            var currentMax = solarPanels.Sum(block => block.MaxOutput);
+            var total = solarPanels.Sum(block => block.Components.Get<MyResourceSourceComponent>().DefinedOutput);
+
+            WriteTextSprite(ref frame, "[ SOLAR PANELS ]", position, TextAlignment.LEFT);
+
+            position += newLine;
+
+            WriteTextSprite(ref frame, "Current Output:", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, current.ToString("#0.00") + " MW", position + right, TextAlignment.RIGHT);
+
+            position += newLine;
+
+            WriteTextSprite(ref frame, "Current Max Output:", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, currentMax.ToString("#0.00") + " MW", position + right, TextAlignment.RIGHT);
+
+            position += newLine;
+
+            WriteTextSprite(ref frame, "Total Max Output:", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, total.ToString("#0.00") + " MW", position + right, TextAlignment.RIGHT);
+
+            position += newLine + newLine;
+        }
+
+        void DrawReactorSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
+        {
+            var current = reactors.Sum(block => block.CurrentOutput);
+            var total = reactors.Sum(block => block.MaxOutput);
+
+            WriteTextSprite(ref frame, "[ NUCLEAR REACTORS ]", position, TextAlignment.LEFT);
 
             position += newLine;
 
@@ -622,52 +700,6 @@ namespace EconomySurvival.LCDInfo
             position += newLine + newLine;;
         }
 
-        void DrawSolarPanelSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
-        {
-            var current = solarPanels.Sum(block => block.CurrentOutput);
-            var currentMax = solarPanels.Sum(block => block.MaxOutput);
-            var total = solarPanels.Sum(block => block.Components.Get<MyResourceSourceComponent>().DefinedOutput);
-
-            WriteTextSprite(ref frame, "[ SOLAR PANELS ]", position, TextAlignment.LEFT);
-
-            position += newLine;
-
-            WriteTextSprite(ref frame, "Current Output:", position, TextAlignment.LEFT);
-            WriteTextSprite(ref frame, current.ToString("#0.00") + " MW", position + right, TextAlignment.RIGHT);
-
-            position += newLine;
-
-            WriteTextSprite(ref frame, "Current Max Output:", position, TextAlignment.LEFT);
-            WriteTextSprite(ref frame, currentMax.ToString("#0.00") + " MW", position + right, TextAlignment.RIGHT);
-
-            position += newLine;
-
-            WriteTextSprite(ref frame, "Total Max Output:", position, TextAlignment.LEFT);
-            WriteTextSprite(ref frame, total.ToString("#0.00") + " MW", position + right, TextAlignment.RIGHT);
-
-            position += newLine + newLine;
-        }
-
-        void DrawReactorSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
-        {
-            var current = reactors.Sum(block => block.CurrentOutput);
-            var total = reactors.Sum(block => block.MaxOutput);
-
-            WriteTextSprite(ref frame, "[ NUCLEAR REACTORS ]", position, TextAlignment.LEFT);
-
-            position += newLine;
-
-            WriteTextSprite(ref frame, "Current Output:", position, TextAlignment.LEFT);
-            WriteTextSprite(ref frame, current.ToString("#0.00") + " MW", position + right, TextAlignment.RIGHT);
-
-            position += newLine;
-
-            WriteTextSprite(ref frame, "Max Output:", position, TextAlignment.LEFT);
-            WriteTextSprite(ref frame, total.ToString("#0.00") + " MW", position + right, TextAlignment.RIGHT);
-
-            position += newLine + newLine;
-        }
-
         void DrawOreSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
             WriteTextSprite(ref frame, "[ ORES ]", position, TextAlignment.LEFT);
@@ -738,30 +770,6 @@ namespace EconomySurvival.LCDInfo
 			position += newLine;
         }
 
-
-        void DrawAmmoSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
-        {
-            WriteTextSprite(ref frame, "[ VEHICLE AMMUNITION ]", position, TextAlignment.LEFT);
-
-            position += newLine;
-
-            
-	    var sortedKeys = cargoAmmos.Keys.ToList();
-		sortedKeys.Sort();
-
-		foreach (var name in sortedKeys) {
-				var item = cargoAmmos[name];
-
-                MyDefinitionId.TryParse(item.item.Type.TypeId, name, out myDefinitionId);
-
-                WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
-                WriteTextSprite(ref frame, KiloFormat(item.amount), position + right, TextAlignment.RIGHT);
-
-                position += newLine;
-            }
-			position += newLine;
-        }
-		
         void DrawBottleSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
             WriteTextSprite(ref frame, "[ BOTTLES ]", position, TextAlignment.LEFT);
@@ -784,7 +792,7 @@ namespace EconomySurvival.LCDInfo
             }
 			position += newLine;
         }
-		
+
         void DrawToolSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
             WriteTextSprite(ref frame, "[ TOOLS ]", position, TextAlignment.LEFT);
@@ -797,6 +805,29 @@ namespace EconomySurvival.LCDInfo
 
 		foreach (var name in sortedKeys) {
 				var item = cargoTools[name];
+
+                MyDefinitionId.TryParse(item.item.Type.TypeId, name, out myDefinitionId);
+
+                WriteTextSprite(ref frame, myDefinitions[myDefinitionId].DisplayNameText, position, TextAlignment.LEFT);
+                WriteTextSprite(ref frame, KiloFormat(item.amount), position + right, TextAlignment.RIGHT);
+
+                position += newLine;
+            }
+			position += newLine;
+        }
+
+        void DrawAmmoSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
+        {
+            WriteTextSprite(ref frame, "[ VEHICLE AMMUNITION ]", position, TextAlignment.LEFT);
+
+            position += newLine;
+
+            
+	    var sortedKeys = cargoAmmos.Keys.ToList();
+		sortedKeys.Sort();
+
+		foreach (var name in sortedKeys) {
+				var item = cargoAmmos[name];
 
                 MyDefinitionId.TryParse(item.item.Type.TypeId, name, out myDefinitionId);
 
@@ -922,6 +953,17 @@ namespace EconomySurvival.LCDInfo
             }
 			position += newLine;
         }
+		
+		/*void DrawDamageSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
+        {
+            WriteTextSprite(ref frame, "[ DAMAGE REPORT ]", position, TextAlignment.LEFT);
+			
+            position += newLine;
+
+                Get this info from the MySessionComponentBase class
+            
+			position += newLine;
+        }*/
 
         static string KiloFormat(int num)
         {
@@ -958,31 +1000,35 @@ namespace EconomySurvival.LCDInfo
 
         private void CreateConfig()
         {
-            config.AddSection("Settings");
-
-            config.Set("Settings", "TextSize", "1.0");
-            config.Set("Settings", "Battery", "false");
-            config.Set("Settings", "WindTurbine", "false");
-            config.Set("Settings", "HydrogenEngine", "false");
-            config.Set("Settings", "FuelCell", "false");
-            config.Set("Settings", "FusionReactor", "false");
-            config.Set("Settings", "AllTanks", "false");
-            config.Set("Settings", "HydrogenTanks", "false");
-            config.Set("Settings", "OxygenTanks", "false");
-            config.Set("Settings", "DeuteriumTanks", "false");
-            config.Set("Settings", "Solar", "false");
-            config.Set("Settings", "NuclearReactor", "false");
-            config.Set("Settings", "Ore", "false");
-            config.Set("Settings", "Ingot", "false");
-            config.Set("Settings", "Component", "false");
-			config.Set("Settings", "VehicleAmmo", "false");
-			config.Set("Settings", "Bottles", "false");
-			config.Set("Settings", "Tools", "false");
-			config.Set("Settings", "Hand Weapons", "false");
-			config.Set("Settings", "HandWeaponAmmo", "false");
-			config.Set("Settings", "Consumables", "false");
-			config.Set("Settings", "Food", "false");
-            config.Set("Settings", "Miscellaneous Items", "false");
+            config.AddSection(" SETTINGS ");
+            config.Set(" SETTINGS ", "TextSize", "1.0");
+            config.AddSection(" POWER ");
+            config.Set(" POWER ", "Battery", "false");
+            config.Set(" POWER ", "Wind Turbine", "false");
+            config.Set(" POWER ", "Hydrogen Engine", "false");
+            config.Set(" POWER ", "Fuel Cell", "false");
+            config.Set(" POWER ", "Fusion Reactor", "false");
+            config.Set(" POWER ", "Solar", "false");
+            config.Set(" POWER ", "Nuclear Reactor", "false");
+            config.AddSection(" TANKS ");
+            config.Set(" TANKS ", "All Tanks", "false");
+            config.Set(" TANKS ", "Hydrogen Tanks", "false");
+            config.Set(" TANKS ", "Oxygen Tanks", "false");
+            config.Set(" TANKS ", "Deuterium Tanks", "false");
+            config.AddSection(" MATERIALS ");
+            config.Set(" MATERIALS ", "Ore", "false");
+            config.Set(" MATERIALS ", "Ingot", "false");
+            config.Set(" MATERIALS ", "Component", "false");
+            config.AddSection(" ITEMS ");
+            config.Set(" ITEMS ", "Bottles", "false");
+            config.Set(" ITEMS ", "Tools", "false");
+            config.Set(" ITEMS ", "Vehicle Ammo", "false");
+			config.Set(" ITEMS ", "Hand Weapons", "false");
+			config.Set(" ITEMS ", "Hand Weapon Ammo", "false");
+			config.Set(" ITEMS ", "Consumables", "false");
+			config.Set(" ITEMS ", "Food", "false");
+            config.Set(" ITEMS ", "Miscellaneous Items", "false");
+            //config.Set("Settings", "Damage Report", "false");
 
             config.Invalidate();
             myTerminalBlock.CustomData = config.ToString();
@@ -994,7 +1040,19 @@ namespace EconomySurvival.LCDInfo
 
             if (config.TryParse(myTerminalBlock.CustomData))
             {
-                if (config.ContainsSection("Settings"))
+                if (config.ContainsSection(" SETTINGS "))
+                {
+                    ConfigCheck = true;
+                }
+                else if (config.ContainsSection(" POWER "))
+                {
+                    ConfigCheck = true;
+                }
+                else if (config.ContainsSection(" TANKS "))
+                {
+                    ConfigCheck = true;
+                }
+                else if (config.ContainsSection(" ITEMS "))
                 {
                     ConfigCheck = true;
                 }
