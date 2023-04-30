@@ -20,32 +20,6 @@ using VRageMath;
 
 namespace EconomySurvival.LCDInfo
 {
-    /*[MySessionComponentDescriptor(MyUpdateOrder.BeforeSimulation, 999999)]
-    public class Session : MySessionComponentBase
-    {
-        var entity = Session.Player.Controller.ControlledEntity as MyCubeBlock;
-         if (entity != null) {
-			var controlledGrid = entity.CubeGrid;
-            int padLen = 0;
-            List<IMyCubeBlock> damaged = new List<IMyCubeBlock>();
-            foreach (IMyCubeBlock cube in controlledGrid.GetFatBlocks())
-            {
-                if(!cube.SlimBlock.IsFullIntegrity)
-                {
-                    damaged.Add(cube);
-                    if (cube.DisplayNameText.Length > padLen)
-                    padLen = cube.DisplayNameText.Length;
-                }
-            }
-            if (damaged.Count > 0)
-            {   
-				WriteTextSprite(ref frame, "Damaged Blocks (% integrity lost)", position, TextAlignment.LEFT);
-                foreach (var x in damaged)
-                 WriteTextSprite(ref frame,x.DisplayNameText.PadRight(padLen + 15, '.') + (int)(100 - x.SlimBlock.Integrity / x.SlimBlock.MaxIntegrity * 100) + "%" + (x.IsFunctional ? "" : "  -  *Non Functional*")+ "\n", position, TextAlignment.LEFT);
-            }
-		}
-    }*/
-
     class cargoItemType
     {
         public VRage.Game.ModAPI.Ingame.MyInventoryItem item;
@@ -60,6 +34,7 @@ namespace EconomySurvival.LCDInfo
         IMyTextSurface mySurface;
         IMyTerminalBlock myTerminalBlock;
 
+// ---------- BLOCK DICTIONAIRY. USED TO DEFINE CARGO CATEGORIES, AND POWER BLOCK TYPES----------
         List<IMyBatteryBlock> batteryBlocks = new List<IMyBatteryBlock>();
         List<IMyPowerProducer> windTurbines = new List<IMyPowerProducer>();
         List<IMyPowerProducer> hydroenEngines = new List<IMyPowerProducer>();
@@ -84,6 +59,7 @@ namespace EconomySurvival.LCDInfo
 		Dictionary<string, cargoItemType> cargoTools = new Dictionary<string, cargoItemType>();
         Dictionary<string, cargoItemType> cargoItems = new Dictionary<string, cargoItemType>();
 
+// ---------- HAND WRITTEN ITEM LISTS, IMPORTANT FOR COMPATIBILITY WITH OTHER MODS ----------
 		List<string> foodItems = new List<string> {
     		"SparklingWater",
     		"ClangCola",
@@ -132,6 +108,7 @@ namespace EconomySurvival.LCDInfo
 			"M1014_Buckshots"
 		};
 
+// ---------- GETTING THE GRID OUR LCD PANEL IS ATTACHED TO ----------
         Vector2 right;
         Vector2 newLine;
         VRage.Collections.DictionaryValuesReader<MyDefinitionId, MyDefinitionBase> myDefinitions;
@@ -153,6 +130,7 @@ namespace EconomySurvival.LCDInfo
 
         }
 
+// ---------- GETTING POWER BLOCKS AND GROUPING THEM IN CARAGORIES ----------
         public override void Run()
         {
             if (myTerminalBlock.CustomData.Length <= 0)
@@ -223,6 +201,7 @@ namespace EconomySurvival.LCDInfo
                 }
             }
 
+// ---------- GEWTTING CARGO ITEMS AND ASSIGNING THEM TO DIFFERENT CARGO ITEM LISTS ----------
             cargoOres.Clear();
             cargoIngots.Clear();
             cargoComponents.Clear();
@@ -331,6 +310,8 @@ namespace EconomySurvival.LCDInfo
                 }
             }
 
+// ---------- SPRITE SETUP ----------
+// ---------- ARGUEMENTS MUST MATCH THOSE IN "CUSTOM DATA SETTINGS OPTIONS" ----------
             var myFrame = mySurface.DrawFrame();
             var myViewport = new RectangleF((mySurface.TextureSize - mySurface.SurfaceSize) / 2f, mySurface.SurfaceSize);
             var myPosition = new Vector2(5, 5) + myViewport.Position;
@@ -406,12 +387,13 @@ namespace EconomySurvival.LCDInfo
             if (config.Get(" ITEMS ", "Miscellaneous Items").ToBoolean())
                 DrawItemsSprite(ref myFrame, ref myPosition, mySurface);
 			
-            /*if (config.Get("Settings", "Damage Report").ToBoolean())
-                DrawDamageSprite(ref myFrame, ref myPosition, mySurface);*/
+            if (config.Get(" SYSTEMS ", "Damage Report").ToBoolean())
+                DrawDamageSprite(ref myFrame, ref myPosition, mySurface);
 
             myFrame.Dispose();
         }
 
+// ---------- BATTERIES SPRITE ----------
         void DrawBatterySprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
             var current = batteryBlocks.Sum(block => block.CurrentStoredPower);
@@ -444,6 +426,7 @@ namespace EconomySurvival.LCDInfo
             position += newLine + newLine;
         }
 
+// ---------- WIND TURBINE SPRITE ----------
         void DrawWindTurbineSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
             var current = windTurbines.Sum(block => block.CurrentOutput);
@@ -470,6 +453,7 @@ namespace EconomySurvival.LCDInfo
             position += newLine + newLine;
         }
 
+// ---------- HYDROGEN ENGINE SPRITE ----------
         void DrawHydrogenEngineSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
             var current = hydroenEngines.Sum(block => block.CurrentOutput);
@@ -489,7 +473,8 @@ namespace EconomySurvival.LCDInfo
 
             position += newLine + newLine;
         }
-		
+
+// ---------- HYDROGEN FUEL CELL SPRITE ----------		
         void DrawFuelCellSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
             var current = fuelCells.Sum(block => block.CurrentOutput);
@@ -509,7 +494,8 @@ namespace EconomySurvival.LCDInfo
 
             position += newLine + newLine;
         }
-		
+
+// ---------- FUSION REACTOR SPRITE ----------		
         void DrawFusionReactorSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
             var current = fusionReactors.Sum(block => block.CurrentOutput);
@@ -530,6 +516,7 @@ namespace EconomySurvival.LCDInfo
             position += newLine + newLine;
         }
 
+// ---------- SOLAR PANEL SPRITE ----------
         void DrawSolarPanelSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
             var current = solarPanels.Sum(block => block.CurrentOutput);
@@ -556,6 +543,7 @@ namespace EconomySurvival.LCDInfo
             position += newLine + newLine;
         }
 
+// ---------- NUCLEAR REACTOR SPRITE ----------
         void DrawReactorSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
             var current = reactors.Sum(block => block.CurrentOutput);
@@ -576,6 +564,7 @@ namespace EconomySurvival.LCDInfo
             position += newLine + newLine;
         }
 
+// ---------- ALL TANKS SPRITE ----------
         void DrawTanksSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
             var hydrogenTanks = tanks.Where(block => block.BlockDefinition.SubtypeName.Contains("Hydrogen"));
@@ -633,7 +622,8 @@ namespace EconomySurvival.LCDInfo
 
             position += newLine + newLine;;
         }
-		
+
+// ---------- HYDROGEN TANK ONLY SPRITE ----------		
 		void DrawHydrogenTanksSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
             var hydrogenTanks = tanks.Where(block => block.BlockDefinition.SubtypeName.Contains("Hydrogen"));
@@ -655,7 +645,8 @@ namespace EconomySurvival.LCDInfo
 
             position += newLine + newLine;;
         }
-		
+
+// ---------- OXYGEN TANK ONLY SPRITE ----------		
 		void DrawOxygenTanksSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
             var oxygenTanks = tanks.Where(block => ((!block.BlockDefinition.SubtypeName.Contains("Hydrogen")) && (!block.BlockDefinition.SubtypeName.Contains("Deuterium"))));
@@ -677,7 +668,8 @@ namespace EconomySurvival.LCDInfo
 
             position += newLine + newLine;;
         }
-		
+
+// ---------- DEUTERIUM TANK ONLY SPRITE ----------		
 		void DrawDeuteriumTanksSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
             var deuteriumTanks = tanks.Where(block => block.BlockDefinition.SubtypeName.Contains("Deuterium"));
@@ -700,6 +692,7 @@ namespace EconomySurvival.LCDInfo
             position += newLine + newLine;;
         }
 
+// ---------- ORE SPRITE ----------
         void DrawOreSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
             WriteTextSprite(ref frame, "[ ORES ]", position, TextAlignment.LEFT);
@@ -723,6 +716,7 @@ namespace EconomySurvival.LCDInfo
 			position += newLine;
         }
 
+// ---------- INGOTS SPRITE ----------
         void DrawIngotSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
             WriteTextSprite(ref frame, "[ INGOTS ]", position, TextAlignment.LEFT);
@@ -746,7 +740,7 @@ namespace EconomySurvival.LCDInfo
 			position += newLine;
         }
 
-
+// ---------- COMPONENTS SPRITE ----------
         void DrawComponentSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
             WriteTextSprite(ref frame, "[ COMPONENTS ]", position, TextAlignment.LEFT);
@@ -770,6 +764,7 @@ namespace EconomySurvival.LCDInfo
 			position += newLine;
         }
 
+// ---------- BOTTLES SPRITE ----------
         void DrawBottleSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
             WriteTextSprite(ref frame, "[ BOTTLES ]", position, TextAlignment.LEFT);
@@ -793,6 +788,7 @@ namespace EconomySurvival.LCDInfo
 			position += newLine;
         }
 
+// ---------- TOOLS SPRITE ----------
         void DrawToolSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
             WriteTextSprite(ref frame, "[ TOOLS ]", position, TextAlignment.LEFT);
@@ -816,6 +812,7 @@ namespace EconomySurvival.LCDInfo
 			position += newLine;
         }
 
+// ---------- VEHICLE AMMUNITION SPRITE ----------
         void DrawAmmoSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
             WriteTextSprite(ref frame, "[ VEHICLE AMMUNITION ]", position, TextAlignment.LEFT);
@@ -839,6 +836,7 @@ namespace EconomySurvival.LCDInfo
 			position += newLine;
         }
 		
+// ---------- HAND WEAPPON SPRITE ----------
         void DrawWeaponSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
             WriteTextSprite(ref frame, "[ HAND WEAPONS ]", position, TextAlignment.LEFT);
@@ -862,6 +860,7 @@ namespace EconomySurvival.LCDInfo
 			position += newLine;
         }
 		
+// ---------- HAND WEAPPON AMMUNITION SPRITE ----------
         void DrawHandWeaponAmmoSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
             WriteTextSprite(ref frame, "[ HAND WEAPON AMMUNITION ]", position, TextAlignment.LEFT);
@@ -885,6 +884,7 @@ namespace EconomySurvival.LCDInfo
 			position += newLine;
         }
 		
+// ---------- CONSUMABLES SPRITE ----------
         void DrawConsumableSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
             WriteTextSprite(ref frame, "[ CONSUMABLES ]", position, TextAlignment.LEFT);
@@ -908,6 +908,7 @@ namespace EconomySurvival.LCDInfo
 			position += newLine;
         }
 		
+// ---------- FOOD AND DRINK SPRITE ----------
         void DrawFoodSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
             WriteTextSprite(ref frame, "[ FOOD AND DRINK ]", position, TextAlignment.LEFT);
@@ -931,6 +932,7 @@ namespace EconomySurvival.LCDInfo
 			position += newLine;
         }
 
+// ---------- MISCELLANEOUS ITEMS SPRITE ----------
         void DrawItemsSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
             WriteTextSprite(ref frame, "[ MISCELLANEOUS ITEMS ]", position, TextAlignment.LEFT);
@@ -953,18 +955,51 @@ namespace EconomySurvival.LCDInfo
             }
 			position += newLine;
         }
-		
-		/*void DrawDamageSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
+// ---------- DAMAGE REPORT SPRITE ----------		
+        void DrawDamageSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
             WriteTextSprite(ref frame, "[ DAMAGE REPORT ]", position, TextAlignment.LEFT);
-			
+
             position += newLine;
 
-                Get this info from the MySessionComponentBase class
-            
-			position += newLine;
-        }*/
+            var damagedBlocks = new List<IMyTerminalBlock>();
 
+            // Retrieve the grid of the LCD panel
+            var grid = myTerminalBlock.CubeGrid;
+
+            var slimBlocks = new List<IMySlimBlock>();
+            grid.GetBlocks(slimBlocks, b => b.CurrentDamage > 0f);
+
+            foreach (var slimBlock in slimBlocks)
+            {
+                var damagedBlock = slimBlock.FatBlock as IMyTerminalBlock;
+                if (damagedBlock != null)
+                {
+                    var currentDamage = slimBlock.CurrentDamage;
+                    var maxIntegrity = slimBlock.MaxIntegrity;
+                    var integrityPercentage = currentDamage / maxIntegrity * 100f;
+
+                    WriteTextSprite(ref frame, damagedBlock.CustomName.ToString(), position, TextAlignment.LEFT);
+                    WriteTextSprite(ref frame, $"{integrityPercentage:0.00}%", position + right, TextAlignment.RIGHT);
+
+                    position += newLine;
+
+                    // Add the damaged block to the list
+                    damagedBlocks.Add(damagedBlock);
+                }
+            }
+
+            if (damagedBlocks.Count == 0)
+            {
+                // Check if there are no damaged blocks in the list
+                WriteTextSprite(ref frame, "No damaged blocks", position, TextAlignment.LEFT);
+                position += newLine;
+            }
+
+            position += newLine;
+        }
+
+// ---------- UNIT FORMAT ----------
         static string KiloFormat(int num)
         {
             if (num >= 100000000)
@@ -980,8 +1015,9 @@ namespace EconomySurvival.LCDInfo
                 return (num / 1000).ToString("0.#") + " K";
 
             return num.ToString("#,0");
-        }
 
+        }
+// ---------- UTILITY METHOD TO WTIRE TEXT SPRITES ----------
         void WriteTextSprite(ref MySpriteDrawFrame frame, string text, Vector2 position, TextAlignment alignment)
         {
             var sprite = new MySprite
@@ -998,6 +1034,7 @@ namespace EconomySurvival.LCDInfo
             frame.Add(sprite);
         }
 
+// ---------- CUSTOM DATA SETTINGS OPTIONS ----------
         private void CreateConfig()
         {
             config.AddSection(" SETTINGS ");
@@ -1028,7 +1065,8 @@ namespace EconomySurvival.LCDInfo
 			config.Set(" ITEMS ", "Consumables", "false");
 			config.Set(" ITEMS ", "Food", "false");
             config.Set(" ITEMS ", "Miscellaneous Items", "false");
-            //config.Set("Settings", "Damage Report", "false");
+			config.AddSection(" SYSTEMS ");
+            config.Set(" SYSTEMS ", "Damage Report", "false");
 
             config.Invalidate();
             myTerminalBlock.CustomData = config.ToString();
@@ -1053,6 +1091,10 @@ namespace EconomySurvival.LCDInfo
                     ConfigCheck = true;
                 }
                 else if (config.ContainsSection(" ITEMS "))
+                {
+                    ConfigCheck = true;
+                }
+				else if (config.ContainsSection(" SYSTEMS "))
                 {
                     ConfigCheck = true;
                 }
