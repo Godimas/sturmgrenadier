@@ -390,6 +390,9 @@ namespace EconomySurvival.LCDInfo
             if (config.Get(" SYSTEMS ", "Damage Report").ToBoolean())
                 DrawDamageSprite(ref myFrame, ref myPosition, mySurface);
 
+            //if (config.Get(" SYSTEMS ", "Block Details").ToBoolean())
+                //DrawInfoSprite(ref myFrame, ref myPosition, mySurface);
+
             myFrame.Dispose();
         }
 
@@ -956,49 +959,59 @@ namespace EconomySurvival.LCDInfo
 			position += newLine;
         }
 // ---------- DAMAGE REPORT SPRITE ----------		
-        void DrawDamageSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
+void DrawDamageSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
+{
+    WriteTextSprite(ref frame, "[ DAMAGE REPORT ]", position, TextAlignment.LEFT);
+
+    position += newLine;
+
+    var damagedBlocks = new List<IMyTerminalBlock>();
+
+    var grid = myTerminalBlock.CubeGrid;
+
+    var slimBlocks = new List<IMySlimBlock>();
+    grid.GetBlocks(slimBlocks, b => b.CurrentDamage > 0f);
+
+    foreach (var slimBlock in slimBlocks)
+    {
+        var damagedBlock = slimBlock.FatBlock as IMyTerminalBlock;
+        if (damagedBlock != null)
         {
-            WriteTextSprite(ref frame, "[ DAMAGE REPORT ]", position, TextAlignment.LEFT);
+            var currentDamage = slimBlock.CurrentDamage;
+            var maxIntegrity = slimBlock.MaxIntegrity;
+            var remainingHealth = maxIntegrity - currentDamage;
+            var healthPercentage = (remainingHealth / maxIntegrity) * 100f;
+
+            WriteTextSprite(ref frame, damagedBlock.CustomName.ToString(), position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, $"{healthPercentage:0.00}%", position + right, TextAlignment.RIGHT);
 
             position += newLine;
 
-            var damagedBlocks = new List<IMyTerminalBlock>();
-
-            // Retrieve the grid of the LCD panel
-            var grid = myTerminalBlock.CubeGrid;
-
-            var slimBlocks = new List<IMySlimBlock>();
-            grid.GetBlocks(slimBlocks, b => b.CurrentDamage > 0f);
-
-            foreach (var slimBlock in slimBlocks)
-            {
-                var damagedBlock = slimBlock.FatBlock as IMyTerminalBlock;
-                if (damagedBlock != null)
-                {
-                    var currentDamage = slimBlock.CurrentDamage;
-                    var maxIntegrity = slimBlock.MaxIntegrity;
-                    var integrityPercentage = currentDamage / maxIntegrity * 100f;
-
-                    WriteTextSprite(ref frame, damagedBlock.CustomName.ToString(), position, TextAlignment.LEFT);
-                    WriteTextSprite(ref frame, $"{integrityPercentage:0.00}%", position + right, TextAlignment.RIGHT);
-
-                    position += newLine;
-
-                    // Add the damaged block to the list
-                    damagedBlocks.Add(damagedBlock);
-                }
-            }
-
-            if (damagedBlocks.Count == 0)
-            {
-                // Check if there are no damaged blocks in the list
-                WriteTextSprite(ref frame, "No damaged blocks", position, TextAlignment.LEFT);
-                position += newLine;
-            }
-
-            position += newLine;
+            damagedBlocks.Add(damagedBlock);
         }
+    }
 
+    if (damagedBlocks.Count == 0)
+    {
+        WriteTextSprite(ref frame, "No damaged blocks", position, TextAlignment.LEFT);
+        position += newLine;
+    }
+
+    position += newLine;
+}
+/*
+// ---------- DETAILS SPRITE ----------
+        void DrawInfoSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
+        {
+            WriteTextSprite(ref frame, "[ BLOCK DETAILS ]", position, TextAlignment.LEFT);
+
+            position += newLine;
+
+// DETAILS SPRITE DETAILS HERE            
+
+			position += newLine;
+        }
+*/
 // ---------- UNIT FORMAT ----------
         static string KiloFormat(int num)
         {
@@ -1067,6 +1080,7 @@ namespace EconomySurvival.LCDInfo
             config.Set(" ITEMS ", "Miscellaneous Items", "false");
 			config.AddSection(" SYSTEMS ");
             config.Set(" SYSTEMS ", "Damage Report", "false");
+            //config.Set(" SYSTEMS ", "Block Details", "false");
 
             config.Invalidate();
             myTerminalBlock.CustomData = config.ToString();
