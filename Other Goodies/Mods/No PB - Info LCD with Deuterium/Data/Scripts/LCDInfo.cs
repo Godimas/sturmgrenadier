@@ -1012,7 +1012,7 @@ void DrawDamageSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyText
 
     if (damagedBlocks.Count == 0)
     {
-        WriteTextSprite(ref frame, "No damaged blocks", position, TextAlignment.LEFT);
+        WriteTextSprite(ref frame, "No damage detected", position, TextAlignment.LEFT);
         position += newLine;
     }
 
@@ -1038,20 +1038,27 @@ void DrawInfoSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSu
 
 // Display DetailedInfo of the matching block
             var detailedInfo = block.DetailedInfo;
-            WriteTextSprite(ref frame, $"Detailed Info: {detailedInfo}", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, $"Block {detailedInfo}", position, TextAlignment.LEFT);
             position += newLine;
         }
         else
         {
-            WriteTextSprite(ref frame, "Block not found", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, "Unable to find block", position, TextAlignment.LEFT);
+	    position += newLine;
+	    WriteTextSprite(ref frame, "Verify block name in this LCDs Custom Data", position, TextAlignment.LEFT);
             position += newLine;
         }
     }
     else
     {
-        WriteTextSprite(ref frame, "No grid found", position, TextAlignment.LEFT);
+        WriteTextSprite(ref frame, "Unable to fing grid", position, TextAlignment.LEFT);
+	position += newLine;
+	WriteTextSprite(ref frame, "Enter block name in this LCDs Custom Data", position, TextAlignment.LEFT);
+	position += newLine;
+	WriteTextSprite(ref frame, "Also verify grid ownership", position, TextAlignment.LEFT);
         position += newLine;
     }
+    position += newLine;
 }
 
 // ---------- UNIT FORMAT ----------
