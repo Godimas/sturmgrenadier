@@ -108,6 +108,24 @@ namespace EconomySurvival.LCDInfo
 			"M1014_Buckshots"
 		};
 
+// ---------- FIND BLOCK NAMES FOR THE DETAILS SPRITE ----------
+        IMyTerminalBlock FindBlockWithName(IMyCubeGrid grid, string blockName)
+        {
+            List<IMySlimBlock> blocks = new List<IMySlimBlock>();
+            grid.GetBlocks(blocks);
+
+            foreach (var slimBlock in blocks)
+            {
+                var block = slimBlock.FatBlock as IMyTerminalBlock;
+                if (block != null && block.CustomName == blockName)
+                {
+                    return block;
+                }
+            }
+
+            return null;
+        }
+
 // ---------- GETTING THE GRID OUR LCD PANEL IS ATTACHED TO ----------
         Vector2 right;
         Vector2 newLine;
@@ -390,8 +408,9 @@ namespace EconomySurvival.LCDInfo
             if (config.Get(" SYSTEMS ", "Damage Report").ToBoolean())
                 DrawDamageSprite(ref myFrame, ref myPosition, mySurface);
 
-            //if (config.Get(" SYSTEMS ", "Block Details").ToBoolean())
-                //DrawInfoSprite(ref myFrame, ref myPosition, mySurface);
+string blockDetailsValue = config.Get(" SYSTEMS ", "Block Details").ToString();
+if (blockDetailsValue != "false")
+    DrawInfoSprite(ref myFrame, ref myPosition, mySurface, blockDetailsValue);
 
             myFrame.Dispose();
         }
@@ -999,19 +1018,42 @@ void DrawDamageSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyText
 
     position += newLine;
 }
-/*
-// ---------- DETAILS SPRITE ----------
-        void DrawInfoSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
-        {
-            WriteTextSprite(ref frame, "[ BLOCK DETAILS ]", position, TextAlignment.LEFT);
 
+// ---------- BLOCK DETAILS SPRITE ----------	
+void DrawInfoSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface, string blockName)
+{
+    WriteTextSprite(ref frame, "[ BLOCK DETAILS ]", position, TextAlignment.LEFT);
+    position += newLine;
+
+    var grid = myTerminalBlock.CubeGrid;
+
+    if (grid != null)
+    {
+// Find the block with the provided name on the same grid
+        var block = FindBlockWithName(grid, blockName) as IMyTerminalBlock;
+        if (block != null)
+        {
+            WriteTextSprite(ref frame, $"Block Name: {block.CustomName}", position, TextAlignment.LEFT);
             position += newLine;
 
-// DETAILS SPRITE DETAILS HERE            
-
-			position += newLine;
+// Display DetailedInfo of the matching block
+            var detailedInfo = block.DetailedInfo;
+            WriteTextSprite(ref frame, $"Detailed Info: {detailedInfo}", position, TextAlignment.LEFT);
+            position += newLine;
         }
-*/
+        else
+        {
+            WriteTextSprite(ref frame, "Block not found", position, TextAlignment.LEFT);
+            position += newLine;
+        }
+    }
+    else
+    {
+        WriteTextSprite(ref frame, "No grid found", position, TextAlignment.LEFT);
+        position += newLine;
+    }
+}
+
 // ---------- UNIT FORMAT ----------
         static string KiloFormat(int num)
         {
@@ -1080,11 +1122,11 @@ void DrawDamageSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyText
             config.Set(" ITEMS ", "Miscellaneous Items", "false");
 			config.AddSection(" SYSTEMS ");
             config.Set(" SYSTEMS ", "Damage Report", "false");
-            //config.Set(" SYSTEMS ", "Block Details", "false");
+            config.Set(" SYSTEMS ", "Block Details", "false");
 
-            config.Invalidate();
-            myTerminalBlock.CustomData = config.ToString();
-        }
+    config.Invalidate();
+    myTerminalBlock.CustomData = config.ToString();
+}
 
         private void LoadConfig()
         {
