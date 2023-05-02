@@ -1,4 +1,4 @@
-using Sandbox.Definitions;
+﻿using Sandbox.Definitions;
 using Sandbox.Game.Entities;
 using Sandbox.Game.EntityComponents;
 using Sandbox.Game.GameSystems.TextSurfaceScripts;
@@ -18,7 +18,7 @@ using VRage.Game.ModAPI.Ingame.Utilities;
 using VRage.Utils;
 using VRageMath;
 
-namespace EconomySurvival.LCDInfo
+namespace EconomySurvival.LCDInfo.Deuterium
 {
     class cargoItemType
     {
@@ -107,6 +107,30 @@ namespace EconomySurvival.LCDInfo
 			"Ven_357_Jacketed_Box",
 			"M1014_Buckshots"
 		};
+
+// ---------- FIND THE PARENT GRID ----------
+        IMyCubeGrid FindParentGrid(IMyTerminalBlock block)
+        {
+            var grid = myTerminalBlock.CubeGrid;
+            if (grid != null)
+            {
+                return grid;
+            }
+            // If no grid found, you can handle the error here or return null
+            return null;
+        }      
+
+// ---------- FIND GRID MASS----------
+float CalculateGridMass(IMyCubeGrid grid)
+{
+    var gridPhysics = grid.Physics;
+    if (gridPhysics != null)
+    {
+        return gridPhysics.Mass;
+    }
+
+    return 0f;
+}
 
 // ---------- FIND BLOCK NAMES FOR THE DETAILS SPRITE ----------
         IMyTerminalBlock FindBlockWithName(IMyCubeGrid grid, string blockName)
@@ -990,7 +1014,7 @@ namespace EconomySurvival.LCDInfo
 
             var damagedBlocks = new List<IMyTerminalBlock>();
 
-            var grid = myTerminalBlock.CubeGrid;
+            var grid = FindParentGrid(myTerminalBlock);
 
             var slimBlocks = new List<IMySlimBlock>();
             grid.GetBlocks(slimBlocks, b => b.CurrentDamage > 0f);
@@ -1019,98 +1043,80 @@ namespace EconomySurvival.LCDInfo
                 WriteTextSprite(ref frame, "No damage detected", position, TextAlignment.LEFT);
                 position += newLine;
             }
+
             position += newLine;
         }
 
 // ---------- GRID INFO SPRITE ----------		
         void DrawGridInfoSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
-            var grid = myTerminalBlock.CubeGrid;
+            var grid = FindParentGrid(myTerminalBlock);
+            string gridName = grid.DisplayName;
+            int nonArmorBlockCount = 0;
+            float gridMass = CalculateGridMass(grid);
 
-            if (grid != null)
+            WriteTextSprite(ref frame, "[ GRID INFO ]", position, TextAlignment.LEFT);
+            position += newLine;
+            WriteTextSprite(ref frame, $"Grid Name: {gridName}", position, TextAlignment.LEFT);
+            position += newLine;
+            WriteTextSprite(ref frame, $"Grid Mass: {gridMass:0.00} kg", position, TextAlignment.LEFT);
+            position += newLine;
+
+            // Retrieve all blocks on the grid 
+            var allBlocks = new List<IMySlimBlock>();
+            grid.GetBlocks(allBlocks);
+
+            int blockCount = allBlocks.Count;
+            WriteTextSprite(ref frame, $"Number of Blocks: {blockCount}", position, TextAlignment.LEFT);
+            position += newLine;
+
+            // Count up the non-armor blocks
+            foreach (var gridBlock in allBlocks)
             {
-                string gridName = grid.DisplayName;
-
-                WriteTextSprite(ref frame, "[ GRID INFO ]", position, TextAlignment.LEFT);
-                position += newLine;
-                // Display the grid name
-                WriteTextSprite(ref frame, $"Grid Name: {gridName}", position, TextAlignment.LEFT);
-                position += newLine;
-
-                // Retrieve all blocks on the grid 
-                var allBlocks = new List<IMySlimBlock>();
-                grid.GetBlocks(allBlocks);
-
-                int blockCount = allBlocks.Count;
-                WriteTextSprite(ref frame, $"Number of Blocks: {blockCount}", position, TextAlignment.LEFT);
-                position += newLine;
-
-                int nonArmorBlockCount = 0;
-
-                // Count up the non armor blocks
-                foreach (var gridBlock in allBlocks)
+                if (gridBlock.FatBlock != null && gridBlock.FatBlock.BlockDefinition.TypeId.ToString() != "MyObjectBuilder_CubeBlock/ArmorBlock")
                 {
-                    if (gridBlock.FatBlock != null && gridBlock.FatBlock.BlockDefinition.TypeId.ToString() != "MyObjectBuilder_CubeBlock/ArmorBlock")
-                    {
-                        nonArmorBlockCount++;
-                    }
+                    nonArmorBlockCount++;
                 }
+            }
 
-                int armorBlockCount = blockCount - nonArmorBlockCount;
-                WriteTextSprite(ref frame, $"Number of Armor Blocks: {armorBlockCount}", position, TextAlignment.LEFT);
-                position += newLine;
-                WriteTextSprite(ref frame, $"Number of Non-Armor Blocks: {nonArmorBlockCount}", position, TextAlignment.LEFT);
-                position += newLine;
-            }
-            else
-            {
-                WriteTextSprite(ref frame, "No grid found", position, TextAlignment.LEFT);
-                position += newLine;
-            }
+            int armorBlockCount = blockCount - nonArmorBlockCount;
+
+            WriteTextSprite(ref frame, $"Number of Non-Armor Blocks: {nonArmorBlockCount}", position, TextAlignment.LEFT);
+            position += newLine;
+            WriteTextSprite(ref frame, $"Number of Armor Blocks: {armorBlockCount}", position, TextAlignment.LEFT);
+            position += newLine;
+
             position += newLine;
         }
 
 // ---------- BLOCK DETAILS SPRITE ----------	
         void DrawDetailsSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface, string blockName)
         {
+            var grid = FindParentGrid(myTerminalBlock);
+
             WriteTextSprite(ref frame, "[ BLOCK DETAILS ]", position, TextAlignment.LEFT);
             position += newLine;
 
-            var grid = myTerminalBlock.CubeGrid;
-
-            if (grid != null)
+            // Find the block with the provided name on the same grid
+            var block = FindBlockWithName(grid, blockName) as IMyTerminalBlock;
+            if (block != null)
             {
-                // Find the block with the provided name on the same grid
-                var block = FindBlockWithName(grid, blockName) as IMyTerminalBlock;
-                if (block != null)
-                {
-                    WriteTextSprite(ref frame, $"Block Name: {block.CustomName}", position, TextAlignment.LEFT);
-                    position += newLine;
+                WriteTextSprite(ref frame, $"Block Name: {block.CustomName}", position, TextAlignment.LEFT);
+                position += newLine;
 
-                    // Display DetailedInfo of the matching block
-                    var detailedInfo = block.DetailedInfo;
-                    WriteTextSprite(ref frame, $"Block {detailedInfo}", position, TextAlignment.LEFT);
-                    position += newLine;
-                }
-
-                else
-                {
-                    WriteTextSprite(ref frame, "Unable to find block", position, TextAlignment.LEFT);
-                    position += newLine;
-                    WriteTextSprite(ref frame, "Verify block name in Custom Data", position, TextAlignment.LEFT);
-                    position += newLine;
-                }
+                // Display DetailedInfo of the matching block
+                var detailedInfo = block.DetailedInfo;
+                WriteTextSprite(ref frame, $"Block {detailedInfo}", position, TextAlignment.LEFT);
+                position += newLine;
             }
-
             else
             {
-                WriteTextSprite(ref frame, "Unable to fing grid", position, TextAlignment.LEFT);
+                WriteTextSprite(ref frame, "Unable to find block", position, TextAlignment.LEFT);
                 position += newLine;
-                WriteTextSprite(ref frame, "Enter block name in Custom Data", position, TextAlignment.LEFT);
-                position += newLine;
-                WriteTextSprite(ref frame, "Also verify grid ownership", position, TextAlignment.LEFT);
+                WriteTextSprite(ref frame, "Verify block name in Custom Data", position, TextAlignment.LEFT);
                 position += newLine;
             }
+
             position += newLine;
         }
 
