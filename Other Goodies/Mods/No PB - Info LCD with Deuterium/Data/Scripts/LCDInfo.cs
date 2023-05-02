@@ -408,12 +408,15 @@ namespace EconomySurvival.LCDInfo
             if (config.Get(" SYSTEMS ", "Damage Report").ToBoolean())
                 DrawDamageSprite(ref myFrame, ref myPosition, mySurface);
 
-string blockDetailsValue = config.Get(" SYSTEMS ", "Block Details").ToString();
-if (blockDetailsValue != "false")
-    DrawInfoSprite(ref myFrame, ref myPosition, mySurface, blockDetailsValue);
+            if (config.Get(" SYSTEMS ", "Grid Info").ToBoolean())
+                DrawGridInfoSprite(ref myFrame, ref myPosition, mySurface);
 
-            myFrame.Dispose();
-        }
+            string blockDetailsValue = config.Get(" SYSTEMS ", "Block Details").ToString();
+            if (blockDetailsValue != "false")
+                DrawDetailsSprite(ref myFrame, ref myPosition, mySurface, blockDetailsValue);
+
+                        myFrame.Dispose();
+                    }
 
 // ---------- BATTERIES SPRITE ----------
         void DrawBatterySprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
@@ -977,89 +980,139 @@ if (blockDetailsValue != "false")
             }
 			position += newLine;
         }
+
 // ---------- DAMAGE REPORT SPRITE ----------		
-void DrawDamageSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
-{
-    WriteTextSprite(ref frame, "[ DAMAGE REPORT ]", position, TextAlignment.LEFT);
-
-    position += newLine;
-
-    var damagedBlocks = new List<IMyTerminalBlock>();
-
-    var grid = myTerminalBlock.CubeGrid;
-
-    var slimBlocks = new List<IMySlimBlock>();
-    grid.GetBlocks(slimBlocks, b => b.CurrentDamage > 0f);
-
-    foreach (var slimBlock in slimBlocks)
-    {
-        var damagedBlock = slimBlock.FatBlock as IMyTerminalBlock;
-        if (damagedBlock != null)
+        void DrawDamageSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
         {
-            var currentDamage = slimBlock.CurrentDamage;
-            var maxIntegrity = slimBlock.MaxIntegrity;
-            var remainingHealth = maxIntegrity - currentDamage;
-            var healthPercentage = (remainingHealth / maxIntegrity) * 100f;
-
-            WriteTextSprite(ref frame, damagedBlock.CustomName.ToString(), position, TextAlignment.LEFT);
-            WriteTextSprite(ref frame, $"{healthPercentage:0.00}%", position + right, TextAlignment.RIGHT);
+            WriteTextSprite(ref frame, "[ DAMAGE REPORT ]", position, TextAlignment.LEFT);
 
             position += newLine;
 
-            damagedBlocks.Add(damagedBlock);
+            var damagedBlocks = new List<IMyTerminalBlock>();
+
+            var grid = myTerminalBlock.CubeGrid;
+
+            var slimBlocks = new List<IMySlimBlock>();
+            grid.GetBlocks(slimBlocks, b => b.CurrentDamage > 0f);
+
+            foreach (var slimBlock in slimBlocks)
+            {
+                var damagedBlock = slimBlock.FatBlock as IMyTerminalBlock;
+                if (damagedBlock != null)
+                {
+                    var currentDamage = slimBlock.CurrentDamage;
+                    var maxIntegrity = slimBlock.MaxIntegrity;
+                    var remainingHealth = maxIntegrity - currentDamage;
+                    var healthPercentage = (remainingHealth / maxIntegrity) * 100f;
+
+                    WriteTextSprite(ref frame, damagedBlock.CustomName.ToString(), position, TextAlignment.LEFT);
+                    WriteTextSprite(ref frame, $"{healthPercentage:0.00}%", position + right, TextAlignment.RIGHT);
+
+                    position += newLine;
+
+                    damagedBlocks.Add(damagedBlock);
+                }
+            }
+
+            if (damagedBlocks.Count == 0)
+            {
+                WriteTextSprite(ref frame, "No damage detected", position, TextAlignment.LEFT);
+                position += newLine;
+            }
+            position += newLine;
         }
-    }
 
-    if (damagedBlocks.Count == 0)
-    {
-        WriteTextSprite(ref frame, "No damage detected", position, TextAlignment.LEFT);
-        position += newLine;
-    }
+// ---------- GRID INFO SPRITE ----------		
+        void DrawGridInfoSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
+        {
+            var grid = myTerminalBlock.CubeGrid;
 
-    position += newLine;
-}
+            if (grid != null)
+            {
+                string gridName = grid.DisplayName;
+
+                WriteTextSprite(ref frame, "[ GRID INFO ]", position, TextAlignment.LEFT);
+                position += newLine;
+                // Display the grid name
+                WriteTextSprite(ref frame, $"Grid Name: {gridName}", position, TextAlignment.LEFT);
+                position += newLine;
+
+                // Retrieve all blocks on the grid 
+                var allBlocks = new List<IMySlimBlock>();
+                grid.GetBlocks(allBlocks);
+
+                int blockCount = allBlocks.Count;
+                WriteTextSprite(ref frame, $"Number of Blocks: {blockCount}", position, TextAlignment.LEFT);
+                position += newLine;
+
+                int nonArmorBlockCount = 0;
+
+                // Count up the non armor blocks
+                foreach (var gridBlock in allBlocks)
+                {
+                    if (gridBlock.FatBlock != null && gridBlock.FatBlock.BlockDefinition.TypeId.ToString() != "MyObjectBuilder_CubeBlock/ArmorBlock")
+                    {
+                        nonArmorBlockCount++;
+                    }
+                }
+
+                int armorBlockCount = blockCount - nonArmorBlockCount;
+                WriteTextSprite(ref frame, $"Number of Armor Blocks: {armorBlockCount}", position, TextAlignment.LEFT);
+                position += newLine;
+                WriteTextSprite(ref frame, $"Number of Non-Armor Blocks: {nonArmorBlockCount}", position, TextAlignment.LEFT);
+                position += newLine;
+            }
+            else
+            {
+                WriteTextSprite(ref frame, "No grid found", position, TextAlignment.LEFT);
+                position += newLine;
+            }
+            position += newLine;
+        }
 
 // ---------- BLOCK DETAILS SPRITE ----------	
-void DrawInfoSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface, string blockName)
-{
-    WriteTextSprite(ref frame, "[ BLOCK DETAILS ]", position, TextAlignment.LEFT);
-    position += newLine;
-
-    var grid = myTerminalBlock.CubeGrid;
-
-    if (grid != null)
-    {
-// Find the block with the provided name on the same grid
-        var block = FindBlockWithName(grid, blockName) as IMyTerminalBlock;
-        if (block != null)
+        void DrawDetailsSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface, string blockName)
         {
-            WriteTextSprite(ref frame, $"Block Name: {block.CustomName}", position, TextAlignment.LEFT);
+            WriteTextSprite(ref frame, "[ BLOCK DETAILS ]", position, TextAlignment.LEFT);
             position += newLine;
 
-// Display DetailedInfo of the matching block
-            var detailedInfo = block.DetailedInfo;
-            WriteTextSprite(ref frame, $"Block {detailedInfo}", position, TextAlignment.LEFT);
+            var grid = myTerminalBlock.CubeGrid;
+
+            if (grid != null)
+            {
+                // Find the block with the provided name on the same grid
+                var block = FindBlockWithName(grid, blockName) as IMyTerminalBlock;
+                if (block != null)
+                {
+                    WriteTextSprite(ref frame, $"Block Name: {block.CustomName}", position, TextAlignment.LEFT);
+                    position += newLine;
+
+                    // Display DetailedInfo of the matching block
+                    var detailedInfo = block.DetailedInfo;
+                    WriteTextSprite(ref frame, $"Block {detailedInfo}", position, TextAlignment.LEFT);
+                    position += newLine;
+                }
+
+                else
+                {
+                    WriteTextSprite(ref frame, "Unable to find block", position, TextAlignment.LEFT);
+                    position += newLine;
+                    WriteTextSprite(ref frame, "Verify block name in Custom Data", position, TextAlignment.LEFT);
+                    position += newLine;
+                }
+            }
+
+            else
+            {
+                WriteTextSprite(ref frame, "Unable to fing grid", position, TextAlignment.LEFT);
+                position += newLine;
+                WriteTextSprite(ref frame, "Enter block name in Custom Data", position, TextAlignment.LEFT);
+                position += newLine;
+                WriteTextSprite(ref frame, "Also verify grid ownership", position, TextAlignment.LEFT);
+                position += newLine;
+            }
             position += newLine;
         }
-        else
-        {
-            WriteTextSprite(ref frame, "Unable to find block", position, TextAlignment.LEFT);
-	    position += newLine;
-	    WriteTextSprite(ref frame, "Verify block name in this LCDs Custom Data", position, TextAlignment.LEFT);
-            position += newLine;
-        }
-    }
-    else
-    {
-        WriteTextSprite(ref frame, "Unable to fing grid", position, TextAlignment.LEFT);
-	position += newLine;
-	WriteTextSprite(ref frame, "Enter block name in this LCDs Custom Data", position, TextAlignment.LEFT);
-	position += newLine;
-	WriteTextSprite(ref frame, "Also verify grid ownership", position, TextAlignment.LEFT);
-        position += newLine;
-    }
-    position += newLine;
-}
 
 // ---------- UNIT FORMAT ----------
         static string KiloFormat(int num)
@@ -1129,6 +1182,7 @@ void DrawInfoSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSu
             config.Set(" ITEMS ", "Miscellaneous Items", "false");
 			config.AddSection(" SYSTEMS ");
             config.Set(" SYSTEMS ", "Damage Report", "false");
+            config.Set(" SYSTEMS ", "Grid Info", "false");
             config.Set(" SYSTEMS ", "Block Details", "false");
 
     config.Invalidate();
