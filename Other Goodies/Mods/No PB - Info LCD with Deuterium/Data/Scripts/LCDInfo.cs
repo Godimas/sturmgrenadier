@@ -1,4 +1,4 @@
-﻿using Sandbox.Definitions;
+using Sandbox.Definitions;
 using Sandbox.Game.Entities;
 using Sandbox.Game.EntityComponents;
 using Sandbox.Game.GameSystems.TextSurfaceScripts;
@@ -167,11 +167,6 @@ float CalculateGridMass(IMyCubeGrid grid)
 
         public override ScriptUpdate NeedsUpdate => ScriptUpdate.Update10;
 
-        public override void Dispose()
-        {
-
-        }
-
 // ---------- GETTING POWER BLOCKS AND GROUPING THEM IN CARAGORIES ----------
         public override void Run()
         {
@@ -272,21 +267,21 @@ float CalculateGridMass(IMyCubeGrid grid)
                     var amount = item.Amount.ToIntSafe();
                     var myType = new cargoItemType { item=item, amount=0 };
 
-                    if (subtypename.Contains("Meat") ^ subtypename.Contains("Apple") ^ subtypename.Contains("Soup") ^ subtypename.Contains("Chips") ^ foodItems.Contains(subtypename)) 
+                    if (subtypename.Contains("Meat") || subtypename.Contains("Apple") || subtypename.Contains("Soup") || subtypename.Contains("Chips") || foodItems.Contains(subtypename)) 
                     {
                         if (!cargoFoods.ContainsKey(name))
                             cargoFoods.Add(name, myType);
 
                         cargoFoods[name].amount += amount;
                     }
-                    else if (subtypename.Contains("HandDrill") ^ subtypename.Contains("Welder") ^ subtypename.Contains("Grinder") ^ subtypename.Contains("FlareGrenade") ^ subtypename.Contains("DemoCharge") ^ toolItems.Contains(subtypename)) 
+                    else if (subtypename.Contains("HandDrill") || subtypename.Contains("Welder") || subtypename.Contains("Grinder") || subtypename.Contains("FlareGrenade") || subtypename.Contains("DemoCharge") || toolItems.Contains(subtypename)) 
                     {
                         if (!cargoTools.ContainsKey(name))
                             cargoTools.Add(name, myType);
 
                         cargoTools[name].amount += amount;
                     }
-                    else if (subtypename.Contains("AutomaticRifleGun") ^ subtypename.Contains("PistolMagazine") ^ handWeaponAmmoItems.Contains(subtypename))
+                    else if (subtypename.Contains("AutomaticRifleGun") || subtypename.Contains("PistolMagazine") || handWeaponAmmoItems.Contains(subtypename))
                     {
                         if (!cargoHandWeaponAmmos.ContainsKey(name))
                             cargoHandWeaponAmmos.Add(name, myType);
@@ -435,12 +430,15 @@ float CalculateGridMass(IMyCubeGrid grid)
             if (config.Get(" SYSTEMS ", "Grid Info").ToBoolean())
                 DrawGridInfoSprite(ref myFrame, ref myPosition, mySurface);
 
+            if (config.Get(" SYSTEMS ", "Gravity Lift").ToBoolean())
+                DrawGravLiftSprite(ref myFrame, ref myPosition, mySurface);
+
             string blockDetailsValue = config.Get(" SYSTEMS ", "Block Details").ToString();
             if (blockDetailsValue != "false")
                 DrawDetailsSprite(ref myFrame, ref myPosition, mySurface, blockDetailsValue);
 
                         myFrame.Dispose();
-                    }
+        }
 
 // ---------- BATTERIES SPRITE ----------
         void DrawBatterySprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
@@ -1089,6 +1087,15 @@ float CalculateGridMass(IMyCubeGrid grid)
             position += newLine;
         }
 
+
+// ---------- GRAVITY LIFT SPRITE ----------
+        void DrawGravLiftSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface)
+        {
+
+            WriteTextSprite(ref frame, "[ GRAVITY LIFT ]", position, TextAlignment.LEFT);
+            position += newLine;
+        }
+
 // ---------- BLOCK DETAILS SPRITE ----------	
         void DrawDetailsSprite(ref MySpriteDrawFrame frame, ref Vector2 position, IMyTextSurface surface, string blockName)
         {
@@ -1189,6 +1196,7 @@ float CalculateGridMass(IMyCubeGrid grid)
 			config.AddSection(" SYSTEMS ");
             config.Set(" SYSTEMS ", "Damage Report", "false");
             config.Set(" SYSTEMS ", "Grid Info", "false");
+            config.Set(" SYSTEMS ", "Gravity Lift", "false");
             config.Set(" SYSTEMS ", "Block Details", "false");
 
     config.Invalidate();
