@@ -12,9 +12,9 @@
     <MaxBackupSaves>5</MaxBackupSaves>
     <MaxGridSize>0</MaxGridSize>
     <MaxBlocksPerPlayer>0</MaxBlocksPerPlayer>
-    <TotalPCU>100000</TotalPCU>
-    <PiratePCU>50000</PiratePCU>
-    <MaxFactionsCount>100</MaxFactionsCount>
+    <TotalPCU>0</TotalPCU>
+    <PiratePCU>100000</PiratePCU>
+    <MaxFactionsCount>0</MaxFactionsCount>
     <BlockLimitsEnabled>NONE</BlockLimitsEnabled>
     <EnableRemoteBlockRemoval>true</EnableRemoteBlockRemoval>
     <EnvironmentHostility>SAFE</EnvironmentHostility>
@@ -38,7 +38,7 @@
     <InfiniteAmmo>false</InfiniteAmmo>
     <EnableContainerDrops>true</EnableContainerDrops>
     <SpawnShipTimeMultiplier>0</SpawnShipTimeMultiplier>
-    <ProceduralDensity>0.35</ProceduralDensity>
+    <ProceduralDensity>0.75</ProceduralDensity>
     <ProceduralSeed>0</ProceduralSeed>
     <DestructibleBlocks>true</DestructibleBlocks>
     <EnableIngameScripts>true</EnableIngameScripts>
@@ -57,13 +57,13 @@
     <Scenario>false</Scenario>
     <CanJoinRunning>false</CanJoinRunning>
     <PhysicsIterations>8</PhysicsIterations>
-    <SunRotationIntervalMinutes>120</SunRotationIntervalMinutes>
+    <SunRotationIntervalMinutes>119.999992</SunRotationIntervalMinutes>
     <EnableJetpack>true</EnableJetpack>
     <SpawnWithTools>true</SpawnWithTools>
     <StartInRespawnScreen>false</StartInRespawnScreen>
     <EnableVoxelDestruction>true</EnableVoxelDestruction>
     <MaxDrones>5</MaxDrones>
-    <EnableDrones>false</EnableDrones>
+    <EnableDrones>true</EnableDrones>
     <EnableWolfs>false</EnableWolfs>
     <EnableSpiders>false</EnableSpiders>
     <FloraDensityMultiplier>1</FloraDensityMultiplier>
@@ -84,7 +84,7 @@
     <RemoveOldIdentitiesH>0</RemoveOldIdentitiesH>
     <TrashRemovalEnabled>true</TrashRemovalEnabled>
     <StopGridsPeriodMin>15</StopGridsPeriodMin>
-    <TrashFlagsValue>1562</TrashFlagsValue>
+    <TrashFlagsValue>7706</TrashFlagsValue>
     <AFKTimeountMin>0</AFKTimeountMin>
     <BlockCountThreshold>20</BlockCountThreshold>
     <PlayerDistanceThreshold>500</PlayerDistanceThreshold>
@@ -96,12 +96,12 @@
     <VoxelGridDistanceThreshold>5000</VoxelGridDistanceThreshold>
     <VoxelAgeThreshold>24</VoxelAgeThreshold>
     <EnableResearch>false</EnableResearch>
-    <EnableGoodBotHints>true</EnableGoodBotHints>
-    <OptimalSpawnDistance>16000</OptimalSpawnDistance>
+    <EnableGoodBotHints>false</EnableGoodBotHints>
+    <OptimalSpawnDistance>900</OptimalSpawnDistance>
     <EnableAutorespawn>false</EnableAutorespawn>
     <EnableBountyContracts>true</EnableBountyContracts>
     <EnableSupergridding>false</EnableSupergridding>
-    <EnableEconomy>true</EnableEconomy>
+    <EnableEconomy>false</EnableEconomy>
     <DepositsCountCoefficient>2</DepositsCountCoefficient>
     <DepositSizeDenominator>30</DepositSizeDenominator>
     <WeatherSystem>true</WeatherSystem>
@@ -133,4 +133,9 @@
     <BackpackDespawnTimer>5</BackpackDespawnTimer>
     <EnableFactionPlayerNames>false</EnableFactionPlayerNames>
     <EnableTeamScoreCounters>true</EnableTeamScoreCounters>
+    <EnableSpaceSuitRespawn>false</EnableSpaceSuitRespawn>
+    <MatchRestartWhenEmptyTime>0</MatchRestartWhenEmptyTime>
+    <EnableFactionVoiceChat>false</EnableFactionVoiceChat>
+    <EnableOrca>true</EnableOrca>
+    <MaxProductionQueueLength>50</MaxProductionQueueLength>
   </Settings>
