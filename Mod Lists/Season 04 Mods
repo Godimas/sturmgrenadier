@@ -29,6 +29,11 @@
       <PublishedFileId>2115568523</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
+    <ModItem FriendlyName="Store Block - by diK Modified for Ares at War">
+      <Name>2998586041.sbm</Name>
+      <PublishedFileId>2998586041</PublishedFileId>
+      <PublishedServiceName>Steam</PublishedServiceName>
+    </ModItem>
     <ModItem FriendlyName="Unofficial Autofill Bottles - Mod Compatible">
       <Name>2965129461.sbm</Name>
       <PublishedFileId>2965129461</PublishedFileId>
@@ -52,11 +57,6 @@
     <ModItem FriendlyName="No PB - Info LCD with Deuterium">
       <Name>2948419767.sbm</Name>
       <PublishedFileId>2948419767</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-    </ModItem>
-    <ModItem FriendlyName="Store Block - Create your own Trade Station">
-      <Name>2494377866.sbm</Name>
-      <PublishedFileId>2494377866</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
     <ModItem FriendlyName="Wheels With Magnetic suspension">
@@ -519,11 +519,6 @@
       <PublishedFileId>2802625870</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
-    <ModItem FriendlyName="MES Lost Colony Encounters + Frostbite">
-      <Name>2617194602.sbm</Name>
-      <PublishedFileId>2617194602</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-    </ModItem>
     <ModItem FriendlyName="MES-Alien Animals">
       <Name>2582239623.sbm</Name>
       <PublishedFileId>2582239623</PublishedFileId>
@@ -552,16 +547,6 @@
     <ModItem FriendlyName="ACS Assertive Bunkers">
       <Name>2473174197.sbm</Name>
       <PublishedFileId>2473174197</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-    </ModItem>
-    <ModItem FriendlyName="Assertive Combat Systems">
-      <Name>1902970975.sbm</Name>
-      <PublishedFileId>1902970975</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-    </ModItem>
-    <ModItem FriendlyName="Independent Contractors (Formerly Reddit Custom Encounters)">
-      <Name>445996030.sbm</Name>
-      <PublishedFileId>445996030</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
     <ModItem FriendlyName="Trade Operators Coalition">
@@ -689,6 +674,11 @@
       <PublishedFileId>571920453</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
+    <ModItem FriendlyName="Nebula Mod (3D)">
+      <Name>2367570463.sbm</Name>
+      <PublishedFileId>2367570463</PublishedFileId>
+      <PublishedServiceName>Steam</PublishedServiceName>
+    </ModItem>
     <ModItem FriendlyName="Water Mod">
       <Name>2200451495.sbm</Name>
       <PublishedFileId>2200451495</PublishedFileId>
@@ -702,6 +692,16 @@
     <ModItem FriendlyName="Modular Encounters Systems">
       <Name>1521905890.sbm</Name>
       <PublishedFileId>1521905890</PublishedFileId>
+      <PublishedServiceName>Steam</PublishedServiceName>
+    </ModItem>
+    <ModItem FriendlyName="ScenarioTools for MES Events">
+      <Name>2998575759.sbm</Name>
+      <PublishedFileId>2998575759</PublishedFileId>
+      <PublishedServiceName>Steam</PublishedServiceName>
+    </ModItem>
+    <ModItem FriendlyName="Relative Top Speed">
+      <Name>1359618037.sbm</Name>
+      <PublishedFileId>1359618037</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
     <ModItem FriendlyName="Definition Extension API">
@@ -733,5 +733,20 @@
       <PublishedFileId>517675282</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
       <IsDependency>true</IsDependency>
+    </ModItem>
+    <ModItem FriendlyName="Ares At War Part 3">
+      <Name>2777383934.sbm</Name>
+      <PublishedFileId>2777383934</PublishedFileId>
+      <PublishedServiceName>Steam</PublishedServiceName>
+    </ModItem>
+    <ModItem FriendlyName="Ares at War Part 2/3">
+      <Name>2742647898.sbm</Name>
+      <PublishedFileId>2742647898</PublishedFileId>
+      <PublishedServiceName>Steam</PublishedServiceName>
+    </ModItem>
+    <ModItem FriendlyName="Ares at War Part 1/3">
+      <Name>2743854977.sbm</Name>
+      <PublishedFileId>2743854977</PublishedFileId>
+      <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
   </Mods>
