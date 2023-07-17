@@ -514,11 +514,6 @@
       <PublishedFileId>2336089504</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
-    <ModItem FriendlyName="MES Wreckage">
-      <Name>2802625870.sbm</Name>
-      <PublishedFileId>2802625870</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-    </ModItem>
     <ModItem FriendlyName="MES-Alien Animals">
       <Name>2582239623.sbm</Name>
       <PublishedFileId>2582239623</PublishedFileId>
@@ -534,24 +529,14 @@
       <PublishedFileId>2828640197</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
-    <ModItem FriendlyName="Abandoned Settlements [v2]">
-      <Name>2310821218.sbm</Name>
-      <PublishedFileId>2310821218</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-    </ModItem>
     <ModItem FriendlyName="Victims of Clang">
       <Name>2598692154.sbm</Name>
       <PublishedFileId>2598692154</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
-    <ModItem FriendlyName="ACS Assertive Bunkers">
-      <Name>2473174197.sbm</Name>
-      <PublishedFileId>2473174197</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-    </ModItem>
-    <ModItem FriendlyName="Trade Operators Coalition">
-      <Name>2966429095.sbm</Name>
-      <PublishedFileId>2966429095</PublishedFileId>
+    <ModItem FriendlyName=" ">
+      <Name>1902970975.sbm</Name>
+      <PublishedFileId>1902970975</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
     <ModItem FriendlyName="Robot Raider Pods">
