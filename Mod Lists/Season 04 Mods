@@ -544,14 +544,9 @@
       <PublishedFileId>2598692154</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
-    <ModItem FriendlyName="ACS Assertive Bunkers">
-      <Name>2473174197.sbm</Name>
-      <PublishedFileId>2473174197</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-    </ModItem>
-    <ModItem FriendlyName="Trade Operators Coalition">
-      <Name>2966429095.sbm</Name>
-      <PublishedFileId>2966429095</PublishedFileId>
+    <ModItem FriendlyName=" ">
+      <Name>1902970975.sbm</Name>
+      <PublishedFileId>1902970975</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
     <ModItem FriendlyName="Robot Raider Pods">
@@ -682,11 +677,6 @@
     <ModItem FriendlyName="Water Mod">
       <Name>2200451495.sbm</Name>
       <PublishedFileId>2200451495</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-    </ModItem>
-    <ModItem FriendlyName="[AaW] Planet Agaris with roads">
-      <Name>2567339915.sbm</Name>
-      <PublishedFileId>2567339915</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
     <ModItem FriendlyName="Modular Encounters Systems">
