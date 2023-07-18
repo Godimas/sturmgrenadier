@@ -534,6 +534,21 @@
       <PublishedFileId>2598692154</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
+    <ModItem FriendlyName=" ">
+      <Name>2622022732.sbm</Name>
+      <PublishedFileId>2622022732</PublishedFileId>
+      <PublishedServiceName>Steam</PublishedServiceName>
+    </ModItem>
+    <ModItem FriendlyName=" ">
+      <Name>973526550.sbm</Name>
+      <PublishedFileId>973526550</PublishedFileId>
+      <PublishedServiceName>Steam</PublishedServiceName>
+    </ModItem>
+    <ModItem FriendlyName=" ">
+      <Name>2966429095.sbm</Name>
+      <PublishedFileId>2966429095</PublishedFileId>
+      <PublishedServiceName>Steam</PublishedServiceName>
+    </ModItem>
     <ModItem FriendlyName="Robot Raider Pods">
       <Name>2598691307.sbm</Name>
       <PublishedFileId>2598691307</PublishedFileId>
@@ -688,18 +703,6 @@
     <ModItem FriendlyName="Bring Back Cyberhounds">
       <Name>945655546.sbm</Name>
       <PublishedFileId>945655546</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-      <IsDependency>true</IsDependency>
-    </ModItem>
-    <ModItem FriendlyName="Shower Light">
-      <Name>2841920953.sbm</Name>
-      <PublishedFileId>2841920953</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-      <IsDependency>true</IsDependency>
-    </ModItem>
-    <ModItem FriendlyName="Assertive Loot">
-      <Name>2391318591.sbm</Name>
-      <PublishedFileId>2391318591</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
       <IsDependency>true</IsDependency>
     </ModItem>
