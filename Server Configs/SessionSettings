@@ -6,7 +6,7 @@
     <AssemblerEfficiencyMultiplier>1</AssemblerEfficiencyMultiplier>
     <RefinerySpeedMultiplier>1</RefinerySpeedMultiplier>
     <OnlineMode>PRIVATE</OnlineMode>
-    <MaxPlayers>20</MaxPlayers>
+    <MaxPlayers>16</MaxPlayers>
     <MaxFloatingObjects>56</MaxFloatingObjects>
     <TotalBotLimit>32</TotalBotLimit>
     <MaxBackupSaves>5</MaxBackupSaves>
@@ -14,7 +14,7 @@
     <MaxBlocksPerPlayer>0</MaxBlocksPerPlayer>
     <TotalPCU>0</TotalPCU>
     <PiratePCU>100000</PiratePCU>
-    <MaxFactionsCount>0</MaxFactionsCount>
+    <MaxFactionsCount>100</MaxFactionsCount>
     <BlockLimitsEnabled>NONE</BlockLimitsEnabled>
     <EnableRemoteBlockRemoval>true</EnableRemoteBlockRemoval>
     <EnvironmentHostility>SAFE</EnvironmentHostility>
@@ -101,7 +101,7 @@
     <EnableAutorespawn>false</EnableAutorespawn>
     <EnableBountyContracts>true</EnableBountyContracts>
     <EnableSupergridding>false</EnableSupergridding>
-    <EnableEconomy>false</EnableEconomy>
+    <EnableEconomy>true</EnableEconomy>
     <DepositsCountCoefficient>2</DepositsCountCoefficient>
     <DepositSizeDenominator>30</DepositSizeDenominator>
     <WeatherSystem>true</WeatherSystem>
