@@ -1,5 +1,5 @@
   <Mods>
-    <ModItem FriendlyName=" ">
+    <ModItem FriendlyName="AdvancedFlyModule2.0">
       <Name>2049208780.sbm</Name>
       <PublishedFileId>2049208780</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
@@ -14,12 +14,12 @@
       <PublishedFileId>1301466607</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
-    <ModItem FriendlyName=" ">
+    <ModItem FriendlyName="Spacebar Cockpit Emporium">
       <Name>2394666287.sbm</Name>
       <PublishedFileId>2394666287</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
-    <ModItem FriendlyName=" ">
+    <ModItem FriendlyName="Aryx Cockpit Expansion - ACE v1.0">
       <Name>2933313293.sbm</Name>
       <PublishedFileId>2933313293</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
@@ -409,7 +409,7 @@
       <PublishedFileId>2783945320</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
-    <ModItem FriendlyName="Hacking Computer 3.0 - Works in Warfare 2 Update">
+    <ModItem FriendlyName="Hacking Computer 3.1 - Works with Automaton Update">
       <Name>2034225971.sbm</Name>
       <PublishedFileId>2034225971</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
@@ -439,7 +439,7 @@
       <PublishedFileId>2786027587</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
-    <ModItem FriendlyName="Defense Shields - v2.0(38)">
+    <ModItem FriendlyName="Defense Shields - v2.2(3)">
       <Name>1365616918.sbm</Name>
       <PublishedFileId>1365616918</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
@@ -524,7 +524,7 @@
       <PublishedFileId>2555273537</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
-    <ModItem FriendlyName="[MES] Insugent Freedom Militia Navy">
+    <ModItem FriendlyName="[MES] Insurgent Freedom Militia">
       <Name>2828640197.sbm</Name>
       <PublishedFileId>2828640197</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
@@ -534,17 +534,17 @@
       <PublishedFileId>2598692154</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
-    <ModItem FriendlyName=" ">
+    <ModItem FriendlyName="[MES] SpacePanzers">
       <Name>2622022732.sbm</Name>
       <PublishedFileId>2622022732</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
-    <ModItem FriendlyName=" ">
+    <ModItem FriendlyName="Imber Corporation (Formerly Air Traffic)">
       <Name>973526550.sbm</Name>
       <PublishedFileId>973526550</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
-    <ModItem FriendlyName=" ">
+    <ModItem FriendlyName="Trade Operators Coalition">
       <Name>2966429095.sbm</Name>
       <PublishedFileId>2966429095</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
