@@ -1,4 +1,13 @@
-  <Mods>
+    <ModItem FriendlyName="Medium Crate Pack">
+      <Name>2133904044.sbm</Name>
+      <PublishedFileId>2133904044</PublishedFileId>
+      <PublishedServiceName>Steam</PublishedServiceName>
+    </ModItem>
+    <ModItem FriendlyName="Aryx Weapon Enterprises - Naval Arsenal">
+      <Name>2945133999.sbm</Name>
+      <PublishedFileId>2945133999</PublishedFileId>
+      <PublishedServiceName>Steam</PublishedServiceName>
+    </ModItem>
     <ModItem FriendlyName="AdvancedFlyModule2.0">
       <Name>2049208780.sbm</Name>
       <PublishedFileId>2049208780</PublishedFileId>
@@ -27,11 +36,6 @@
     <ModItem FriendlyName="Clean Assembler Tab">
       <Name>2115568523.sbm</Name>
       <PublishedFileId>2115568523</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-    </ModItem>
-    <ModItem FriendlyName="Store Block - by diK Modified for Ares at War">
-      <Name>2998586041.sbm</Name>
-      <PublishedFileId>2998586041</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
     <ModItem FriendlyName="Unofficial Autofill Bottles - Mod Compatible">
@@ -142,21 +146,6 @@
     <ModItem FriendlyName="(AR) Windows Wall">
       <Name>2535079290.sbm</Name>
       <PublishedFileId>2535079290</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-    </ModItem>
-    <ModItem FriendlyName="(AR) Ceramic Armor">
-      <Name>2233434981.sbm</Name>
-      <PublishedFileId>2233434981</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-    </ModItem>
-    <ModItem FriendlyName="(AR) Armored Windows">
-      <Name>2178970494.sbm</Name>
-      <PublishedFileId>2178970494</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-    </ModItem>
-    <ModItem FriendlyName="(AR) Furnace">
-      <Name>2295080850.sbm</Name>
-      <PublishedFileId>2295080850</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
     <ModItem FriendlyName="Display Cases">
@@ -384,11 +373,6 @@
       <PublishedFileId>2470184482</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
-    <ModItem FriendlyName="Holographic Projector">
-      <Name>521994963.sbm</Name>
-      <PublishedFileId>521994963</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-    </ModItem>
     <ModItem FriendlyName="Hils Button SciFi Pictures WHITE -english-">
       <Name>2791306408.sbm</Name>
       <PublishedFileId>2791306408</PublishedFileId>
@@ -439,7 +423,7 @@
       <PublishedFileId>2786027587</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
-    <ModItem FriendlyName="Defense Shields - v2.2(3)">
+    <ModItem FriendlyName="Defense Shields - v2.2(8)">
       <Name>1365616918.sbm</Name>
       <PublishedFileId>1365616918</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
@@ -524,54 +508,9 @@
       <PublishedFileId>2555273537</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
-    <ModItem FriendlyName="[MES] Insurgent Freedom Militia">
-      <Name>2828640197.sbm</Name>
-      <PublishedFileId>2828640197</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-    </ModItem>
-    <ModItem FriendlyName="Victims of Clang">
-      <Name>2598692154.sbm</Name>
-      <PublishedFileId>2598692154</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-    </ModItem>
-    <ModItem FriendlyName=" ">
-      <Name>2852753555.sbm</Name>
-      <PublishedFileId>2852753555</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-    </ModItem>
-    <ModItem FriendlyName="Imber Corporation (Formerly Air Traffic)">
-      <Name>973526550.sbm</Name>
-      <PublishedFileId>973526550</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-    </ModItem>
-    <ModItem FriendlyName="Trade Operators Coalition">
-      <Name>2966429095.sbm</Name>
-      <PublishedFileId>2966429095</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-    </ModItem>
-    <ModItem FriendlyName="Robot Raider Pods">
-      <Name>2598691307.sbm</Name>
-      <PublishedFileId>2598691307</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-    </ModItem>
-    <ModItem FriendlyName="Populated Worlds Creatures Ai Enabled NPCs">
-      <Name>2747715235.sbm</Name>
-      <PublishedFileId>2747715235</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-    </ModItem>
     <ModItem FriendlyName="Populated Worlds Ai Enabled NPCs">
       <Name>2621488886.sbm</Name>
       <PublishedFileId>2621488886</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-    </ModItem>
-    <ModItem FriendlyName="Small Spiders">
-      <Name>2178783350.sbm</Name>
-      <PublishedFileId>2178783350</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-    </ModItem>
-    <ModItem FriendlyName="Infestation Enabled">
-      <Name>2809500674.sbm</Name>
-      <PublishedFileId>2809500674</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
     <ModItem FriendlyName="Crew Enabled">
@@ -597,6 +536,11 @@
     <ModItem FriendlyName="NPC Programming Extender">
       <Name>1400364273.sbm</Name>
       <PublishedFileId>1400364273</PublishedFileId>
+      <PublishedServiceName>Steam</PublishedServiceName>
+    </ModItem>
+    <ModItem FriendlyName="BuildInfo (extra block+terminal info, air leak finder)">
+      <Name>514062285.sbm</Name>
+      <PublishedFileId>514062285</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
     <ModItem FriendlyName="Scope Framework">
@@ -634,11 +578,6 @@
       <PublishedFileId>1918681825</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
-    <ModItem FriendlyName="BuildInfo (extra block+terminal info, air leak finder)">
-      <Name>514062285.sbm</Name>
-      <PublishedFileId>514062285</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-    </ModItem>
     <ModItem FriendlyName="Build Vision 3.0">
       <Name>1697184408.sbm</Name>
       <PublishedFileId>1697184408</PublishedFileId>
@@ -647,6 +586,11 @@
     <ModItem FriendlyName="Colorful Icons">
       <Name>801185519.sbm</Name>
       <PublishedFileId>801185519</PublishedFileId>
+      <PublishedServiceName>Steam</PublishedServiceName>
+    </ModItem>
+    <ModItem FriendlyName="Sneaky Sounds - Quieter Tools">
+      <Name>1662953858.sbm</Name>
+      <PublishedFileId>1662953858</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
     <ModItem FriendlyName="HUD - Modern and Fancy (Color)">
@@ -700,17 +644,10 @@
       <PublishedServiceName>Steam</PublishedServiceName>
       <IsDependency>true</IsDependency>
     </ModItem>
-    <ModItem FriendlyName="Bring Back Cyberhounds">
-      <Name>945655546.sbm</Name>
-      <PublishedFileId>945655546</PublishedFileId>
+    <ModItem FriendlyName="Store Block - by diK Modified for Ares at War">
+      <Name>2998586041.sbm</Name>
+      <PublishedFileId>2998586041</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
-      <IsDependency>true</IsDependency>
-    </ModItem>
-    <ModItem FriendlyName="Projector Preview - miniature blueprint display + damage status">
-      <Name>517675282.sbm</Name>
-      <PublishedFileId>517675282</PublishedFileId>
-      <PublishedServiceName>Steam</PublishedServiceName>
-      <IsDependency>true</IsDependency>
     </ModItem>
     <ModItem FriendlyName="Ares At War Part 3">
       <Name>2777383934.sbm</Name>
@@ -727,4 +664,30 @@
       <PublishedFileId>2743854977</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
-  </Mods>
+    <ModItem FriendlyName="Reversed Hud Compass for AaW">
+      <Name>2515790163.sbm</Name>
+      <PublishedFileId>2515790163</PublishedFileId>
+      <PublishedServiceName>Steam</PublishedServiceName>
+      <IsDependency>true</IsDependency>
+    </ModItem>
+    <ModItem FriendlyName="Elite Dangerous: FSD Supercruise">
+      <Name>2640137506.sbm</Name>
+      <PublishedFileId>2640137506</PublishedFileId>
+      <PublishedServiceName>Steam</PublishedServiceName>
+      <IsDependency>true</IsDependency>
+    </ModItem>
+    <ModItem FriendlyName="(AR) Ceramic Armor">
+      <Name>2233434981.sbm</Name>
+      <PublishedFileId>2233434981</PublishedFileId>
+      <PublishedServiceName>Steam</PublishedServiceName>
+    </ModItem>
+    <ModItem FriendlyName="(AR) Armored Windows">
+      <Name>2178970494.sbm</Name>
+      <PublishedFileId>2178970494</PublishedFileId>
+      <PublishedServiceName>Steam</PublishedServiceName>
+    </ModItem>
+    <ModItem FriendlyName="(AR) Furnace">
+      <Name>2295080850.sbm</Name>
+      <PublishedFileId>2295080850</PublishedFileId>
+      <PublishedServiceName>Steam</PublishedServiceName>
+    </ModItem>
