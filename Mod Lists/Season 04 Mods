@@ -1,9 +1,25 @@
+  <Mods>
+     <ModItem FriendlyName=" ">
+      <Name>2299281406.sbm</Name>
+      <PublishedFileId>2299281406</PublishedFileId>
+      <PublishedServiceName>Steam</PublishedServiceName>
+    </ModItem>
+    <ModItem FriendlyName="Trade Operators Coalition">
+      <Name>2966429095.sbm</Name>
+      <PublishedFileId>2966429095</PublishedFileId>
+      <PublishedServiceName>Steam</PublishedServiceName>
+    </ModItem>
+    <ModItem FriendlyName="Independent Contractors (Formerly Reddit Custom Encounters)">
+      <Name>445996030.sbm</Name>
+      <PublishedFileId>445996030</PublishedFileId>
+      <PublishedServiceName>Steam</PublishedServiceName>
+    </ModItem>
     <ModItem FriendlyName="Medium Crate Pack">
       <Name>2133904044.sbm</Name>
       <PublishedFileId>2133904044</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
-    <ModItem FriendlyName="Aryx Weapon Enterprises - Naval Arsenal">
+    <ModItem FriendlyName="Aryx Weapon Enterprises - Aeronautical">
       <Name>2945133999.sbm</Name>
       <PublishedFileId>2945133999</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
@@ -33,9 +49,9 @@
       <PublishedFileId>2933313293</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
-    <ModItem FriendlyName="Clean Assembler Tab">
-      <Name>2115568523.sbm</Name>
-      <PublishedFileId>2115568523</PublishedFileId>
+    <ModItem FriendlyName="Eridanus Mobile Plasma System">
+      <Name>2966409148.sbm</Name>
+      <PublishedFileId>2966409148</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
     <ModItem FriendlyName="Unofficial Autofill Bottles - Mod Compatible">
@@ -163,9 +179,9 @@
       <PublishedFileId>510790477</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
-    <ModItem FriendlyName="Rebels Gates">
-      <Name>2806919267.sbm</Name>
-      <PublishedFileId>2806919267</PublishedFileId>
+    <ModItem FriendlyName="Armored Hangar Doors (+Small Grid)">
+      <Name>2230891848.sbm</Name>
+      <PublishedFileId>2230891848</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
     <ModItem FriendlyName="Federal Industrial - Logistics">
@@ -438,7 +454,7 @@
       <PublishedFileId>2777644246</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
-    <ModItem FriendlyName="Aryx-Lynxon Drive Systems">
+    <ModItem FriendlyName="Aryx Drive Systems">
       <Name>2394430829.sbm</Name>
       <PublishedFileId>2394430829</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
@@ -598,7 +614,7 @@
       <PublishedFileId>2626756831</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
-    <ModItem FriendlyName="AiEnabled v1.5">
+    <ModItem FriendlyName="AiEnabled v1.7">
       <Name>2596208372.sbm</Name>
       <PublishedFileId>2596208372</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
@@ -691,3 +707,4 @@
       <PublishedFileId>2295080850</PublishedFileId>
       <PublishedServiceName>Steam</PublishedServiceName>
     </ModItem>
+  </Mods>
